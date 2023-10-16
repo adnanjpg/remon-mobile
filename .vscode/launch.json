@@ -47,6 +47,18 @@
                 "--target",
                 "lib/widgetbook/widgetbook.dart"
             ]
+        },
+        {
+            "name": "Launch Widgetbook Windows",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/widgetbook.dart",
+            "args": [
+                "--device-id",
+                "windows",
+                "--target",
+                "lib/widgetbook/widgetbook.dart"
+            ]
         }
     ]
 }
