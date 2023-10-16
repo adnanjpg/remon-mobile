@@ -1,0 +1,14 @@
+{
+    "search.useGlobalIgnoreFiles": false,
+    "search.useIgnoreFiles": true,
+    "search.useParentIgnoreFiles": false,
+    "dart.flutterSdkPath": "/Users/adnanfahed/fvm/default/bin",
+    // Remove .fvm files from search
+    "search.exclude": {
+        "**/.fvm": true
+    },
+    // Remove from file watching
+    "files.watcherExclude": {
+        "**/.fvm": true
+    }
+}

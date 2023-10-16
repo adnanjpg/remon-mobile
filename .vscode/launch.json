@@ -1,0 +1,52 @@
+{
+    "configurations": [
+        {
+            "name": "Launch LOCAL DEV",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_localdevelopment.dart",
+            "args": [
+                "--flavor",
+                "development",
+                "--target",
+                "lib/main_localdevelopment.dart"
+            ]
+        },
+        {
+            "name": "Launch DEV",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_development.dart",
+            "args": [
+                "--flavor",
+                "development",
+                "--target",
+                "lib/main_development.dart"
+            ]
+        },
+        {
+            "name": "Launch PROD",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/main_production.dart",
+            "args": [
+                "--flavor",
+                "production",
+                "--target",
+                "lib/main_production.dart"
+            ]
+        },
+        {
+            "name": "Launch Widgetbook MacOS",
+            "request": "launch",
+            "type": "dart",
+            "program": "lib/widgetbook.dart",
+            "args": [
+                "--device-id",
+                "macos",
+                "--target",
+                "lib/widgetbook/widgetbook.dart"
+            ]
+        }
+    ]
+}

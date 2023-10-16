@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "983519523770",
+    "project_id": "remon-mobile-b0c23",
+    "storage_bucket": "remon-mobile-b0c23.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983519523770:android:a115395ee68e2ab16f6383",
+        "android_client_info": {
+          "package_name": "com.remon_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYioKI9pZ-BRbnjHnry9UOqRXJOHLbNmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:983519523770:android:a72eacc5b723c01c6f6383",
+        "android_client_info": {
+          "package_name": "com.remonmobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBYioKI9pZ-BRbnjHnry9UOqRXJOHLbNmA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
