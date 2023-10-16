@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "179606913423",
+    "project_id": "remon_mobile-development",
+    "storage_bucket": "remon_mobile-development.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:179606913423:android:983eda10788b08da03cbfa",
+        "android_client_info": {
+          "package_name": "com.remonmobile.dev"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "179606913423-h22l9tt4clqsg125sspe8ot5lgafckvm.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.remonmobile.dev",
+            "certificate_hash": "1d4aa4a6b25fe5f7dad0beff910fe0cecab9825a"
+          }
+        },
+        {
+          "client_id": "179606913423-uf7gfc45fosoq7sr1a3nk3932q33nu30.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.remonmobile.dev",
+            "certificate_hash": "37c76b6750024a3046cc005fc1fedca17782ced9"
+          }
+        },
+        {
+          "client_id": "179606913423-njt5cl71qakgq2lk8vak24e0q28120g5.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC96vFkIz9KNnwPOo7F1C-SbV7Ernt4tDA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "179606913423-21igq9sc6vug91bps1et6gj3qp1k4mq7.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "179606913423-adv89s3ovam25kjbg5v33said3g96s8l.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.remonmobile.dev",
+                "app_store_id": "6447920259"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

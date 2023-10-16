@@ -1,0 +1,18 @@
+targets:
+  $default:
+    builders:
+      freezed:
+        generate_for:
+          - lib/features/**/models/**.dart
+          - lib/models/**.dart
+      json_serializable:
+        generate_for:
+          - lib/features/**/models/**.dart
+          - lib/models/**.dart
+        options:
+          # https://stackoverflow.com/a/72502122/12555423
+          explicit_to_json: true
+          include_if_null: false
+      # hive_generator:
+      #   generate_for:
+      #     - lib/ui/features/**/models/**.dart

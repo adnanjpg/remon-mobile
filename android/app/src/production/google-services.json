@@ -1,0 +1,63 @@
+{
+  "project_info": {
+    "project_number": "484437146534",
+    "project_id": "flutter-quiz-app-mvp",
+    "storage_bucket": "flutter-quiz-app-mvp.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:484437146534:android:351496ae459fc020b6ed67",
+        "android_client_info": {
+          "package_name": "com.remonmobile"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "484437146534-8ko68350hgt68eoo313h1hnop25vo715.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.remonmobile",
+            "certificate_hash": "5e0c50f4a285c9f758a05e4d5e14131c19c5d30c"
+          }
+        },
+        {
+          "client_id": "484437146534-hu4l8atcmd2qqe1g2907eqc4o7sjniur.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.remonmobile",
+            "certificate_hash": "1d4aa4a6b25fe5f7dad0beff910fe0cecab9825a"
+          }
+        },
+        {
+          "client_id": "484437146534-2hqafi2vo4vef7rhknkl5fmluq53ebil.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyA0_qTM-QUpJO2d28pQSZ_rWxRJ9KGojn8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "484437146534-2hqafi2vo4vef7rhknkl5fmluq53ebil.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "484437146534-jf62gu165ecepem6bs6un38tuhchvbhn.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.remonmobile",
+                "app_store_id": "1665718576"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

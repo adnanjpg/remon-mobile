@@ -10,4 +10,16 @@ GeneratedPluginRegistrant.java
 # See https://flutter.dev/docs/deployment/android#reference-the-keystore-from-the-app
 key.properties
 **/*.keystore
-**/*.jks
+
+# not ignore the key, but ignore the properties file 
+# so the signer needs to fill the pass info and not
+# deal with the key
+# https://stackoverflow.com/a/39827451/12555423, the comment
+# on this answer by @Ninja: 
+# "If the only one people lost the keystore(for example disk
+# damage), then you must upload a new app, old user could not
+# update their app. Our team commit the keystore in private 
+# repo, but the sign info (storepass, keyalias, keypass) is 
+# private."
+# which makes perfect sense
+# **/*.jks
