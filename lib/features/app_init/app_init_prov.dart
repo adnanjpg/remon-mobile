@@ -137,15 +137,7 @@ class AppInitProv {
       _inited = true;
     } catch (e) {
       logger.e(e);
-    } finally {
-      // _initing = false;
-      // _inited = true;
-      // try {
-      //   ref.read(appInitedProv.notifier).state = true;
-      // } catch (e) {
-      //   logger.e(e);
-      // }
-    }
+    } finally {}
   }
 
   Future<void> initForWidgetbook() async {
@@ -237,48 +229,52 @@ class AppInitProv {
   }
 
   Future<void> initFb() async {
-    await Firebase.initializeApp(
-      options: appConfig.firebaseOptionsInstance.currentPlatform,
-    );
-    logger.i('Firebase initializeApp done');
+    try {
+      await Firebase.initializeApp(
+        options: appConfig.firebaseOptionsInstance.currentPlatform,
+      );
+      logger.i('Firebase initializeApp done');
 
-    // fcm
-    {
-      final fcmToken = await FirebaseMessaging.instance.getToken();
-      debugPrint('fcmToken: $fcmToken');
+      // fcm
+      {
+        final fcmToken = await FirebaseMessaging.instance.getToken();
+        debugPrint('fcmToken: $fcmToken');
+
+        try {
+          // ios and 13+ android requires permission requesting
+          await FirebaseMessaging.instance.requestPermission(
+            alert: true,
+            announcement: false,
+            badge: true,
+            carPlay: false,
+            criticalAlert: false,
+            provisional: false,
+            sound: true,
+          );
+        } catch (e) {
+          // i've came across some 13- androids throwing an exception here
+          // as this is only required for ios and 13+ androids, we can safely ignore this
+          logger.e(e);
+        }
+      }
+
+      // crashlytics
+      {
+        FlutterError.onError = (errorDetails) {
+          logger.e(errorDetails);
+        };
+        // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
+        PlatformDispatcher.instance.onError = (error, stack) {
+          logger.e(error, stack);
+          return true;
+        };
+      }
 
       try {
-        // ios and 13+ android requires permission requesting
-        await FirebaseMessaging.instance.requestPermission(
-          alert: true,
-          announcement: false,
-          badge: true,
-          carPlay: false,
-          criticalAlert: false,
-          provisional: false,
-          sound: true,
-        );
+        ref.read(fbAnalyticsProv).appOpened();
       } catch (e) {
-        // i've came across some 13- androids throwing an exception here
-        // as this is only required for ios and 13+ androids, we can safely ignore this
         logger.e(e);
       }
-    }
-
-    // crashlytics
-    {
-      FlutterError.onError = (errorDetails) {
-        logger.e(errorDetails);
-      };
-      // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
-      PlatformDispatcher.instance.onError = (error, stack) {
-        logger.e(error, stack);
-        return true;
-      };
-    }
-
-    try {
-      ref.read(fbAnalyticsProv).appOpened();
     } catch (e) {
       logger.e(e);
     }

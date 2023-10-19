@@ -9,7 +9,10 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
 
+import '../features/home/ui/bottom_nav_screen.dart';
+import '../features/home/ui/splash_screen.dart';
 import '../ui/widgets/error_screen.dart';
+import '../ui/widgets/loading_screen.dart';
 
 export 'package:go_router/go_router.dart' show GoRouter;
 
@@ -31,7 +34,8 @@ class RouteTable {
 
   static const String
       //
-      rLoginScreen = 'login_screen'
+      rLoginScreen = 'login_screen',
+      rHome = 'home_screen'
       //
       ;
 
@@ -45,19 +49,57 @@ class RouteTable {
 
   static const String initialLocation = '/';
 
+  static GoRoute _mainRoute(AutoDisposeProviderRef ref) => GoRoute(
+        name: rSplashScreen,
+        path: '/',
+        builder: (context, state) {
+          return const SplashScreen();
+        },
+        routes: [
+          GoRoute(
+            name: rHome,
+            path: 'home',
+            builder: (context, state) {
+              return const BottomNavScreen();
+            },
+          ),
+          GoRoute(
+            name: rErrorScreen,
+            path: 'error',
+            builder: (context, state) => const ErrorScreen.empty(),
+          ),
+          GoRoute(
+            name: rLoadingScreen,
+            path: 'loading',
+            builder: (context, state) => const LoadingScreen(),
+          ),
+        ],
+      );
+
   static final routerProvider = Provider.autoDispose<GoRouter>(
     (ref) {
       final key = ref.watch(navKeyProv);
 
       return GoRouter(
-        navigatorKey: key,
-        debugLogDiagnostics: true,
-        initialLocation: initialLocation,
-        routes: [],
-        errorBuilder: (context, state) {
-          return ErrorScreen.routeError();
-        },
-      );
+          navigatorKey: key,
+          debugLogDiagnostics: true,
+          initialLocation: initialLocation,
+          routes: [
+            _mainRoute(ref),
+          ],
+          errorBuilder: (context, state) {
+            return ErrorScreen.routeError();
+          },
+          redirect: (context, state) {
+            final splashLoc = '/';
+            final homeLoc = state.namedLocation(rHome);
+
+            if (state.location == splashLoc) {
+              return homeLoc;
+            }
+
+            return null;
+          });
     },
   );
 }
