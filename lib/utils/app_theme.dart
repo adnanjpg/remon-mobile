@@ -125,7 +125,11 @@ class AppTheme {
   ThemeData get lightTheme => ThemeData(
         primaryColor: _lightPrimary,
         scaffoldBackgroundColor: _backgroundColor,
-        textTheme: GoogleFonts.jetBrainsMonoTextTheme(),
+        textTheme: GoogleFonts.jetBrainsMonoTextTheme().apply(
+          // https://stackoverflow.com/a/49287410/12555423
+          bodyColor: _lightOnBgTextColor,
+          displayColor: _lightOnBgTextColor,
+        ),
         colorScheme: const ColorScheme.light(
           primary: _lightPrimary,
           secondary: _lightSecondary,
