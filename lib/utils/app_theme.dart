@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_fonts/google_fonts.dart';
 
 extension MyTheme on ThemeData {
   bool get isLight => brightness == Brightness.light;
@@ -124,6 +125,7 @@ class AppTheme {
   ThemeData get lightTheme => ThemeData(
         primaryColor: _lightPrimary,
         scaffoldBackgroundColor: _backgroundColor,
+        textTheme: GoogleFonts.jetBrainsMonoTextTheme(),
         colorScheme: const ColorScheme.light(
           primary: _lightPrimary,
           secondary: _lightSecondary,
