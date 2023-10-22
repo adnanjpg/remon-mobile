@@ -7,13 +7,13 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
-class PrimaryBtn extends AppBtnInterface {
+class TextBtn extends AppBtnInterface {
   final Widget? child;
   final String? text;
   final bool isExpanded;
   final IconData? suffixIcon;
   final EdgeInsets? padding;
-  const PrimaryBtn({
+  const TextBtn({
     super.key,
     super.onPressed,
     this.text,
@@ -26,14 +26,14 @@ class PrimaryBtn extends AppBtnInterface {
           (text != null || child != null) && (text == null || child == null),
         ),
         super(
-          buttonName: 'PrimaryBtn',
+          buttonName: 'TextBtn',
         );
 
   @override
-  ConsumerState<PrimaryBtn> createState() => _PrimaryBtnState();
+  ConsumerState<TextBtn> createState() => _TextBtnState();
 }
 
-class _PrimaryBtnState extends ConsumerState<PrimaryBtn> {
+class _TextBtnState extends ConsumerState<TextBtn> {
   bool get hasIcon => widget.child == null && widget.suffixIcon != null;
 
   Size get minimumSize {
@@ -105,9 +105,6 @@ class _PrimaryBtnState extends ConsumerState<PrimaryBtn> {
           onPressed: _onPressed,
           style: TextButton.styleFrom(
             minimumSize: minimumSize,
-            backgroundColor: Theme.of(context).primaryButtonBgColor,
-            disabledBackgroundColor:
-                Theme.of(context).primaryButtonDisabledBgColor,
             shape: RoundedRectangleBorder(
               borderRadius: radius,
               side: side,
@@ -122,7 +119,7 @@ class _PrimaryBtnState extends ConsumerState<PrimaryBtn> {
                   Text(
                     widget.text!,
                     style: TextStyle(
-                      color: Theme.of(context).primaryButtonTextColor,
+                      color: Theme.of(context).textButtonTextColor,
                       fontSize: fontSize,
                       fontWeight: FontWeight.bold,
                     ),
@@ -133,7 +130,7 @@ class _PrimaryBtnState extends ConsumerState<PrimaryBtn> {
                 ),
                 Icon(
                   widget.suffixIcon,
-                  color: Theme.of(context).primaryButtonTextColor,
+                  color: Theme.of(context).textButtonTextColor,
                   size: suffixIconSize,
                 ),
               ],
@@ -156,14 +153,14 @@ class _PrimaryBtnState extends ConsumerState<PrimaryBtn> {
 
 @widgetbook.UseCase(
   name: 'Primary Button',
-  type: PrimaryBtn,
+  type: TextBtn,
 )
-Widget primaryBtnUseCase(BuildContext context) => WidgetbookWrapper(
+Widget TextBtnUseCase(BuildContext context) => WidgetbookWrapper(
       child: Container(
         margin: const EdgeInsets.all(8),
         child: ListView(
           children: [
-            PrimaryBtn(
+            TextBtn(
               text: 'BUTTON',
               onPressed: () {},
               eventName: widgetBookBtnsKey,

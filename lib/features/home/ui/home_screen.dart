@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/utils/app_theme.dart';
 import '../../../utils/utils.dart';
 
 class HomeScreen extends ConsumerWidget {
@@ -22,7 +23,17 @@ class _Body extends StatelessWidget {
   Widget build(BuildContext context) {
     return Container(
       margin: defPaddingAll,
-      child: const Text('home sweet home'),
+      child: Column(
+        children: [
+          Text(
+            getStr('home_screen_title'),
+            style: TextStyle(
+              fontSize: 32,
+              fontWeight: Theme.of(context).fontWeightBold,
+            ),
+          ),
+        ],
+      ),
     );
   }
 }

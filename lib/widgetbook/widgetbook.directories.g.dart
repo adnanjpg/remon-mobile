@@ -10,6 +10,7 @@
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart' as _i3;
+import 'package:remon_mobile/ui/widgets/btns/text_btn.dart' as _i4;
 import 'package:remon_mobile/ui/widgets/primary_field.dart' as _i2;
 import 'package:widgetbook/widgetbook.dart' as _i1;
 
@@ -40,7 +41,16 @@ final directories = <_i1.WidgetbookNode>[
                     builder: _i3.primaryBtnUseCase,
                   )
                 ],
-              )
+              ),
+              _i1.WidgetbookComponent(
+                name: 'TextBtn',
+                useCases: [
+                  _i1.WidgetbookUseCase(
+                    name: 'Primary Button',
+                    builder: _i4.TextBtnUseCase,
+                  )
+                ],
+              ),
             ],
           ),
         ],

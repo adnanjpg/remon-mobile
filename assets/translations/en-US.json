@@ -1,5 +1,8 @@
 {
     "hello_world": "Hello world",
     "bottom_bar_items_home": "Home",
-    "bottom_bar_items_settings": "Settings"
+    "bottom_bar_items_settings": "Settings",
+    "home_screen_title": "Home",
+    "settings_screen_title": "Settings",
+    "settings_screen_device_item_configure_button": "Configure"
 }

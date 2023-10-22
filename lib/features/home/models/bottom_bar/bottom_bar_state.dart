@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 import '../../ui/home_screen.dart';
+import '../../ui/settings_screen.dart';
 import 'bottom_bar_index.dart';
 
 part 'bottom_bar_state.freezed.dart';
@@ -33,9 +34,7 @@ class BottomBarState with _$BottomBarState {
       case BottomBarIndex.home:
         return const HomeScreen();
       case BottomBarIndex.settings:
-        return const HomeScreen();
-      default:
-        return const HomeScreen();
+        return const SettingsScreen();
     }
   }
 }
