@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/ui/widgets/error_widget.dart';
+import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import '../../../ui/widgets/btns/primary_btn.dart';
 import '../../../ui/widgets/btns/text_btn.dart';
@@ -27,6 +30,7 @@ class _Body extends StatelessWidget {
     return Container(
       margin: defPaddingAll,
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
             getStr('settings_screen_title'),
@@ -42,22 +46,9 @@ class _Body extends StatelessWidget {
   }
 }
 
-final _allDevs = [
-  DeviceModel.create(
-    title: 'Device 1',
-    description: 'Device 1 description',
-    ip: '192.333.44.99',
-    port: 1234,
-    token: '',
-  ),
-  DeviceModel.create(
-    title: 'Device 2',
-    description: 'Device 2 description' * 10,
-    ip: '192.333.44.22',
-    port: 3000,
-    token: '',
-  ),
-];
+final devsProv = StreamProvider(
+  (ref) => ref.watch(localDbService).watchAllDevices(),
+);
 
 class _DevicesList extends StatelessWidget {
   const _DevicesList();
@@ -66,14 +57,30 @@ class _DevicesList extends StatelessWidget {
   Widget build(BuildContext context) {
     return Column(
       children: [
-        Column(
-          children: _allDevs.map(
-            (dev) {
-              return _DeviceItem(
-                model: dev,
-              );
-            },
-          ).joinWidgetList(heightSizedBoxIndex),
+        Consumer(
+          builder: (context, ref, _) {
+            final watcher = ref.watch(devsProv);
+            return watcher.when(
+              loading: LoadingWidget.new,
+              error: ErrWidget.new,
+              data: (data) {
+                if (data.isEmpty) {
+                  return Text(
+                    getStr('settings_screen_device_list_no_data'),
+                  );
+                }
+                return Column(
+                  children: data.map(
+                    (dev) {
+                      return _DeviceItem(
+                        model: dev,
+                      );
+                    },
+                  ).joinWidgetList(heightSizedBoxIndex),
+                );
+              },
+            );
+          },
         ),
         Row(
           mainAxisAlignment: MainAxisAlignment.center,

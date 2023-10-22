@@ -1,4 +1,6 @@
 import 'dart:convert';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
 import 'package:remon_mobile/app_runner.dart';
 import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 
@@ -15,6 +17,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 import '../../services/analytics_service.dart';
+import '../devices/models/device_model.dart';
 
 final appInitializerProv = Provider<AppInitProv>(AppInitProv.new);
 
@@ -23,6 +26,14 @@ final appInitializerProv = Provider<AppInitProv>(AppInitProv.new);
 // fixes the issue.
 final appInitStateProv = StateProvider<AppInitState>(
   (ref) => AppInitState.initial(),
+);
+
+final isarSchemasProv = Provider<List<IsarGeneratedSchema>>(
+  (ref) => [DeviceModelSchema],
+);
+
+final isarDefaultInstanceNameProv = Provider<String>(
+  (ref) => Isar.defaultName,
 );
 
 final appSettingsProv = Provider((ref) => ref.watch(appInitStateProv).settings);
@@ -126,6 +137,8 @@ class AppInitProv {
 
       await initFb();
 
+      await initIsar();
+
       ref.read(appInitStateProv.notifier).update(
             (state) => state.copyWith(
               settings: settings,
@@ -164,6 +177,15 @@ class AppInitProv {
       debugPrint(e.toString());
       rethrow;
     }
+  }
+
+  Future<void> initIsar() async {
+    final dir = await getApplicationDocumentsDirectory();
+    await Isar.open(
+      schemas: ref.read(isarSchemasProv),
+      directory: dir.path,
+      name: ref.read(isarDefaultInstanceNameProv),
+    );
   }
 
   Future<void> initLocalization() async {
