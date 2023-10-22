@@ -16,7 +16,7 @@ class ApiMethods {
 
   String get baseUrl => appConfig.hostUrl;
 
-  String pathToUrl(String path) => '$baseUrl/api/$path';
+  String pathToUrl(String path) => '$baseUrl/$path';
 
   // Future<String?> get idToken =>
   //     _ref.read(authProvider.notifier).getUserIdToken();
@@ -190,41 +190,8 @@ class ApiMethods {
 class ApiRoutes {
   static const
       //
-      userRoute = 'users',
-      deviceInfo = 'deviceinfo'
+      hello = 'hello'
       //
-      ;
-
-  static const
-      //
-      estQuiz = 'estimationquiz',
-      multiQuiz = 'multiquiz',
-      quiz = 'quiz'
-      //
-      ;
-
-  static const
-      //
-      skillEval = 'skilleval',
-      timeAttack = 'time-attack',
-      diagnosticTest = 'diagnostic-test'
-      //
-      ;
-
-  static const
-      //
-      leaderBoard = 'leaderboard'
-      //
-      ;
-
-  static const admin = 'admin';
-  static const
-      //
-      adminEstQuiz = '$admin/estimationquiz',
-      adminMultiQuiz = '$admin/multiquiz',
-      adminTimeAttack = '$admin/time-attack-question',
-      adminDiagnosticTest = '$admin/diagnostic-test-question'
-//
       ;
 }
 
@@ -240,4 +207,22 @@ class ApiService {
   const ApiService(this._ref);
 
   ApiMethods get methods => _ref.read(_apiMethodsProv);
+}
+
+extension HelloEndpoints on ApiService {
+  Future<String?> hello() async {
+    try {
+      final res = await methods.get(
+        path: '${ApiRoutes.hello}',
+      );
+
+      final decoded = (res.data) as String;
+
+      return decoded;
+    } catch (e) {
+      logger.e(e);
+
+      return null;
+    }
+  }
 }

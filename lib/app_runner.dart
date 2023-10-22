@@ -52,7 +52,7 @@ class _AppConfig {
           androidBundleId: 'com.remonmobile',
           iosBundleId: 'com.remonmobile',
           firebaseOptionsInstance: defaultFirebaseOptions(Flavor.PROD),
-          hostUrl: 'https://remon_mobile-backend.vercel.app',
+          hostUrl: 'http://10.0.2.2:8080',
         );
 
   _AppConfig._localdev()
@@ -62,7 +62,7 @@ class _AppConfig {
           androidBundleId: 'com.remonmobile.dev',
           iosBundleId: 'com.remonmobile.dev',
           firebaseOptionsInstance: defaultFirebaseOptions(Flavor.LOCALDEV),
-          hostUrl: 'http://10.0.2.2:3000',
+          hostUrl: 'http://10.0.2.2:8080',
         );
 
   _AppConfig._dev()
@@ -72,8 +72,7 @@ class _AppConfig {
           androidBundleId: 'com.remonmobile.dev',
           iosBundleId: 'com.remonmobile.dev',
           firebaseOptionsInstance: defaultFirebaseOptions(Flavor.DEV),
-          hostUrl:
-              'https://remon_mobile-backend-git-dev-stable-adnanjpg.vercel.app',
+          hostUrl: 'http://10.0.2.2:8080',
         );
 }
 
