@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:remixicon/remixicon.dart";
+import 'package:remon_mobile/utils/app_theme.dart';
 import '../../../utils/utils.dart';
 import '../prov/bottom_bar_prov.dart';
 
@@ -16,6 +17,8 @@ class BottomNavScreen extends ConsumerWidget {
       body: _Bod(),
       bottomNavigationBar: ClipRRect(
         child: BottomNavigationBar(
+          backgroundColor: Theme.of(context).bottomBarBgColor,
+          selectedItemColor: Theme.of(context).bottomBarSelectedItemColor,
           type: BottomNavigationBarType.fixed,
           onTap: notifier.onBottomBarTap,
           currentIndex: state.bottomBarIndex.index,
