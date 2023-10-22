@@ -14,5 +14,11 @@
     "add_device_screen_ip_field": "IP address",
     "add_device_screen_port_field": "Port",
     "add_device_screen_otp_field": "OTP",
-    "add_device_screen_submit_btn_title": "Connect"
+    "add_device_screen_submit_btn_title": "Connect",
+    "add_device_screen_ip_field_error_empty": "IP address cannot be empty",
+    "add_device_screen_ip_field_error_invalid": "Invalid IP address",
+    "add_device_screen_port_field_error_empty": "Port cannot be empty",
+    "add_device_screen_port_field_error_invalid": "Invalid port",
+    "add_device_screen_otp_field_error_empty": "OTP cannot be empty",
+    "add_device_screen_otp_field_error_invalid": "Invalid OTP"
 }

@@ -15,32 +15,41 @@ class AddDeviceScreen extends StatelessWidget {
       appBar: AppBar(),
       body: Container(
         margin: defPaddingAll,
-        child: ListView(
-          children: [
-            const _Titles(),
-            const _Fields(),
-            Consumer(
-              builder: (context, ref, _) {
-                final notifier = ref.watch(addDeviceScreenProv.notifier);
-                return Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: [
-                    SizedBox(
-                      width: 200,
-                      child: PrimaryBtn(
-                        isExpanded: true,
-                        eventName: 'add_device_screen_btn',
-                        text: getStr('add_device_screen_submit_btn_title'),
-                        onPressed: () {
-                          notifier.onSubmitBtnPressed();
-                        },
+        child: Consumer(
+          builder: (context, ref, child) {
+            final form = ref.watch(addDeviceScreenProv);
+            return Form(
+              key: form.formKey,
+              child: child!,
+            );
+          },
+          child: ListView(
+            children: [
+              const _Titles(),
+              const _Fields(),
+              Consumer(
+                builder: (context, ref, _) {
+                  final notifier = ref.watch(addDeviceScreenProv.notifier);
+                  return Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(
+                        width: 200,
+                        child: PrimaryBtn(
+                          isExpanded: true,
+                          eventName: 'add_device_screen_btn',
+                          text: getStr('add_device_screen_submit_btn_title'),
+                          onPressed: () {
+                            notifier.onSubmitBtnPressed(context: context);
+                          },
+                        ),
                       ),
-                    ),
-                  ],
-                );
-              },
-            ),
-          ].joinWidgetList(doubleHeightSizedBoxIndex),
+                    ],
+                  );
+                },
+              ),
+            ].joinWidgetList(doubleHeightSizedBoxIndex),
+          ),
         ),
       ),
     );
@@ -90,6 +99,7 @@ class _Fields extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final form = ref.watch(addDeviceScreenProv);
+    final notifier = ref.watch(addDeviceScreenProv.notifier);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -97,16 +107,25 @@ class _Fields extends ConsumerWidget {
         if (form.viewIpField) ...[
           PrimaryField(
             labelText: getStr('add_device_screen_ip_field'),
+            value: form.ip,
+            onChanged: notifier.onIpChanged,
+            validator: notifier.ipValidator,
           ),
         ],
         if (form.viewPortField) ...[
           PrimaryField(
             labelText: getStr('add_device_screen_port_field'),
+            value: form.port,
+            onChanged: notifier.onPortChanged,
+            validator: notifier.portValidator,
           ),
         ],
         if (form.viewOtpField) ...[
           PrimaryField(
             labelText: getStr('add_device_screen_otp_field'),
+            value: form.otp,
+            onChanged: notifier.onOtpChanged,
+            validator: notifier.otpValidator,
           ),
         ],
       ].joinWidgetList(heightSizedBoxIndex),
