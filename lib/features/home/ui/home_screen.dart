@@ -31,10 +31,7 @@ class _Body extends StatelessWidget {
         children: [
           Text(
             getStr('home_screen_title'),
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: Theme.of(context).fontWeightBold,
-            ),
+            style: Theme.of(context).pageTitle,
           ),
           const _HelloRes(),
         ].joinWidgetList(doubleHeightSizedBoxIndex),

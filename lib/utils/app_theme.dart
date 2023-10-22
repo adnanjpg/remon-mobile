@@ -2,6 +2,19 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_fonts/google_fonts.dart';
 
+extension MyTexts on ThemeData {
+  TextStyle get pageTitle => TextStyle(
+        fontSize: 32,
+        fontWeight: fontWeightBold,
+      );
+
+  TextStyle get pageDesc => TextStyle(
+        fontSize: 24,
+        fontWeight: fontWeightMedium,
+        color: AppTheme._subTitleColor,
+      );
+}
+
 extension MyTheme on ThemeData {
   bool get isLight => brightness == Brightness.light;
 
@@ -19,16 +32,13 @@ extension MyTheme on ThemeData {
 
   Color get primaryFieldHintColor => AppTheme._lightNeutral[600]!;
   Color get primaryFieldErrorColor => _danger;
-  Color get primaryFieldEnabledBorderColor => AppTheme._lightNeutral[400]!;
-  Color get primaryFieldDoneBorderColor => AppTheme._lightPrimary[300]!;
-  Color get primaryFieldDisabledBorderColor => AppTheme._transparent;
-  Color get primaryFieldErrorBorderColor => _danger;
-  Color get primaryFieldFocusedBorderColor => AppTheme._lightPrimary[500]!;
+  Color get primaryFieldBorderColor => AppTheme._transparent;
   Color get primaryFieldIconColor => AppTheme._lightPrimary;
   Color get primaryFieldTapOverlayColor =>
       AppTheme._lightPrimary.withOpacity(.05);
-  Color get primaryFieldLabelColor => AppTheme._lightNeutral[600]!;
+  Color get primaryFieldLabelColor => AppTheme._lightOnBgTextColor;
   Color get primaryFieldTextColor => AppTheme._lightNeutral[1000]!;
+  Color get primaryFieldBgColor => AppTheme._lightSecondary[500]!;
   Color get primaryFieldDisabledBgColor => AppTheme._lightNeutral[200]!;
 
   Color get primaryImagePickerBorder => AppTheme._lightPrimary;
@@ -137,10 +147,13 @@ class AppTheme {
   static const Color _transparent = Colors.transparent;
   static const Color _white = Color(0xFFFFFFFF);
   static const Color _black = Color(0xFF000000);
+  // ignore: unused_field
   static const Color _lightOnDarkTextColor = _white;
   static const Color _lightOnBgTextColor = _black;
 
   Color get _backgroundColor => _lightNeutral2[500]!;
+
+  static Color get _subTitleColor => const Color(0xFF626262);
 
   static FontWeight get _fontWeightLight => FontWeight.w300;
   static FontWeight get _fontWeightMedium => FontWeight.w500;

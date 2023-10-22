@@ -124,7 +124,7 @@ class _PrimaryFieldState extends State<PrimaryField> {
 
   @override
   Widget build(BuildContext context) {
-    final _enabledStyle = widget.enabled || widget.enabledStyle;
+    // final _enabledStyle = widget.enabled || widget.enabledStyle;
 
     final suffix = widget.suffixIcon ??
         (widget.isPassword
@@ -142,11 +142,20 @@ class _PrimaryFieldState extends State<PrimaryField> {
     final error = widget.validator?.call(currentVal);
     final hasError = error != null;
 
-    final isDone = !hasError && currentVal.isNotEmpty;
+    // final isDone = !hasError && currentVal.isNotEmpty;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        if (widget.labelText != null)
+          Text(
+            widget.labelText!,
+            style: TextStyle(
+              color: Theme.of(context).primaryFieldLabelColor,
+              fontSize: 18,
+              fontWeight: Theme.of(context).fontWeightMedium,
+            ),
+          ),
         InkWell(
           onTap: widget.onTap == null
               ? null
@@ -183,14 +192,8 @@ class _PrimaryFieldState extends State<PrimaryField> {
               iconColor: Theme.of(context).primaryFieldIconColor,
               errorMaxLines: 3,
               enabled: widget.enabled,
-              labelText: widget.labelText,
-              labelStyle: TextStyle(
-                color: Theme.of(context).primaryFieldLabelColor,
-                fontSize: 16,
-                fontWeight: FontWeight.w400,
-              ),
-              fillColor: Theme.of(context).primaryFieldDisabledBgColor,
-              filled: !_enabledStyle,
+              fillColor: Theme.of(context).primaryFieldBgColor,
+              filled: true,
               errorStyle: TextStyle(
                 color: Theme.of(context).primaryFieldErrorColor,
                 fontSize: 14,
@@ -199,44 +202,44 @@ class _PrimaryFieldState extends State<PrimaryField> {
               floatingLabelBehavior: FloatingLabelBehavior.never,
               border: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
+                borderSide: BorderSide(
+                  width: 0,
+                  color: Theme.of(context).primaryFieldBorderColor,
+                ),
               ),
               focusedBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
-                  color: Theme.of(context).primaryFieldFocusedBorderColor,
-                  width: 1.2,
+                  width: 0,
+                  color: Theme.of(context).primaryFieldBorderColor,
                 ),
               ),
               enabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
-                  color: isDone
-                      ? Theme.of(context).primaryFieldDoneBorderColor
-                      : Theme.of(context).primaryFieldEnabledBorderColor,
-                  width: 1.2,
+                  width: 0,
+                  color: Theme.of(context).primaryFieldBorderColor,
                 ),
               ),
               disabledBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
-                  color: _enabledStyle
-                      ? Theme.of(context).primaryFieldEnabledBorderColor
-                      : Theme.of(context).primaryFieldDisabledBorderColor,
                   width: 0,
+                  color: Theme.of(context).primaryFieldBorderColor,
                 ),
               ),
               errorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
-                  color: Theme.of(context).primaryFieldErrorBorderColor,
-                  width: 1.2,
+                  width: 0,
+                  color: Theme.of(context).primaryFieldBorderColor,
                 ),
               ),
               focusedErrorBorder: OutlineInputBorder(
                 borderRadius: BorderRadius.circular(16),
                 borderSide: BorderSide(
-                  color: Theme.of(context).primaryFieldErrorBorderColor,
-                  width: 1.2,
+                  width: 0,
+                  color: Theme.of(context).primaryFieldBorderColor,
                 ),
               ),
             ),

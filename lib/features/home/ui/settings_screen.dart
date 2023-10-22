@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/features/home/prov/settings_prov.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
@@ -34,10 +35,7 @@ class _Body extends StatelessWidget {
         children: [
           Text(
             getStr('settings_screen_title'),
-            style: TextStyle(
-              fontSize: 32,
-              fontWeight: Theme.of(context).fontWeightBold,
-            ),
+            style: Theme.of(context).pageTitle,
           ),
           const _DevicesList(),
         ].joinWidgetList(doubleHeightSizedBoxIndex),
@@ -82,19 +80,26 @@ class _DevicesList extends StatelessWidget {
             );
           },
         ),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          children: [
-            SizedBox(
-              width: 200,
-              child: PrimaryBtn(
-                isExpanded: true,
-                eventName: 'add_device',
-                text: getStr('settings_screen_add_device_button'),
-                onPressed: () {},
-              ),
-            ),
-          ],
+        Consumer(
+          builder: (context, ref, _) {
+            final notifier = ref.watch(settingsStateProvider.notifier);
+
+            return Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                SizedBox(
+                  width: 200,
+                  child: PrimaryBtn(
+                    isExpanded: true,
+                    eventName: 'add_device',
+                    text: getStr('settings_screen_add_device_button'),
+                    onPressed: () =>
+                        notifier.onAddDevicePressed(context: context),
+                  ),
+                ),
+              ],
+            );
+          },
         ),
       ].joinWidgetList(heightSizedBoxIndex),
     );

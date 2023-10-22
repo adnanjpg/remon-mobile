@@ -8,6 +8,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:remon_mobile/features/devices/ui/add_device_screen.dart';
 
 import '../features/home/ui/bottom_nav_screen.dart';
 import '../features/home/ui/splash_screen.dart';
@@ -34,7 +35,7 @@ class RouteTable {
 
   static const String
       //
-      rLoginScreen = 'login_screen',
+      rAddDeviceScreen = 'add_device_screen',
       rHome = 'home_screen'
       //
       ;
@@ -61,6 +62,13 @@ class RouteTable {
             path: 'home',
             builder: (context, state) {
               return const BottomNavScreen();
+            },
+          ),
+          GoRoute(
+            name: rAddDeviceScreen,
+            path: 'add_device',
+            builder: (context, state) {
+              return const AddDeviceScreen();
             },
           ),
           GoRoute(
