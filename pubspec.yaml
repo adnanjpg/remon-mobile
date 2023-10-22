@@ -5,12 +5,12 @@ version: 1.0.0+1
 environment:
   # caret syntax fixes a lot of warnings
   # https://github.com/dart-lang/sdk/issues/52672
-  sdk: "^3.0.3"
+  sdk: "^3.1.4"
 dependencies:
-  # 3.10.4
+  # 3.13.8
   # do not specify under the version under
   # the `flutter` item, as it is causing a problem
-  # execute `fvm use 3.10.4` to use this version
+  # execute `fvm use 3.13.8` to use this version
   # when you want to upgrade, don't forget to update
   # codemagic.yaml
   flutter:
