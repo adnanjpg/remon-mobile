@@ -71,6 +71,8 @@ dependencies:
   mobkit_dashed_border: "0.0.5"
   infinite_scroll_pagination: ^4.0.0
   google_fonts: ^4.0.4
+  isar: "4.0.0-dev.14"
+  isar_flutter_libs: "4.0.0-dev.14"
 
 dev_dependencies:
   flutter_test:

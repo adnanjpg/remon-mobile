@@ -4,6 +4,7 @@ import 'package:remon_mobile/utils/app_theme.dart';
 import '../../../ui/widgets/btns/primary_btn.dart';
 import '../../../ui/widgets/btns/text_btn.dart';
 import '../../../utils/utils.dart';
+import '../../devices/models/device_model.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -41,34 +42,20 @@ class _Body extends StatelessWidget {
   }
 }
 
-class _FakeDeviceModel {
-  final String title;
-  final String desc;
-  final String ip;
-  final String port;
-
-  const _FakeDeviceModel({
-    required this.title,
-    required this.desc,
-    required this.ip,
-    required this.port,
-  });
-
-  String get ipWPort => '$ip:$port';
-}
-
 final _allDevs = [
-  const _FakeDeviceModel(
+  DeviceModel.create(
     title: 'Device 1',
-    desc: 'Device 1 description',
+    description: 'Device 1 description',
     ip: '192.333.44.99',
-    port: '1234',
+    port: 1234,
+    token: '',
   ),
-  _FakeDeviceModel(
+  DeviceModel.create(
     title: 'Device 2',
-    desc: 'Device 2 description' * 10,
+    description: 'Device 2 description' * 10,
     ip: '192.333.44.22',
-    port: '3000',
+    port: 3000,
+    token: '',
   ),
 ];
 
@@ -108,7 +95,7 @@ class _DevicesList extends StatelessWidget {
 }
 
 class _DeviceItem extends StatelessWidget {
-  final _FakeDeviceModel model;
+  final DeviceModel model;
   const _DeviceItem({
     required this.model,
   });
@@ -155,7 +142,7 @@ class _DeviceItem extends StatelessWidget {
             ],
           ),
           Text(
-            model.desc,
+            model.description,
             style: TextStyle(
               fontSize: 11,
               fontWeight: Theme.of(context).fontWeightLight,
