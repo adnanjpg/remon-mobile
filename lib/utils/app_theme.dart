@@ -7,10 +7,10 @@ extension MyTheme on ThemeData {
 
   Color get statusBarColor => AppTheme._lightNeutral2[500]!;
 
-  Color get primaryButtonBgColor => AppTheme._lightPrimary;
+  Color get primaryButtonBgColor => AppTheme._lightNeutral;
   Color get primaryButtonDisabledBgColor =>
-      AppTheme._lightPrimary.withOpacity(.4);
-  Color get primaryButtonTextColor => AppTheme._lightOnDarkTextColor;
+      AppTheme._lightSecondary[300]!.withOpacity(.4);
+  Color get primaryButtonTextColor => AppTheme._lightOnBgTextColor;
   Color get primaryButtonDisabledShadowColor =>
       AppTheme._black.withOpacity(.25 * .4);
 

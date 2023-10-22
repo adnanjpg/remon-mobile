@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
+import '../../../ui/widgets/btns/primary_btn.dart';
 import '../../../ui/widgets/btns/text_btn.dart';
 import '../../../utils/utils.dart';
 
@@ -87,10 +88,21 @@ class _DevicesList extends StatelessWidget {
             },
           ).joinWidgetList(heightSizedBoxIndex),
         ),
-        // PrimaryBtn.medium(
-        //   eventName: eventName,
-        // ),
-      ],
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            SizedBox(
+              width: 200,
+              child: PrimaryBtn(
+                isExpanded: true,
+                eventName: 'add_device',
+                text: getStr('settings_screen_add_device_button'),
+                onPressed: () {},
+              ),
+            ),
+          ],
+        ),
+      ].joinWidgetList(heightSizedBoxIndex),
     );
   }
 }

@@ -4,5 +4,6 @@
     "bottom_bar_items_settings": "Settings",
     "home_screen_title": "Home",
     "settings_screen_title": "Settings",
-    "settings_screen_device_item_configure_button": "Configure"
+    "settings_screen_device_item_configure_button": "Configure",
+    "settings_screen_add_device_button": "Add device"
 }

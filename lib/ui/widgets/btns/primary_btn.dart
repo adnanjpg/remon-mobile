@@ -57,11 +57,11 @@ class _PrimaryBtnState extends ConsumerState<PrimaryBtn> {
   }
 
   BorderRadius get radius {
-    return BorderRadius.circular(16);
+    return BorderRadius.circular(12);
   }
 
   double get fontSize {
-    return 16;
+    return 18;
   }
 
   bool get enabled => _onPressed != null;
@@ -124,7 +124,7 @@ class _PrimaryBtnState extends ConsumerState<PrimaryBtn> {
                     style: TextStyle(
                       color: Theme.of(context).primaryButtonTextColor,
                       fontSize: fontSize,
-                      fontWeight: FontWeight.bold,
+                      fontWeight: Theme.of(context).fontWeightMedium,
                     ),
                   ),
               if (hasIcon) ...[
