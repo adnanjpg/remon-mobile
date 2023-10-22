@@ -34,7 +34,7 @@ class _Body extends StatelessWidget {
             ),
           ),
           const _DevicesList(),
-        ],
+        ].joinWidgetList(doubleHeightSizedBoxIndex),
       ),
     );
   }
