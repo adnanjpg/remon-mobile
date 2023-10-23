@@ -21,6 +21,19 @@ class _AddDeviceScreenStateNotifier
       : super(
           AddDeviceScreenState.initial(),
         );
+
+  void init({
+    required DeviceModel device,
+  }) {
+    state = state
+        .copyWithDeviceModel(
+          device: device,
+        )
+        .copyWith(
+          currentStep: CurrentStep.config,
+        );
+  }
+
   Future<bool> _validate({
     required BuildContext context,
   }) async {
@@ -61,17 +74,7 @@ class _AddDeviceScreenStateNotifier
     }
 
     if (state.currentStep.isOtp) {
-      final dev = DeviceModel(
-        id: 0,
-        title: '',
-        description: '',
-        ip: state.ip!,
-        port: int.parse(state.port!),
-        token: '',
-        addedOn: DateTime.now(),
-        lastUsedOn: DateTime.now(),
-        tokenUpdatedOn: DateTime.now(),
-      );
+      final dev = state.toDeviceModel();
       final res = await ref.read(localDbService).updateDevice(
             device: dev,
           );
@@ -86,17 +89,7 @@ class _AddDeviceScreenStateNotifier
     }
 
     if (state.currentStep.isConfig) {
-      final dev = DeviceModel(
-        id: state.deviceId!,
-        title: state.title!,
-        description: state.desc!,
-        ip: state.ip!,
-        port: int.parse(state.port!),
-        token: '',
-        addedOn: DateTime.now(),
-        lastUsedOn: DateTime.now(),
-        tokenUpdatedOn: DateTime.now(),
-      );
+      final dev = state.toDeviceModel();
       final res = await ref.read(localDbService).updateDevice(
             device: dev,
           );

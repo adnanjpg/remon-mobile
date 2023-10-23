@@ -148,10 +148,21 @@ class _DeviceItem extends StatelessWidget {
                   ],
                 ),
               ),
-              TextBtn(
-                eventName: 'configure_device',
-                text: getStr('settings_screen_device_item_configure_button'),
-                onPressed: () {},
+              Consumer(
+                builder: (context, ref, _) {
+                  final notifier = ref.watch(settingsStateProvider.notifier);
+                  return TextBtn(
+                    eventName: 'configure_device',
+                    text:
+                        getStr('settings_screen_device_item_configure_button'),
+                    onPressed: () {
+                      notifier.onConfigureDevicePressed(
+                        context: context,
+                        device: model,
+                      );
+                    },
+                  );
+                },
               ),
             ],
           ),

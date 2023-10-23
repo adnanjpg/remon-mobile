@@ -33,10 +33,17 @@ class LocalDbService {
     try {
       final newDevice = await db.writeAsync(
         (isar) {
-          final id = isar.deviceModels.autoIncrement();
-          final newDevice = device.copyWith(
-            id: id,
-          );
+          DeviceModel newDevice;
+
+          if (device.id == invalidTempId) {
+            final id = isar.deviceModels.autoIncrement();
+            newDevice = device.copyWith(
+              id: id,
+            );
+          } else {
+            newDevice = device;
+          }
+
           isar.deviceModels.put(
             newDevice,
           );
@@ -72,6 +79,22 @@ class LocalDbService {
       logger.e(e);
 
       return const Stream.empty();
+    }
+  }
+
+  Future<DeviceModel?> getDeviceById({
+    required int deviceId,
+  }) async {
+    try {
+      final device = await db.deviceModels.get(
+        deviceId,
+      );
+
+      return device;
+    } catch (e) {
+      logger.e(e);
+
+      return null;
     }
   }
 }

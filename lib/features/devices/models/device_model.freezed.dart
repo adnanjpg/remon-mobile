@@ -22,6 +22,9 @@ mixin _$DeviceModel {
   String get ip => throw _privateConstructorUsedError;
   int get port => throw _privateConstructorUsedError;
   String get token => throw _privateConstructorUsedError;
+  double get ramAlertRange => throw _privateConstructorUsedError;
+  double get cpuAlertRange => throw _privateConstructorUsedError;
+  double get storageAlertRange => throw _privateConstructorUsedError;
   DateTime? get addedOn => throw _privateConstructorUsedError;
   DateTime? get lastUsedOn => throw _privateConstructorUsedError;
   DateTime? get tokenUpdatedOn => throw _privateConstructorUsedError;
@@ -44,6 +47,9 @@ abstract class $DeviceModelCopyWith<$Res> {
       String ip,
       int port,
       String token,
+      double ramAlertRange,
+      double cpuAlertRange,
+      double storageAlertRange,
       DateTime? addedOn,
       DateTime? lastUsedOn,
       DateTime? tokenUpdatedOn});
@@ -68,6 +74,9 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
     Object? ip = null,
     Object? port = null,
     Object? token = null,
+    Object? ramAlertRange = null,
+    Object? cpuAlertRange = null,
+    Object? storageAlertRange = null,
     Object? addedOn = freezed,
     Object? lastUsedOn = freezed,
     Object? tokenUpdatedOn = freezed,
@@ -97,6 +106,18 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      ramAlertRange: null == ramAlertRange
+          ? _value.ramAlertRange
+          : ramAlertRange // ignore: cast_nullable_to_non_nullable
+              as double,
+      cpuAlertRange: null == cpuAlertRange
+          ? _value.cpuAlertRange
+          : cpuAlertRange // ignore: cast_nullable_to_non_nullable
+              as double,
+      storageAlertRange: null == storageAlertRange
+          ? _value.storageAlertRange
+          : storageAlertRange // ignore: cast_nullable_to_non_nullable
+              as double,
       addedOn: freezed == addedOn
           ? _value.addedOn
           : addedOn // ignore: cast_nullable_to_non_nullable
@@ -128,6 +149,9 @@ abstract class _$$_DeviceModelCopyWith<$Res>
       String ip,
       int port,
       String token,
+      double ramAlertRange,
+      double cpuAlertRange,
+      double storageAlertRange,
       DateTime? addedOn,
       DateTime? lastUsedOn,
       DateTime? tokenUpdatedOn});
@@ -150,6 +174,9 @@ class __$$_DeviceModelCopyWithImpl<$Res>
     Object? ip = null,
     Object? port = null,
     Object? token = null,
+    Object? ramAlertRange = null,
+    Object? cpuAlertRange = null,
+    Object? storageAlertRange = null,
     Object? addedOn = freezed,
     Object? lastUsedOn = freezed,
     Object? tokenUpdatedOn = freezed,
@@ -179,6 +206,18 @@ class __$$_DeviceModelCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String,
+      ramAlertRange: null == ramAlertRange
+          ? _value.ramAlertRange
+          : ramAlertRange // ignore: cast_nullable_to_non_nullable
+              as double,
+      cpuAlertRange: null == cpuAlertRange
+          ? _value.cpuAlertRange
+          : cpuAlertRange // ignore: cast_nullable_to_non_nullable
+              as double,
+      storageAlertRange: null == storageAlertRange
+          ? _value.storageAlertRange
+          : storageAlertRange // ignore: cast_nullable_to_non_nullable
+              as double,
       addedOn: freezed == addedOn
           ? _value.addedOn
           : addedOn // ignore: cast_nullable_to_non_nullable
@@ -205,6 +244,9 @@ class _$_DeviceModel extends _DeviceModel {
       required this.ip,
       required this.port,
       required this.token,
+      required this.ramAlertRange,
+      required this.cpuAlertRange,
+      required this.storageAlertRange,
       required this.addedOn,
       required this.lastUsedOn,
       required this.tokenUpdatedOn})
@@ -223,6 +265,12 @@ class _$_DeviceModel extends _DeviceModel {
   @override
   final String token;
   @override
+  final double ramAlertRange;
+  @override
+  final double cpuAlertRange;
+  @override
+  final double storageAlertRange;
+  @override
   final DateTime? addedOn;
   @override
   final DateTime? lastUsedOn;
@@ -231,7 +279,7 @@ class _$_DeviceModel extends _DeviceModel {
 
   @override
   String toString() {
-    return 'DeviceModel(id: $id, title: $title, description: $description, ip: $ip, port: $port, token: $token, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
+    return 'DeviceModel(id: $id, title: $title, description: $description, ip: $ip, port: $port, token: $token, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
   }
 
   @override
@@ -246,6 +294,12 @@ class _$_DeviceModel extends _DeviceModel {
             (identical(other.ip, ip) || other.ip == ip) &&
             (identical(other.port, port) || other.port == port) &&
             (identical(other.token, token) || other.token == token) &&
+            (identical(other.ramAlertRange, ramAlertRange) ||
+                other.ramAlertRange == ramAlertRange) &&
+            (identical(other.cpuAlertRange, cpuAlertRange) ||
+                other.cpuAlertRange == cpuAlertRange) &&
+            (identical(other.storageAlertRange, storageAlertRange) ||
+                other.storageAlertRange == storageAlertRange) &&
             (identical(other.addedOn, addedOn) || other.addedOn == addedOn) &&
             (identical(other.lastUsedOn, lastUsedOn) ||
                 other.lastUsedOn == lastUsedOn) &&
@@ -254,8 +308,20 @@ class _$_DeviceModel extends _DeviceModel {
   }
 
   @override
-  int get hashCode => Object.hash(runtimeType, id, title, description, ip, port,
-      token, addedOn, lastUsedOn, tokenUpdatedOn);
+  int get hashCode => Object.hash(
+      runtimeType,
+      id,
+      title,
+      description,
+      ip,
+      port,
+      token,
+      ramAlertRange,
+      cpuAlertRange,
+      storageAlertRange,
+      addedOn,
+      lastUsedOn,
+      tokenUpdatedOn);
 
   @JsonKey(ignore: true)
   @override
@@ -272,6 +338,9 @@ abstract class _DeviceModel extends DeviceModel {
       required final String ip,
       required final int port,
       required final String token,
+      required final double ramAlertRange,
+      required final double cpuAlertRange,
+      required final double storageAlertRange,
       required final DateTime? addedOn,
       required final DateTime? lastUsedOn,
       required final DateTime? tokenUpdatedOn}) = _$_DeviceModel;
@@ -289,6 +358,12 @@ abstract class _DeviceModel extends DeviceModel {
   int get port;
   @override
   String get token;
+  @override
+  double get ramAlertRange;
+  @override
+  double get cpuAlertRange;
+  @override
+  double get storageAlertRange;
   @override
   DateTime? get addedOn;
   @override

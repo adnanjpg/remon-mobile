@@ -1,5 +1,6 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:remon_mobile/features/devices/models/device_model.dart';
 
 part 'add_device_screen_state.freezed.dart';
 
@@ -46,6 +47,34 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
         cpuAlertRange: null,
         storageAlertRange: null,
       );
+
+  AddDeviceScreenState copyWithDeviceModel({
+    required DeviceModel device,
+  }) {
+    return copyWith(
+      deviceId: device.id,
+      title: device.title,
+      desc: device.description,
+      ip: device.ip,
+      port: device.port.toString(),
+      ramAlertRange: device.ramAlertRange,
+      cpuAlertRange: device.cpuAlertRange,
+      storageAlertRange: device.storageAlertRange,
+    );
+  }
+
+  DeviceModel toDeviceModel() {
+    return DeviceModel.create(
+      id: deviceId,
+      title: title,
+      description: desc,
+      ip: ip,
+      port: port != null ? int.parse(port!) : null,
+      ramAlertRange: ramAlertRange,
+      cpuAlertRange: cpuAlertRange,
+      storageAlertRange: storageAlertRange,
+    );
+  }
 
   double get _minRangeValue => 0;
   double get _maxRangeValue => 100;

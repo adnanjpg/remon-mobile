@@ -45,6 +45,18 @@ const DeviceModelSchema = IsarGeneratedSchema(
         type: IsarType.string,
       ),
       IsarPropertySchema(
+        name: 'ramAlertRange',
+        type: IsarType.double,
+      ),
+      IsarPropertySchema(
+        name: 'cpuAlertRange',
+        type: IsarType.double,
+      ),
+      IsarPropertySchema(
+        name: 'storageAlertRange',
+        type: IsarType.double,
+      ),
+      IsarPropertySchema(
         name: 'addedOn',
         type: IsarType.dateTime,
       ),
@@ -75,16 +87,19 @@ int serializeDeviceModel(IsarWriter writer, DeviceModel object) {
   IsarCore.writeString(writer, 4, object.ip);
   IsarCore.writeLong(writer, 5, object.port);
   IsarCore.writeString(writer, 6, object.token);
-  IsarCore.writeLong(writer, 7,
+  IsarCore.writeDouble(writer, 7, object.ramAlertRange);
+  IsarCore.writeDouble(writer, 8, object.cpuAlertRange);
+  IsarCore.writeDouble(writer, 9, object.storageAlertRange);
+  IsarCore.writeLong(writer, 10,
       object.addedOn?.toUtc().microsecondsSinceEpoch ?? -9223372036854775808);
   IsarCore.writeLong(
       writer,
-      8,
+      11,
       object.lastUsedOn?.toUtc().microsecondsSinceEpoch ??
           -9223372036854775808);
   IsarCore.writeLong(
       writer,
-      9,
+      12,
       object.tokenUpdatedOn?.toUtc().microsecondsSinceEpoch ??
           -9223372036854775808);
   return object.id;
@@ -104,9 +119,15 @@ DeviceModel deserializeDeviceModel(IsarReader reader) {
   _port = IsarCore.readLong(reader, 5);
   final String _token;
   _token = IsarCore.readString(reader, 6) ?? '';
+  final double _ramAlertRange;
+  _ramAlertRange = IsarCore.readDouble(reader, 7);
+  final double _cpuAlertRange;
+  _cpuAlertRange = IsarCore.readDouble(reader, 8);
+  final double _storageAlertRange;
+  _storageAlertRange = IsarCore.readDouble(reader, 9);
   final DateTime? _addedOn;
   {
-    final value = IsarCore.readLong(reader, 7);
+    final value = IsarCore.readLong(reader, 10);
     if (value == -9223372036854775808) {
       _addedOn = null;
     } else {
@@ -116,7 +137,7 @@ DeviceModel deserializeDeviceModel(IsarReader reader) {
   }
   final DateTime? _lastUsedOn;
   {
-    final value = IsarCore.readLong(reader, 8);
+    final value = IsarCore.readLong(reader, 11);
     if (value == -9223372036854775808) {
       _lastUsedOn = null;
     } else {
@@ -126,7 +147,7 @@ DeviceModel deserializeDeviceModel(IsarReader reader) {
   }
   final DateTime? _tokenUpdatedOn;
   {
-    final value = IsarCore.readLong(reader, 9);
+    final value = IsarCore.readLong(reader, 12);
     if (value == -9223372036854775808) {
       _tokenUpdatedOn = null;
     } else {
@@ -141,6 +162,9 @@ DeviceModel deserializeDeviceModel(IsarReader reader) {
     ip: _ip,
     port: _port,
     token: _token,
+    ramAlertRange: _ramAlertRange,
+    cpuAlertRange: _cpuAlertRange,
+    storageAlertRange: _storageAlertRange,
     addedOn: _addedOn,
     lastUsedOn: _lastUsedOn,
     tokenUpdatedOn: _tokenUpdatedOn,
@@ -166,18 +190,14 @@ dynamic deserializeDeviceModelProp(IsarReader reader, int property) {
     case 6:
       return IsarCore.readString(reader, 6) ?? '';
     case 7:
-      {
-        final value = IsarCore.readLong(reader, 7);
-        if (value == -9223372036854775808) {
-          return null;
-        } else {
-          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
-              .toLocal();
-        }
-      }
+      return IsarCore.readDouble(reader, 7);
     case 8:
+      return IsarCore.readDouble(reader, 8);
+    case 9:
+      return IsarCore.readDouble(reader, 9);
+    case 10:
       {
-        final value = IsarCore.readLong(reader, 8);
+        final value = IsarCore.readLong(reader, 10);
         if (value == -9223372036854775808) {
           return null;
         } else {
@@ -185,9 +205,19 @@ dynamic deserializeDeviceModelProp(IsarReader reader, int property) {
               .toLocal();
         }
       }
-    case 9:
+    case 11:
       {
-        final value = IsarCore.readLong(reader, 9);
+        final value = IsarCore.readLong(reader, 11);
+        if (value == -9223372036854775808) {
+          return null;
+        } else {
+          return DateTime.fromMicrosecondsSinceEpoch(value, isUtc: true)
+              .toLocal();
+        }
+      }
+    case 12:
+      {
+        final value = IsarCore.readLong(reader, 12);
         if (value == -9223372036854775808) {
           return null;
         } else {
@@ -209,6 +239,9 @@ sealed class _DeviceModelUpdate {
     String? ip,
     int? port,
     String? token,
+    double? ramAlertRange,
+    double? cpuAlertRange,
+    double? storageAlertRange,
     DateTime? addedOn,
     DateTime? lastUsedOn,
     DateTime? tokenUpdatedOn,
@@ -229,6 +262,9 @@ class _DeviceModelUpdateImpl implements _DeviceModelUpdate {
     Object? ip = ignore,
     Object? port = ignore,
     Object? token = ignore,
+    Object? ramAlertRange = ignore,
+    Object? cpuAlertRange = ignore,
+    Object? storageAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -242,9 +278,12 @@ class _DeviceModelUpdateImpl implements _DeviceModelUpdate {
           if (ip != ignore) 4: ip as String?,
           if (port != ignore) 5: port as int?,
           if (token != ignore) 6: token as String?,
-          if (addedOn != ignore) 7: addedOn as DateTime?,
-          if (lastUsedOn != ignore) 8: lastUsedOn as DateTime?,
-          if (tokenUpdatedOn != ignore) 9: tokenUpdatedOn as DateTime?,
+          if (ramAlertRange != ignore) 7: ramAlertRange as double?,
+          if (cpuAlertRange != ignore) 8: cpuAlertRange as double?,
+          if (storageAlertRange != ignore) 9: storageAlertRange as double?,
+          if (addedOn != ignore) 10: addedOn as DateTime?,
+          if (lastUsedOn != ignore) 11: lastUsedOn as DateTime?,
+          if (tokenUpdatedOn != ignore) 12: tokenUpdatedOn as DateTime?,
         }) >
         0;
   }
@@ -259,6 +298,9 @@ sealed class _DeviceModelUpdateAll {
     String? ip,
     int? port,
     String? token,
+    double? ramAlertRange,
+    double? cpuAlertRange,
+    double? storageAlertRange,
     DateTime? addedOn,
     DateTime? lastUsedOn,
     DateTime? tokenUpdatedOn,
@@ -279,6 +321,9 @@ class _DeviceModelUpdateAllImpl implements _DeviceModelUpdateAll {
     Object? ip = ignore,
     Object? port = ignore,
     Object? token = ignore,
+    Object? ramAlertRange = ignore,
+    Object? cpuAlertRange = ignore,
+    Object? storageAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -290,9 +335,12 @@ class _DeviceModelUpdateAllImpl implements _DeviceModelUpdateAll {
       if (ip != ignore) 4: ip as String?,
       if (port != ignore) 5: port as int?,
       if (token != ignore) 6: token as String?,
-      if (addedOn != ignore) 7: addedOn as DateTime?,
-      if (lastUsedOn != ignore) 8: lastUsedOn as DateTime?,
-      if (tokenUpdatedOn != ignore) 9: tokenUpdatedOn as DateTime?,
+      if (ramAlertRange != ignore) 7: ramAlertRange as double?,
+      if (cpuAlertRange != ignore) 8: cpuAlertRange as double?,
+      if (storageAlertRange != ignore) 9: storageAlertRange as double?,
+      if (addedOn != ignore) 10: addedOn as DateTime?,
+      if (lastUsedOn != ignore) 11: lastUsedOn as DateTime?,
+      if (tokenUpdatedOn != ignore) 12: tokenUpdatedOn as DateTime?,
     });
   }
 }
@@ -311,6 +359,9 @@ sealed class _DeviceModelQueryUpdate {
     String? ip,
     int? port,
     String? token,
+    double? ramAlertRange,
+    double? cpuAlertRange,
+    double? storageAlertRange,
     DateTime? addedOn,
     DateTime? lastUsedOn,
     DateTime? tokenUpdatedOn,
@@ -331,6 +382,9 @@ class _DeviceModelQueryUpdateImpl implements _DeviceModelQueryUpdate {
     Object? ip = ignore,
     Object? port = ignore,
     Object? token = ignore,
+    Object? ramAlertRange = ignore,
+    Object? cpuAlertRange = ignore,
+    Object? storageAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -342,9 +396,12 @@ class _DeviceModelQueryUpdateImpl implements _DeviceModelQueryUpdate {
       if (ip != ignore) 4: ip as String?,
       if (port != ignore) 5: port as int?,
       if (token != ignore) 6: token as String?,
-      if (addedOn != ignore) 7: addedOn as DateTime?,
-      if (lastUsedOn != ignore) 8: lastUsedOn as DateTime?,
-      if (tokenUpdatedOn != ignore) 9: tokenUpdatedOn as DateTime?,
+      if (ramAlertRange != ignore) 7: ramAlertRange as double?,
+      if (cpuAlertRange != ignore) 8: cpuAlertRange as double?,
+      if (storageAlertRange != ignore) 9: storageAlertRange as double?,
+      if (addedOn != ignore) 10: addedOn as DateTime?,
+      if (lastUsedOn != ignore) 11: lastUsedOn as DateTime?,
+      if (tokenUpdatedOn != ignore) 12: tokenUpdatedOn as DateTime?,
     });
   }
 }
@@ -370,6 +427,9 @@ class _DeviceModelQueryBuilderUpdateImpl implements _DeviceModelQueryUpdate {
     Object? ip = ignore,
     Object? port = ignore,
     Object? token = ignore,
+    Object? ramAlertRange = ignore,
+    Object? cpuAlertRange = ignore,
+    Object? storageAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -383,9 +443,12 @@ class _DeviceModelQueryBuilderUpdateImpl implements _DeviceModelQueryUpdate {
         if (ip != ignore) 4: ip as String?,
         if (port != ignore) 5: port as int?,
         if (token != ignore) 6: token as String?,
-        if (addedOn != ignore) 7: addedOn as DateTime?,
-        if (lastUsedOn != ignore) 8: lastUsedOn as DateTime?,
-        if (tokenUpdatedOn != ignore) 9: tokenUpdatedOn as DateTime?,
+        if (ramAlertRange != ignore) 7: ramAlertRange as double?,
+        if (cpuAlertRange != ignore) 8: cpuAlertRange as double?,
+        if (storageAlertRange != ignore) 9: storageAlertRange as double?,
+        if (addedOn != ignore) 10: addedOn as DateTime?,
+        if (lastUsedOn != ignore) 11: lastUsedOn as DateTime?,
+        if (tokenUpdatedOn != ignore) 12: tokenUpdatedOn as DateTime?,
       });
     } finally {
       q.close();
@@ -1453,16 +1516,310 @@ extension DeviceModelQueryFilter
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      ramAlertRangeEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 7,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      ramAlertRangeGreaterThan(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 7,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      ramAlertRangeGreaterThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 7,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      ramAlertRangeLessThan(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 7,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      ramAlertRangeLessThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 7,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      ramAlertRangeBetween(
+    double lower,
+    double upper, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 7,
+          lower: lower,
+          upper: upper,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      cpuAlertRangeEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 8,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      cpuAlertRangeGreaterThan(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 8,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      cpuAlertRangeGreaterThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 8,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      cpuAlertRangeLessThan(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 8,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      cpuAlertRangeLessThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 8,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      cpuAlertRangeBetween(
+    double lower,
+    double upper, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 8,
+          lower: lower,
+          upper: upper,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      storageAlertRangeEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 9,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      storageAlertRangeGreaterThan(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 9,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      storageAlertRangeGreaterThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 9,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      storageAlertRangeLessThan(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 9,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      storageAlertRangeLessThanOrEqualTo(
+    double value, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 9,
+          value: value,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
+      storageAlertRangeBetween(
+    double lower,
+    double upper, {
+    double epsilon = Filter.epsilon,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 9,
+          lower: lower,
+          upper: upper,
+          epsilon: epsilon,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
       addedOnIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 7));
+      return query.addFilterCondition(const IsNullCondition(property: 10));
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
       addedOnIsNotNull() {
     return QueryBuilder.apply(not(), (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 7));
+      return query.addFilterCondition(const IsNullCondition(property: 10));
     });
   }
 
@@ -1472,7 +1829,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 7,
+          property: 10,
           value: value,
         ),
       );
@@ -1486,7 +1843,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 7,
+          property: 10,
           value: value,
         ),
       );
@@ -1500,7 +1857,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 7,
+          property: 10,
           value: value,
         ),
       );
@@ -1513,7 +1870,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 7,
+          property: 10,
           value: value,
         ),
       );
@@ -1527,7 +1884,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 7,
+          property: 10,
           value: value,
         ),
       );
@@ -1541,7 +1898,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 7,
+          property: 10,
           lower: lower,
           upper: upper,
         ),
@@ -1552,14 +1909,14 @@ extension DeviceModelQueryFilter
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
       lastUsedOnIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 8));
+      return query.addFilterCondition(const IsNullCondition(property: 11));
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
       lastUsedOnIsNotNull() {
     return QueryBuilder.apply(not(), (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 8));
+      return query.addFilterCondition(const IsNullCondition(property: 11));
     });
   }
 
@@ -1570,7 +1927,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 8,
+          property: 11,
           value: value,
         ),
       );
@@ -1584,7 +1941,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 8,
+          property: 11,
           value: value,
         ),
       );
@@ -1598,7 +1955,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 8,
+          property: 11,
           value: value,
         ),
       );
@@ -1612,7 +1969,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 8,
+          property: 11,
           value: value,
         ),
       );
@@ -1626,7 +1983,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 8,
+          property: 11,
           value: value,
         ),
       );
@@ -1641,7 +1998,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 8,
+          property: 11,
           lower: lower,
           upper: upper,
         ),
@@ -1652,14 +2009,14 @@ extension DeviceModelQueryFilter
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
       tokenUpdatedOnIsNull() {
     return QueryBuilder.apply(this, (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 9));
+      return query.addFilterCondition(const IsNullCondition(property: 12));
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
       tokenUpdatedOnIsNotNull() {
     return QueryBuilder.apply(not(), (query) {
-      return query.addFilterCondition(const IsNullCondition(property: 9));
+      return query.addFilterCondition(const IsNullCondition(property: 12));
     });
   }
 
@@ -1670,7 +2027,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 9,
+          property: 12,
           value: value,
         ),
       );
@@ -1684,7 +2041,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 9,
+          property: 12,
           value: value,
         ),
       );
@@ -1698,7 +2055,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 9,
+          property: 12,
           value: value,
         ),
       );
@@ -1712,7 +2069,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 9,
+          property: 12,
           value: value,
         ),
       );
@@ -1726,7 +2083,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 9,
+          property: 12,
           value: value,
         ),
       );
@@ -1741,7 +2098,7 @@ extension DeviceModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 9,
+          property: 12,
           lower: lower,
           upper: upper,
         ),
@@ -1884,40 +2241,80 @@ extension DeviceModelQuerySortBy
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByAddedOn() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByRamAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByAddedOnDesc() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      sortByRamAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByLastUsedOn() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByCpuAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(8);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByLastUsedOnDesc() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      sortByCpuAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(8, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByTokenUpdatedOn() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      sortByStorageAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(9);
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
-      sortByTokenUpdatedOnDesc() {
+      sortByStorageAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(9, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByAddedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(10);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByAddedOnDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(10, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByLastUsedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(11);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByLastUsedOnDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(11, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByTokenUpdatedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(12);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      sortByTokenUpdatedOnDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(12, sort: Sort.desc);
     });
   }
 }
@@ -2018,40 +2415,80 @@ extension DeviceModelQuerySortThenBy
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByAddedOn() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByRamAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByAddedOnDesc() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      thenByRamAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(7, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByLastUsedOn() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByCpuAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(8);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByLastUsedOnDesc() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      thenByCpuAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(8, sort: Sort.desc);
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByTokenUpdatedOn() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      thenByStorageAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(9);
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
-      thenByTokenUpdatedOnDesc() {
+      thenByStorageAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(9, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByAddedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(10);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByAddedOnDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(10, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByLastUsedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(11);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByLastUsedOnDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(11, sort: Sort.desc);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByTokenUpdatedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(12);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
+      thenByTokenUpdatedOnDesc() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(12, sort: Sort.desc);
     });
   }
 }
@@ -2099,23 +2536,44 @@ extension DeviceModelQueryWhereDistinct
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct> distinctByAddedOn() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct>
+      distinctByRamAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(7);
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct>
-      distinctByLastUsedOn() {
+      distinctByCpuAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(8);
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct>
-      distinctByTokenUpdatedOn() {
+      distinctByStorageAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(9);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct> distinctByAddedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(10);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct>
+      distinctByLastUsedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(11);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct>
+      distinctByTokenUpdatedOn() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(12);
     });
   }
 }
@@ -2164,22 +2622,41 @@ extension DeviceModelQueryProperty1
     });
   }
 
-  QueryBuilder<DeviceModel, DateTime?, QAfterProperty> addedOnProperty() {
+  QueryBuilder<DeviceModel, double, QAfterProperty> ramAlertRangeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(7);
     });
   }
 
-  QueryBuilder<DeviceModel, DateTime?, QAfterProperty> lastUsedOnProperty() {
+  QueryBuilder<DeviceModel, double, QAfterProperty> cpuAlertRangeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(8);
+    });
+  }
+
+  QueryBuilder<DeviceModel, double, QAfterProperty>
+      storageAlertRangeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(9);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DateTime?, QAfterProperty> addedOnProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(10);
+    });
+  }
+
+  QueryBuilder<DeviceModel, DateTime?, QAfterProperty> lastUsedOnProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(11);
     });
   }
 
   QueryBuilder<DeviceModel, DateTime?, QAfterProperty>
       tokenUpdatedOnProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(9);
+      return query.addProperty(12);
     });
   }
 }
@@ -2228,23 +2705,44 @@ extension DeviceModelQueryProperty2<R>
     });
   }
 
-  QueryBuilder<DeviceModel, (R, DateTime?), QAfterProperty> addedOnProperty() {
+  QueryBuilder<DeviceModel, (R, double), QAfterProperty>
+      ramAlertRangeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(7);
+    });
+  }
+
+  QueryBuilder<DeviceModel, (R, double), QAfterProperty>
+      cpuAlertRangeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(8);
+    });
+  }
+
+  QueryBuilder<DeviceModel, (R, double), QAfterProperty>
+      storageAlertRangeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(9);
+    });
+  }
+
+  QueryBuilder<DeviceModel, (R, DateTime?), QAfterProperty> addedOnProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(10);
     });
   }
 
   QueryBuilder<DeviceModel, (R, DateTime?), QAfterProperty>
       lastUsedOnProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(8);
+      return query.addProperty(11);
     });
   }
 
   QueryBuilder<DeviceModel, (R, DateTime?), QAfterProperty>
       tokenUpdatedOnProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(9);
+      return query.addProperty(12);
     });
   }
 }
@@ -2294,24 +2792,45 @@ extension DeviceModelQueryProperty3<R1, R2>
     });
   }
 
+  QueryBuilder<DeviceModel, (R1, R2, double), QOperations>
+      ramAlertRangeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(7);
+    });
+  }
+
+  QueryBuilder<DeviceModel, (R1, R2, double), QOperations>
+      cpuAlertRangeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(8);
+    });
+  }
+
+  QueryBuilder<DeviceModel, (R1, R2, double), QOperations>
+      storageAlertRangeProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(9);
+    });
+  }
+
   QueryBuilder<DeviceModel, (R1, R2, DateTime?), QOperations>
       addedOnProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(7);
+      return query.addProperty(10);
     });
   }
 
   QueryBuilder<DeviceModel, (R1, R2, DateTime?), QOperations>
       lastUsedOnProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(8);
+      return query.addProperty(11);
     });
   }
 
   QueryBuilder<DeviceModel, (R1, R2, DateTime?), QOperations>
       tokenUpdatedOnProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(9);
+      return query.addProperty(12);
     });
   }
 }

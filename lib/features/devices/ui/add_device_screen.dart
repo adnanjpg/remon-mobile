@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/devices/prov/add_device_screen_prov.dart';
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
 import 'package:remon_mobile/ui/widgets/primary_field.dart';
@@ -8,8 +9,33 @@ import 'package:remon_mobile/utils/utils.dart';
 
 import '../../../ui/widgets/primary_slider.dart';
 
-class AddDeviceScreen extends StatelessWidget {
-  const AddDeviceScreen({super.key});
+class AddDeviceScreen extends ConsumerStatefulWidget {
+  final DeviceModel? device;
+  const AddDeviceScreen({
+    super.key,
+    required this.device,
+  });
+
+  @override
+  ConsumerState<AddDeviceScreen> createState() => _AddDeviceScreenState();
+}
+
+class _AddDeviceScreenState extends ConsumerState<AddDeviceScreen> {
+  @override
+  void initState() {
+    super.initState();
+
+    final dev = widget.device;
+    if (dev != null) {
+      WidgetsBinding.instance.addPostFrameCallback(
+        (_) {
+          ref.read(addDeviceScreenProv.notifier).init(
+                device: dev,
+              );
+        },
+      );
+    }
+  }
 
   @override
   Widget build(BuildContext context) {
