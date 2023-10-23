@@ -41,6 +41,11 @@ extension MyTheme on ThemeData {
   Color get primaryFieldBgColor => AppTheme._lightSecondary[500]!;
   Color get primaryFieldDisabledBgColor => AppTheme._lightNeutral[200]!;
 
+  Color get primarySliderActiveColor => AppTheme._lightSecondary[500]!;
+  Color get primarySliderInactiveColor =>
+      AppTheme._lightSecondary[500]!.withOpacity(.4);
+  Color get primarySliderThumbColor => AppTheme._white;
+
   Color get primaryImagePickerBorder => AppTheme._lightPrimary;
 
   Color get success => semanticGreen;
