@@ -31,12 +31,13 @@ class LocalDbService {
     required DeviceModel device,
   }) async {
     try {
-      await Future.delayed(
-        const Duration(seconds: 1),
-      );
-
       await db.writeAsync((isar) {
-        isar.deviceModels.put(device);
+        final id = isar.deviceModels.autoIncrement();
+        isar.deviceModels.put(
+          device.copyWith(
+            id: id,
+          ),
+        );
       });
 
       return true;

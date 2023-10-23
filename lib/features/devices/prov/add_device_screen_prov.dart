@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/devices/models/add_device_screen_state.dart';
+import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/services/local_db_service.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
 final addDeviceScreenProv = StateNotifierProvider.autoDispose<
@@ -27,16 +29,39 @@ class _AddDeviceScreenStateNotifier
     return true;
   }
 
-  void onSubmitBtnPressed({
+  Future<bool> onSubmitBtnPressed({
     required BuildContext context,
   }) async {
     if (await _validate(context: context) != true) {
-      return;
+      return false;
     }
 
-    state = state.copyWith(
-      currentStep: CurrentStep.otp,
-    );
+    if (state.currentStep.isIp) {
+      // TODO(adnanjpg): call api to send a code to the terminal
+
+      state = state.copyWith(
+        currentStep: CurrentStep.otp,
+      );
+
+      return true;
+    } else {
+      final dev = DeviceModel(
+        id: 0,
+        title: '',
+        description: '',
+        ip: state.ip!,
+        port: int.parse(state.port!),
+        token: '',
+        addedOn: DateTime.now(),
+        lastUsedOn: DateTime.now(),
+        tokenUpdatedOn: DateTime.now(),
+      );
+      final res = await ref.read(localDbService).addDevice(
+            device: dev,
+          );
+
+      return res;
+    }
   }
 
   void onIpChanged(String value) {
