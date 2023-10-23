@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/devices/prov/add_device_screen_prov.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
 import 'package:remon_mobile/ui/widgets/primary_field.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
@@ -66,7 +67,8 @@ class _AddDeviceScreenState extends ConsumerState<AddDeviceScreen> {
                         child: PrimaryBtn(
                           isExpanded: true,
                           eventName: 'add_device_screen_btn',
-                          text: getStr('add_device_screen_submit_btn_title'),
+                          text: getStr(
+                              LocaleKeys.add_device_screen_submit_btn_title),
                           onPressed: () {
                             notifier.onSubmitBtnPressed(context: context);
                           },
@@ -96,27 +98,27 @@ class _Titles extends ConsumerWidget {
 
     final ipWidgets = [
       Text(
-        getStr('add_device_screen_title'),
+        getStr(LocaleKeys.add_device_screen_title),
         style: Theme.of(context).pageTitle,
       ),
       Text(
-        getStr('add_device_screen_desc'),
+        getStr(LocaleKeys.add_device_screen_desc),
         style: Theme.of(context).pageDesc,
       ),
     ];
     final otpWidgets = [
       Text(
-        getStr('add_device_screen_otp_title'),
+        getStr(LocaleKeys.add_device_screen_otp_title),
         style: Theme.of(context).pageTitle,
       ),
       Text(
-        getStr('add_device_screen_otp_desc'),
+        getStr(LocaleKeys.add_device_screen_otp_desc),
         style: Theme.of(context).pageDesc,
       ),
     ];
     final configWidgets = [
       Text(
-        getStr('add_device_screen_config_title'),
+        getStr(LocaleKeys.add_device_screen_config_title),
         style: Theme.of(context).pageTitle,
       ),
     ];
@@ -153,7 +155,7 @@ class _Fields extends ConsumerWidget {
         //
         if (form.viewIpField) ...[
           PrimaryField(
-            labelText: getStr('add_device_screen_ip_field'),
+            labelText: getStr(LocaleKeys.add_device_screen_ip_field),
             value: form.ip,
             onChanged: notifier.onIpChanged,
             validator: notifier.ipValidator,
@@ -161,7 +163,7 @@ class _Fields extends ConsumerWidget {
         ],
         if (form.viewPortField) ...[
           PrimaryField(
-            labelText: getStr('add_device_screen_port_field'),
+            labelText: getStr(LocaleKeys.add_device_screen_port_field),
             value: form.port,
             onChanged: notifier.onPortChanged,
             validator: notifier.portValidator,
@@ -170,7 +172,7 @@ class _Fields extends ConsumerWidget {
         //
         if (form.viewOtpField) ...[
           PrimaryField(
-            labelText: getStr('add_device_screen_otp_field'),
+            labelText: getStr(LocaleKeys.add_device_screen_otp_field),
             value: form.otp,
             onChanged: notifier.onOtpChanged,
             validator: notifier.otpValidator,
@@ -182,7 +184,7 @@ class _Fields extends ConsumerWidget {
 // viewStorageRangeField
         if (form.viewTitleField) ...[
           PrimaryField(
-            labelText: getStr('add_device_screen_title_field'),
+            labelText: getStr(LocaleKeys.add_device_screen_title_field),
             value: form.title,
             onChanged: notifier.onTitleChanged,
             validator: notifier.titleValidator,
@@ -190,7 +192,7 @@ class _Fields extends ConsumerWidget {
         ],
         if (form.viewDescField) ...[
           PrimaryField(
-            labelText: getStr('add_device_screen_desc_field'),
+            labelText: getStr(LocaleKeys.add_device_screen_desc_field),
             value: form.desc,
             minLines: 3,
             onChanged: notifier.onDescChanged,
@@ -202,7 +204,7 @@ class _Fields extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                getStr('add_device_screen_ram_field_title'),
+                getStr(LocaleKeys.add_device_screen_ram_field_title),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: Theme.of(context).fontWeightLight,
@@ -210,7 +212,7 @@ class _Fields extends ConsumerWidget {
               ),
               Text(
                 getStrArgs(
-                  'add_device_screen_ram_field_desc',
+                  LocaleKeys.add_device_screen_ram_field_desc,
                   args: [
                     (form.ramAlertRange ?? 0).toInt().toString(),
                   ],
@@ -234,7 +236,7 @@ class _Fields extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                getStr('add_device_screen_cpu_field_title'),
+                getStr(LocaleKeys.add_device_screen_cpu_field_title),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: Theme.of(context).fontWeightLight,
@@ -242,7 +244,7 @@ class _Fields extends ConsumerWidget {
               ),
               Text(
                 getStrArgs(
-                  'add_device_screen_cpu_field_desc',
+                  LocaleKeys.add_device_screen_cpu_field_desc,
                   args: [
                     (form.cpuAlertRange ?? 0).toInt().toString(),
                   ],
@@ -266,7 +268,7 @@ class _Fields extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                getStr('add_device_screen_storage_field_title'),
+                getStr(LocaleKeys.add_device_screen_storage_field_title),
                 style: TextStyle(
                   fontSize: 20,
                   fontWeight: Theme.of(context).fontWeightLight,
@@ -274,7 +276,7 @@ class _Fields extends ConsumerWidget {
               ),
               Text(
                 getStrArgs(
-                  'add_device_screen_storage_field_desc',
+                  LocaleKeys.add_device_screen_storage_field_desc,
                   args: [
                     (form.storageAlertRange ?? 0).toInt().toString(),
                   ],

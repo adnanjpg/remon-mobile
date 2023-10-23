@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/home/prov/settings_prov.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
@@ -35,7 +36,7 @@ class _Body extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              getStr('settings_screen_title'),
+              getStr(LocaleKeys.settings_screen_title),
               style: Theme.of(context).pageTitle,
             ),
             const _DevicesList(),
@@ -66,7 +67,7 @@ class _DevicesList extends StatelessWidget {
               data: (data) {
                 if (data.isEmpty) {
                   return Text(
-                    getStr('settings_screen_device_list_no_data'),
+                    getStr(LocaleKeys.settings_screen_device_list_no_data),
                   );
                 }
                 return Column(
@@ -94,7 +95,7 @@ class _DevicesList extends StatelessWidget {
                   child: PrimaryBtn(
                     isExpanded: true,
                     eventName: 'add_device',
-                    text: getStr('settings_screen_add_device_button'),
+                    text: getStr(LocaleKeys.settings_screen_add_device_button),
                     onPressed: () =>
                         notifier.onAddDevicePressed(context: context),
                   ),
@@ -153,8 +154,8 @@ class _DeviceItem extends StatelessWidget {
                   final notifier = ref.watch(settingsStateProvider.notifier);
                   return TextBtn(
                     eventName: 'configure_device',
-                    text:
-                        getStr('settings_screen_device_item_configure_button'),
+                    text: getStr(LocaleKeys
+                        .settings_screen_device_item_configure_button),
                     onPressed: () {
                       notifier.onConfigureDevicePressed(
                         context: context,

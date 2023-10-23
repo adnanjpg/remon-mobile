@@ -1,5 +1,9 @@
 {
     "hello_world": "Hello world",
+    "image_picker_widget_default_hint": "Click to select an image",
+    "error_screen_route_is_broken": "Could not find the route",
+    "err_widget_error_occured": "An unknown error has occured, please try again later",
+    "go_back_to_home": "Go back to home page",
     "bottom_bar_items_home": "Home",
     "bottom_bar_items_settings": "Settings",
     "home_screen_title": "Home",

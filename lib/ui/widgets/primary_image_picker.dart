@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
@@ -160,7 +161,8 @@ class _PrimaryImagePickerState extends State<PrimaryImagePicker> {
                             )
                           : Text(
                               widget.hintText ??
-                                  getStr('image_picker_widget:default_hint'),
+                                  getStr(LocaleKeys
+                                      .image_picker_widget_default_hint),
                               textAlign: TextAlign.center,
                             )),
                 ),

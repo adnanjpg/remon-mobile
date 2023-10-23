@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/services/api_service.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
@@ -30,7 +31,7 @@ class _Body extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            getStr('home_screen_title'),
+            getStr(LocaleKeys.home_screen_title),
             style: Theme.of(context).pageTitle,
           ),
           const _HelloRes(),

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 
 import '../../utils/utils.dart';
 
@@ -23,7 +24,7 @@ class ErrWidget extends StatelessWidget {
 
     if (er.isEmpty) {
       return Text(
-        getStr('err_widget:error_occured'),
+        getStr(LocaleKeys.err_widget_error_occured),
         style: Theme.of(context).textTheme.headlineMedium,
       );
     }

@@ -3,6 +3,7 @@ import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/devices/models/add_device_screen_state.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
 import 'package:remon_mobile/utils/route_table.dart';
 import 'package:remon_mobile/utils/utils.dart';
@@ -115,18 +116,18 @@ class _AddDeviceScreenStateNotifier
 
   String? ipValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return getStr('add_device_screen_ip_field_error_empty');
+      return getStr(LocaleKeys.add_device_screen_ip_field_error_empty);
     }
 
     final ip = value.split('.');
     if (ip.length != 4) {
-      return getStr('add_device_screen_ip_field_error_invalid');
+      return getStr(LocaleKeys.add_device_screen_ip_field_error_invalid);
     }
 
     for (final item in ip) {
       final num = int.tryParse(item);
       if (num == null || num < 0 || num > 255) {
-        return getStr('add_device_screen_ip_field_error_invalid');
+        return getStr(LocaleKeys.add_device_screen_ip_field_error_invalid);
       }
     }
 
@@ -142,12 +143,12 @@ class _AddDeviceScreenStateNotifier
 
   String? portValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return getStr('add_device_screen_port_field_error_empty');
+      return getStr(LocaleKeys.add_device_screen_port_field_error_empty);
     }
 
     final num = int.tryParse(value);
     if (num == null || num < 0 || num > 65535) {
-      return getStr('add_device_screen_port_field_error_invalid');
+      return getStr(LocaleKeys.add_device_screen_port_field_error_invalid);
     }
 
     return null;
@@ -163,12 +164,12 @@ class _AddDeviceScreenStateNotifier
   // otp is a 6 digit number
   String? otpValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return getStr('add_device_screen_otp_field_error_empty');
+      return getStr(LocaleKeys.add_device_screen_otp_field_error_empty);
     }
 
     final num = int.tryParse(value);
     if (num == null || num < 0 || num > 999999) {
-      return getStr('add_device_screen_otp_field_error_invalid');
+      return getStr(LocaleKeys.add_device_screen_otp_field_error_invalid);
     }
 
     return null;
@@ -183,7 +184,7 @@ class _AddDeviceScreenStateNotifier
 
   String? titleValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return getStr('add_device_screen_title_field_error_empty');
+      return getStr(LocaleKeys.add_device_screen_title_field_error_empty);
     }
 
     return null;
@@ -198,7 +199,7 @@ class _AddDeviceScreenStateNotifier
 
   String? descValidator(String? value) {
     if (value == null || value.isEmpty) {
-      return getStr('add_device_screen_desc_field_error_empty');
+      return getStr(LocaleKeys.add_device_screen_desc_field_error_empty);
     }
 
     return null;

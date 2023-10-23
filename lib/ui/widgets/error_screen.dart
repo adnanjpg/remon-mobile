@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 
 import '../../utils/utils.dart';
 import 'error_widget.dart';
@@ -14,7 +15,7 @@ class ErrorScreen extends StatefulWidget {
         super(key: key);
   ErrorScreen.routeError({Key? key})
       : stack = null,
-        error = getStr('route_is_broken'),
+        error = getStr(LocaleKeys.error_screen_route_is_broken),
         super(key: key);
 
   const ErrorScreen.empty({Key? key})

@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 
 import '../../utils/route_table.dart';
 import '../../utils/utils.dart';
@@ -23,7 +24,7 @@ class GoHomeBtn extends StatelessWidget {
         }
       },
       child: Text(
-        getStr('go_back_to_home'),
+        getStr(LocaleKeys.go_back_to_home),
       ),
     );
   }

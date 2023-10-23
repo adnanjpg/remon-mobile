@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import "package:remixicon/remixicon.dart";
+import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import '../../../utils/utils.dart';
 import '../prov/bottom_bar_prov.dart';
@@ -27,7 +28,7 @@ class BottomNavScreen extends ConsumerWidget {
               icon: Icon(
                 state.bottomBarIndex.isHome ? Remix.home_fill : Remix.home_line,
               ),
-              label: getStr('bottom_bar_items_home'),
+              label: getStr(LocaleKeys.bottom_bar_items_home),
             ),
             BottomNavigationBarItem(
               icon: Icon(
@@ -35,7 +36,7 @@ class BottomNavScreen extends ConsumerWidget {
                     ? Remix.settings_3_fill
                     : Remix.settings_3_line,
               ),
-              label: getStr('bottom_bar_items_settings'),
+              label: getStr(LocaleKeys.bottom_bar_items_settings),
             ),
           ],
         ),
