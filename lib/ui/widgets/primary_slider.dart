@@ -1,5 +1,4 @@
 import 'package:remon_mobile/utils/app_theme.dart';
-import 'package:remon_mobile/utils/utils.dart';
 import 'package:remon_mobile/widgetbook/widgetbook_wrapper.dart';
 import 'package:flutter/material.dart';
 
@@ -27,23 +26,18 @@ class _PrimarySliderState extends State<PrimarySlider> {
   @override
   Widget build(BuildContext context) {
     final divisionCount = (widget.maxValue - widget.minValue).toInt();
-    return Container(
-      margin: const EdgeInsets.only(
-        top: doubleDefPaddingSize,
-      ),
-      child: Slider(
-        value: widget.value ?? 0,
-        min: widget.minValue,
-        max: widget.maxValue,
-        onChanged: (value) {
-          widget.onChanged?.call(value);
-        },
-        activeColor: Theme.of(context).primarySliderActiveColor,
-        inactiveColor: Theme.of(context).primarySliderInactiveColor,
-        thumbColor: Theme.of(context).primarySliderThumbColor,
-        divisions: divisionCount,
-        label: widget.value?.toInt().toString() ?? '',
-      ),
+    return Slider(
+      value: widget.value ?? 0,
+      min: widget.minValue,
+      max: widget.maxValue,
+      onChanged: (value) {
+        widget.onChanged?.call(value);
+      },
+      activeColor: Theme.of(context).primarySliderActiveColor,
+      inactiveColor: Theme.of(context).primarySliderInactiveColor,
+      thumbColor: Theme.of(context).primarySliderThumbColor,
+      divisions: divisionCount,
+      label: widget.value?.toInt().toString() ?? '',
     );
   }
 }

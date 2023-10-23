@@ -6,6 +6,8 @@ import 'package:remon_mobile/ui/widgets/primary_field.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
+import '../../../ui/widgets/primary_slider.dart';
+
 class AddDeviceScreen extends StatelessWidget {
   const AddDeviceScreen({super.key});
 
@@ -149,8 +151,6 @@ class _Fields extends ConsumerWidget {
           ),
         ],
         //
-// viewTitleField
-// viewDescField
 // viewRamRangeField
 // viewCpuRangeField
 // viewStorageRangeField
@@ -169,6 +169,102 @@ class _Fields extends ConsumerWidget {
             minLines: 3,
             onChanged: notifier.onDescChanged,
             validator: notifier.descValidator,
+          ),
+        ],
+        if (form.viewRamRangeField) ...[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                getStr('add_device_screen_ram_field_title'),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: Theme.of(context).fontWeightLight,
+                ),
+              ),
+              Text(
+                getStrArgs(
+                  'add_device_screen_ram_field_desc',
+                  args: [
+                    (form.ramAlertRange ?? 0).toInt().toString(),
+                  ],
+                ),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: Theme.of(context).fontWeightLight,
+                ),
+              ),
+              PrimarySlider(
+                value: form.ramAlertRange,
+                onChanged: notifier.onRamRangeChanged,
+                minValue: form.minRamRangeValue,
+                maxValue: form.maxRamRangeValue,
+              ),
+            ],
+          ),
+        ],
+        if (form.viewCpuRangeField) ...[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                getStr('add_device_screen_cpu_field_title'),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: Theme.of(context).fontWeightLight,
+                ),
+              ),
+              Text(
+                getStrArgs(
+                  'add_device_screen_cpu_field_desc',
+                  args: [
+                    (form.cpuAlertRange ?? 0).toInt().toString(),
+                  ],
+                ),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: Theme.of(context).fontWeightLight,
+                ),
+              ),
+              PrimarySlider(
+                value: form.cpuAlertRange,
+                onChanged: notifier.onCpuRangeChanged,
+                minValue: form.minCpuRangeValue,
+                maxValue: form.maxCpuRangeValue,
+              ),
+            ],
+          ),
+        ],
+        if (form.viewStorageRangeField) ...[
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                getStr('add_device_screen_storage_field_title'),
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: Theme.of(context).fontWeightLight,
+                ),
+              ),
+              Text(
+                getStrArgs(
+                  'add_device_screen_storage_field_desc',
+                  args: [
+                    (form.storageAlertRange ?? 0).toInt().toString(),
+                  ],
+                ),
+                style: TextStyle(
+                  fontSize: 12,
+                  fontWeight: Theme.of(context).fontWeightLight,
+                ),
+              ),
+              PrimarySlider(
+                value: form.storageAlertRange,
+                onChanged: notifier.onStorageRangeChanged,
+                minValue: form.minStorageRangeValue,
+                maxValue: form.maxStorageRangeValue,
+              ),
+            ],
           ),
         ],
 

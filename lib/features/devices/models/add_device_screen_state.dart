@@ -47,6 +47,18 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
         storageAlertRange: null,
       );
 
+  double get _minRangeValue => 0;
+  double get _maxRangeValue => 100;
+
+  double get minRamRangeValue => _minRangeValue;
+  double get maxRamRangeValue => _maxRangeValue;
+
+  double get minCpuRangeValue => _minRangeValue;
+  double get maxCpuRangeValue => _maxRangeValue;
+
+  double get minStorageRangeValue => _minRangeValue;
+  double get maxStorageRangeValue => _maxRangeValue;
+
   bool get viewIpField => currentStep.isIp;
   bool get viewPortField => currentStep.isIp;
 

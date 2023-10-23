@@ -53,6 +53,14 @@ class LocalDbService {
     }
   }
 
+  Future<int?> updateDevice({
+    required DeviceModel device,
+  }) async {
+    return addDevice(
+      device: device,
+    );
+  }
+
   Stream<List<DeviceModel>> watchAllDevices() {
     try {
       final devices = db.deviceModels.where().watch(

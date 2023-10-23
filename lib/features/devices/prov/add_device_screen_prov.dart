@@ -4,6 +4,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/devices/models/add_device_screen_state.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/utils/route_table.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
 final addDeviceScreenProv = StateNotifierProvider.autoDispose<
@@ -30,10 +31,14 @@ class _AddDeviceScreenStateNotifier
     return true;
   }
 
-  void setToNextStep() {
+  void setToNextStep({
+    required BuildContext context,
+  }) {
     final currStep = state.currentStep;
     if (currStep.isLast) {
-      throw Exception("There's no next step");
+      GoRouter.of(context).pop();
+
+      return;
     }
     state = state.copyWith(
       currentStep: CurrentStep.values[state.currentStep.index + 1],
@@ -50,7 +55,7 @@ class _AddDeviceScreenStateNotifier
     if (state.currentStep.isIp) {
       // TODO(adnanjpg): call api to send a code to the terminal
 
-      setToNextStep();
+      setToNextStep(context: context);
 
       return true;
     }
@@ -67,7 +72,7 @@ class _AddDeviceScreenStateNotifier
         lastUsedOn: DateTime.now(),
         tokenUpdatedOn: DateTime.now(),
       );
-      final res = await ref.read(localDbService).addDevice(
+      final res = await ref.read(localDbService).updateDevice(
             device: dev,
           );
 
@@ -75,11 +80,32 @@ class _AddDeviceScreenStateNotifier
         return false;
       }
 
-      state = state.copyWith(
-        deviceId: res,
-      );
+      setToNextStep(context: context);
 
-      setToNextStep();
+      return true;
+    }
+
+    if (state.currentStep.isConfig) {
+      final dev = DeviceModel(
+        id: state.deviceId!,
+        title: state.title!,
+        description: state.desc!,
+        ip: state.ip!,
+        port: int.parse(state.port!),
+        token: '',
+        addedOn: DateTime.now(),
+        lastUsedOn: DateTime.now(),
+        tokenUpdatedOn: DateTime.now(),
+      );
+      final res = await ref.read(localDbService).updateDevice(
+            device: dev,
+          );
+
+      if (res == null) {
+        return false;
+      }
+
+      setToNextStep(context: context);
 
       return true;
     }
@@ -192,14 +218,6 @@ class _AddDeviceScreenStateNotifier
     );
   }
 
-  String? ramRangeValidator(double? value) {
-    if (value == null) {
-      return getStr('add_device_screen_ram_range_field_error_empty');
-    }
-
-    return null;
-  }
-
   //
   void onCpuRangeChanged(double? value) {
     state = state.copyWith(
@@ -207,26 +225,10 @@ class _AddDeviceScreenStateNotifier
     );
   }
 
-  String? cpuRangeValidator(double? value) {
-    if (value == null) {
-      return getStr('add_device_screen_cpu_range_field_error_empty');
-    }
-
-    return null;
-  }
-
   //
   void onStorageRangeChanged(double? value) {
     state = state.copyWith(
       storageAlertRange: value,
     );
-  }
-
-  String? storageRangeValidator(double? value) {
-    if (value == null) {
-      return getStr('add_device_screen_storage_range_field_error_empty');
-    }
-
-    return null;
   }
 }

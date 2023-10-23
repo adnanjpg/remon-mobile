@@ -24,9 +24,12 @@
     "add_device_screen_otp_field_error_invalid": "Invalid OTP",
     "add_device_screen_title_field_error_empty": "Title cannot be empty",
     "add_device_screen_desc_field_error_empty": "Description cannot be empty",
-    "add_device_screen_ram_range_field_error_empty": "Ram range cannot be empty",
-    "add_device_screen_cpu_range_field_error_empty": "Cpu range cannot be empty",
-    "add_device_screen_storage_range_field_error_empty": "Storage range cannot be empty",
     "add_device_screen_title_field": "Title",
-    "add_device_screen_desc_field": "Short description"
+    "add_device_screen_desc_field": "Short description",
+    "add_device_screen_ram_field_title": "RAM Alert",
+    "add_device_screen_ram_field_desc": "You will receive a notification when your RAM usage exceeds {}%",
+    "add_device_screen_cpu_field_title": "CPU Alert",
+    "add_device_screen_cpu_field_desc": "You will receive a notification when your CPU usage exceeds {}%",
+    "add_device_screen_storage_field_title": "Storage Alert",
+    "add_device_screen_storage_field_desc": "You will receive a notification when your Storage usage exceeds {}%"
 }
