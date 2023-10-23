@@ -27,24 +27,29 @@ class LocalDbService {
 
   Isar get db => ref.watch(_localDbProv);
 
-  Future<bool> addDevice({
+  Future<int?> addDevice({
     required DeviceModel device,
   }) async {
     try {
-      await db.writeAsync((isar) {
-        final id = isar.deviceModels.autoIncrement();
-        isar.deviceModels.put(
-          device.copyWith(
+      final newDevice = await db.writeAsync(
+        (isar) {
+          final id = isar.deviceModels.autoIncrement();
+          final newDevice = device.copyWith(
             id: id,
-          ),
-        );
-      });
+          );
+          isar.deviceModels.put(
+            newDevice,
+          );
 
-      return true;
+          return newDevice;
+        },
+      );
+
+      return newDevice.id;
     } catch (e) {
       logger.e(e);
 
-      return false;
+      return null;
     }
   }
 

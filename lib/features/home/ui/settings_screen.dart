@@ -28,17 +28,19 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: defPaddingAll,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            getStr('settings_screen_title'),
-            style: Theme.of(context).pageTitle,
-          ),
-          const _DevicesList(),
-        ].joinWidgetList(doubleHeightSizedBoxIndex),
+    return SingleChildScrollView(
+      child: Container(
+        margin: defPaddingAll,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              getStr('settings_screen_title'),
+              style: Theme.of(context).pageTitle,
+            ),
+            const _DevicesList(),
+          ].joinWidgetList(doubleHeightSizedBoxIndex),
+        ),
       ),
     );
   }

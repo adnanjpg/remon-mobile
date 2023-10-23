@@ -1,3 +1,4 @@
+import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/devices/models/add_device_screen_state.dart';
@@ -29,6 +30,16 @@ class _AddDeviceScreenStateNotifier
     return true;
   }
 
+  void setToNextStep() {
+    final currStep = state.currentStep;
+    if (currStep.isLast) {
+      throw Exception("There's no next step");
+    }
+    state = state.copyWith(
+      currentStep: CurrentStep.values[state.currentStep.index + 1],
+    );
+  }
+
   Future<bool> onSubmitBtnPressed({
     required BuildContext context,
   }) async {
@@ -39,12 +50,12 @@ class _AddDeviceScreenStateNotifier
     if (state.currentStep.isIp) {
       // TODO(adnanjpg): call api to send a code to the terminal
 
-      state = state.copyWith(
-        currentStep: CurrentStep.otp,
-      );
+      setToNextStep();
 
       return true;
-    } else {
+    }
+
+    if (state.currentStep.isOtp) {
       final dev = DeviceModel(
         id: 0,
         title: '',
@@ -60,10 +71,23 @@ class _AddDeviceScreenStateNotifier
             device: dev,
           );
 
-      return res;
+      if (res == null) {
+        return false;
+      }
+
+      state = state.copyWith(
+        deviceId: res,
+      );
+
+      setToNextStep();
+
+      return true;
     }
+
+    return false;
   }
 
+  //
   void onIpChanged(String value) {
     state = state.copyWith(
       ip: value,
@@ -90,6 +114,7 @@ class _AddDeviceScreenStateNotifier
     return null;
   }
 
+  //
   void onPortChanged(String value) {
     state = state.copyWith(
       port: value,
@@ -109,6 +134,7 @@ class _AddDeviceScreenStateNotifier
     return null;
   }
 
+  //
   void onOtpChanged(String value) {
     state = state.copyWith(
       otp: value,
@@ -124,6 +150,81 @@ class _AddDeviceScreenStateNotifier
     final num = int.tryParse(value);
     if (num == null || num < 0 || num > 999999) {
       return getStr('add_device_screen_otp_field_error_invalid');
+    }
+
+    return null;
+  }
+
+  //
+  void onTitleChanged(String value) {
+    state = state.copyWith(
+      title: value,
+    );
+  }
+
+  String? titleValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('add_device_screen_title_field_error_empty');
+    }
+
+    return null;
+  }
+
+  //
+  void onDescChanged(String value) {
+    state = state.copyWith(
+      desc: value,
+    );
+  }
+
+  String? descValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr('add_device_screen_desc_field_error_empty');
+    }
+
+    return null;
+  }
+
+  //
+  void onRamRangeChanged(double? value) {
+    state = state.copyWith(
+      ramAlertRange: value,
+    );
+  }
+
+  String? ramRangeValidator(double? value) {
+    if (value == null) {
+      return getStr('add_device_screen_ram_range_field_error_empty');
+    }
+
+    return null;
+  }
+
+  //
+  void onCpuRangeChanged(double? value) {
+    state = state.copyWith(
+      cpuAlertRange: value,
+    );
+  }
+
+  String? cpuRangeValidator(double? value) {
+    if (value == null) {
+      return getStr('add_device_screen_cpu_range_field_error_empty');
+    }
+
+    return null;
+  }
+
+  //
+  void onStorageRangeChanged(double? value) {
+    state = state.copyWith(
+      storageAlertRange: value,
+    );
+  }
+
+  String? storageRangeValidator(double? value) {
+    if (value == null) {
+      return getStr('add_device_screen_storage_range_field_error_empty');
     }
 
     return null;

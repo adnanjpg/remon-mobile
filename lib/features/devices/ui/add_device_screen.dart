@@ -63,32 +63,50 @@ class _Titles extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final form = ref.watch(addDeviceScreenProv);
     final isIp = form.currentStep.isIp;
+    final isOtp = form.currentStep.isOtp;
+    final isConfig = form.currentStep.isConfig;
+
+    final ipWidgets = [
+      Text(
+        getStr('add_device_screen_title'),
+        style: Theme.of(context).pageTitle,
+      ),
+      Text(
+        getStr('add_device_screen_desc'),
+        style: Theme.of(context).pageDesc,
+      ),
+    ];
+    final otpWidgets = [
+      Text(
+        getStr('add_device_screen_otp_title'),
+        style: Theme.of(context).pageTitle,
+      ),
+      Text(
+        getStr('add_device_screen_otp_desc'),
+        style: Theme.of(context).pageDesc,
+      ),
+    ];
+    final configWidgets = [
+      Text(
+        getStr('add_device_screen_config_title'),
+        style: Theme.of(context).pageTitle,
+      ),
+    ];
+
+    final List children;
+    if (isIp) {
+      children = ipWidgets;
+    } else if (isOtp) {
+      children = otpWidgets;
+    } else if (isConfig) {
+      children = configWidgets;
+    } else {
+      children = [];
+    }
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
-      children: [
-        ...((isIp)
-            ? [
-                Text(
-                  getStr('add_device_screen_title'),
-                  style: Theme.of(context).pageTitle,
-                ),
-                Text(
-                  getStr('add_device_screen_desc'),
-                  style: Theme.of(context).pageDesc,
-                ),
-              ]
-            : [
-                Text(
-                  getStr('add_device_screen_otp_title'),
-                  style: Theme.of(context).pageTitle,
-                ),
-                Text(
-                  getStr('add_device_screen_otp_desc'),
-                  style: Theme.of(context).pageDesc,
-                ),
-              ])
-      ].joinWidgetList(heightSizedBoxIndex),
+      children: children.joinWidgetList(heightSizedBoxIndex),
     );
   }
 }
@@ -104,6 +122,7 @@ class _Fields extends ConsumerWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        //
         if (form.viewIpField) ...[
           PrimaryField(
             labelText: getStr('add_device_screen_ip_field'),
@@ -120,6 +139,7 @@ class _Fields extends ConsumerWidget {
             validator: notifier.portValidator,
           ),
         ],
+        //
         if (form.viewOtpField) ...[
           PrimaryField(
             labelText: getStr('add_device_screen_otp_field'),
@@ -128,6 +148,31 @@ class _Fields extends ConsumerWidget {
             validator: notifier.otpValidator,
           ),
         ],
+        //
+// viewTitleField
+// viewDescField
+// viewRamRangeField
+// viewCpuRangeField
+// viewStorageRangeField
+        if (form.viewTitleField) ...[
+          PrimaryField(
+            labelText: getStr('add_device_screen_title_field'),
+            value: form.title,
+            onChanged: notifier.onTitleChanged,
+            validator: notifier.titleValidator,
+          ),
+        ],
+        if (form.viewDescField) ...[
+          PrimaryField(
+            labelText: getStr('add_device_screen_desc_field'),
+            value: form.desc,
+            minLines: 3,
+            onChanged: notifier.onDescChanged,
+            validator: notifier.descValidator,
+          ),
+        ],
+
+//
       ].joinWidgetList(heightSizedBoxIndex),
     );
   }

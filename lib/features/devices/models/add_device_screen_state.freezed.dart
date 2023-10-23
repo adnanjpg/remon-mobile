@@ -18,9 +18,15 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AddDeviceScreenState {
   GlobalKey<FormState> get formKey => throw _privateConstructorUsedError;
   CurrentStep get currentStep => throw _privateConstructorUsedError;
+  int? get deviceId => throw _privateConstructorUsedError;
   String? get ip => throw _privateConstructorUsedError;
   String? get port => throw _privateConstructorUsedError;
   String? get otp => throw _privateConstructorUsedError;
+  String? get title => throw _privateConstructorUsedError;
+  String? get desc => throw _privateConstructorUsedError;
+  double? get ramAlertRange => throw _privateConstructorUsedError;
+  double? get cpuAlertRange => throw _privateConstructorUsedError;
+  double? get storageAlertRange => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddDeviceScreenStateCopyWith<AddDeviceScreenState> get copyWith =>
@@ -36,9 +42,15 @@ abstract class $AddDeviceScreenStateCopyWith<$Res> {
   $Res call(
       {GlobalKey<FormState> formKey,
       CurrentStep currentStep,
+      int? deviceId,
       String? ip,
       String? port,
-      String? otp});
+      String? otp,
+      String? title,
+      String? desc,
+      double? ramAlertRange,
+      double? cpuAlertRange,
+      double? storageAlertRange});
 }
 
 /// @nodoc
@@ -57,9 +69,15 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
   $Res call({
     Object? formKey = null,
     Object? currentStep = null,
+    Object? deviceId = freezed,
     Object? ip = freezed,
     Object? port = freezed,
     Object? otp = freezed,
+    Object? title = freezed,
+    Object? desc = freezed,
+    Object? ramAlertRange = freezed,
+    Object? cpuAlertRange = freezed,
+    Object? storageAlertRange = freezed,
   }) {
     return _then(_value.copyWith(
       formKey: null == formKey
@@ -70,6 +88,10 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
           ? _value.currentStep
           : currentStep // ignore: cast_nullable_to_non_nullable
               as CurrentStep,
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as int?,
       ip: freezed == ip
           ? _value.ip
           : ip // ignore: cast_nullable_to_non_nullable
@@ -82,6 +104,26 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
           ? _value.otp
           : otp // ignore: cast_nullable_to_non_nullable
               as String?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      desc: freezed == desc
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ramAlertRange: freezed == ramAlertRange
+          ? _value.ramAlertRange
+          : ramAlertRange // ignore: cast_nullable_to_non_nullable
+              as double?,
+      cpuAlertRange: freezed == cpuAlertRange
+          ? _value.cpuAlertRange
+          : cpuAlertRange // ignore: cast_nullable_to_non_nullable
+              as double?,
+      storageAlertRange: freezed == storageAlertRange
+          ? _value.storageAlertRange
+          : storageAlertRange // ignore: cast_nullable_to_non_nullable
+              as double?,
     ) as $Val);
   }
 }
@@ -97,9 +139,15 @@ abstract class _$$_AddDeviceScreenStateCopyWith<$Res>
   $Res call(
       {GlobalKey<FormState> formKey,
       CurrentStep currentStep,
+      int? deviceId,
       String? ip,
       String? port,
-      String? otp});
+      String? otp,
+      String? title,
+      String? desc,
+      double? ramAlertRange,
+      double? cpuAlertRange,
+      double? storageAlertRange});
 }
 
 /// @nodoc
@@ -115,9 +163,15 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
   $Res call({
     Object? formKey = null,
     Object? currentStep = null,
+    Object? deviceId = freezed,
     Object? ip = freezed,
     Object? port = freezed,
     Object? otp = freezed,
+    Object? title = freezed,
+    Object? desc = freezed,
+    Object? ramAlertRange = freezed,
+    Object? cpuAlertRange = freezed,
+    Object? storageAlertRange = freezed,
   }) {
     return _then(_$_AddDeviceScreenState(
       formKey: null == formKey
@@ -128,6 +182,10 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
           ? _value.currentStep
           : currentStep // ignore: cast_nullable_to_non_nullable
               as CurrentStep,
+      deviceId: freezed == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as int?,
       ip: freezed == ip
           ? _value.ip
           : ip // ignore: cast_nullable_to_non_nullable
@@ -140,6 +198,26 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
           ? _value.otp
           : otp // ignore: cast_nullable_to_non_nullable
               as String?,
+      title: freezed == title
+          ? _value.title
+          : title // ignore: cast_nullable_to_non_nullable
+              as String?,
+      desc: freezed == desc
+          ? _value.desc
+          : desc // ignore: cast_nullable_to_non_nullable
+              as String?,
+      ramAlertRange: freezed == ramAlertRange
+          ? _value.ramAlertRange
+          : ramAlertRange // ignore: cast_nullable_to_non_nullable
+              as double?,
+      cpuAlertRange: freezed == cpuAlertRange
+          ? _value.cpuAlertRange
+          : cpuAlertRange // ignore: cast_nullable_to_non_nullable
+              as double?,
+      storageAlertRange: freezed == storageAlertRange
+          ? _value.storageAlertRange
+          : storageAlertRange // ignore: cast_nullable_to_non_nullable
+              as double?,
     ));
   }
 }
@@ -150,9 +228,15 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
   const _$_AddDeviceScreenState(
       {required this.formKey,
       required this.currentStep,
+      required this.deviceId,
       required this.ip,
       required this.port,
-      required this.otp})
+      required this.otp,
+      required this.title,
+      required this.desc,
+      required this.ramAlertRange,
+      required this.cpuAlertRange,
+      required this.storageAlertRange})
       : super._();
 
   @override
@@ -160,15 +244,27 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
   @override
   final CurrentStep currentStep;
   @override
+  final int? deviceId;
+  @override
   final String? ip;
   @override
   final String? port;
   @override
   final String? otp;
+  @override
+  final String? title;
+  @override
+  final String? desc;
+  @override
+  final double? ramAlertRange;
+  @override
+  final double? cpuAlertRange;
+  @override
+  final double? storageAlertRange;
 
   @override
   String toString() {
-    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, ip: $ip, port: $port, otp: $otp)';
+    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, deviceId: $deviceId, ip: $ip, port: $port, otp: $otp, title: $title, desc: $desc, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange)';
   }
 
   @override
@@ -179,14 +275,35 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
             (identical(other.formKey, formKey) || other.formKey == formKey) &&
             (identical(other.currentStep, currentStep) ||
                 other.currentStep == currentStep) &&
+            (identical(other.deviceId, deviceId) ||
+                other.deviceId == deviceId) &&
             (identical(other.ip, ip) || other.ip == ip) &&
             (identical(other.port, port) || other.port == port) &&
-            (identical(other.otp, otp) || other.otp == otp));
+            (identical(other.otp, otp) || other.otp == otp) &&
+            (identical(other.title, title) || other.title == title) &&
+            (identical(other.desc, desc) || other.desc == desc) &&
+            (identical(other.ramAlertRange, ramAlertRange) ||
+                other.ramAlertRange == ramAlertRange) &&
+            (identical(other.cpuAlertRange, cpuAlertRange) ||
+                other.cpuAlertRange == cpuAlertRange) &&
+            (identical(other.storageAlertRange, storageAlertRange) ||
+                other.storageAlertRange == storageAlertRange));
   }
 
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, formKey, currentStep, ip, port, otp);
+  int get hashCode => Object.hash(
+      runtimeType,
+      formKey,
+      currentStep,
+      deviceId,
+      ip,
+      port,
+      otp,
+      title,
+      desc,
+      ramAlertRange,
+      cpuAlertRange,
+      storageAlertRange);
 
   @JsonKey(ignore: true)
   @override
@@ -200,9 +317,15 @@ abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   const factory _AddDeviceScreenState(
       {required final GlobalKey<FormState> formKey,
       required final CurrentStep currentStep,
+      required final int? deviceId,
       required final String? ip,
       required final String? port,
-      required final String? otp}) = _$_AddDeviceScreenState;
+      required final String? otp,
+      required final String? title,
+      required final String? desc,
+      required final double? ramAlertRange,
+      required final double? cpuAlertRange,
+      required final double? storageAlertRange}) = _$_AddDeviceScreenState;
   const _AddDeviceScreenState._() : super._();
 
   @override
@@ -210,11 +333,23 @@ abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   @override
   CurrentStep get currentStep;
   @override
+  int? get deviceId;
+  @override
   String? get ip;
   @override
   String? get port;
   @override
   String? get otp;
+  @override
+  String? get title;
+  @override
+  String? get desc;
+  @override
+  double? get ramAlertRange;
+  @override
+  double? get cpuAlertRange;
+  @override
+  double? get storageAlertRange;
   @override
   @JsonKey(ignore: true)
   _$$_AddDeviceScreenStateCopyWith<_$_AddDeviceScreenState> get copyWith =>
