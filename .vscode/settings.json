@@ -2,7 +2,7 @@
     "search.useGlobalIgnoreFiles": false,
     "search.useIgnoreFiles": true,
     "search.useParentIgnoreFiles": false,
-    "dart.flutterSdkPath": "/Users/adnanfahed/fvm/default/bin",
+    "dart.flutterSdkPath": "/c/Users/Yusuf/flutter/bin/dart",
     // Remove .fvm files from search
     "search.exclude": {
         "**/.fvm": true
