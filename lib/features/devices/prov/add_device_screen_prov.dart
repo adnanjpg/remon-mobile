@@ -7,6 +7,7 @@ import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/services/api_service.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/route_table.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
@@ -33,6 +34,8 @@ class _AddDeviceScreenStateNotifier
         .copyWith(
           currentStep: CurrentStep.config,
         );
+
+    setGlobalSelectedDevice();
   }
 
   Future<bool> _validate({
@@ -43,6 +46,10 @@ class _AddDeviceScreenStateNotifier
     }
 
     return true;
+  }
+
+  void setGlobalSelectedDevice() {
+    ref.read(selectedDeviceProv.notifier).state = state.toDeviceModel();
   }
 
   void setToNextStep({
@@ -57,6 +64,8 @@ class _AddDeviceScreenStateNotifier
     state = state.copyWith(
       currentStep: CurrentStep.values[state.currentStep.index + 1],
     );
+
+    setGlobalSelectedDevice();
   }
 
   Future<bool> onSubmitBtnPressed({
@@ -122,6 +131,16 @@ class _AddDeviceScreenStateNotifier
     }
 
     if (state.currentStep.isConfig) {
+      final isUpdated = await api.updateDeviceInfo(
+        model: UpdateDeviceInfoRequestModel.fromDeviceModel(
+          state.toDeviceModel(),
+        ),
+      );
+
+      if (isUpdated != true) {
+        return false;
+      }
+
       final dev = state.toDeviceModel();
       final res = await ref.read(localDbService).updateDevice(
             device: dev,

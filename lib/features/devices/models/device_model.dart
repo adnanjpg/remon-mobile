@@ -1,3 +1,5 @@
+// ignore_for_file: invalid_annotation_target
+
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:isar/isar.dart';
 
@@ -63,4 +65,32 @@ class DeviceModel with _$DeviceModel {
 
   bool get isHttps => false;
   String get url => isHttps ? 'https://$ipWPort' : 'http://$ipWPort';
+}
+
+// {
+//     "device_id": "test",
+//     "cpu_threshold": 1.2,
+//     "mem_threshold": 3.4,
+//     "storage_threshold": 5.6
+// }
+@freezed
+class UpdateDeviceInfoRequestModel with _$UpdateDeviceInfoRequestModel {
+  const factory UpdateDeviceInfoRequestModel({
+    @JsonKey(name: 'device_id') required String deviceId,
+    @JsonKey(name: 'cpu_threshold') required double cpuThreshold,
+    @JsonKey(name: 'mem_threshold') required double memThreshold,
+    @JsonKey(name: 'storage_threshold') required double storageThreshold,
+  }) = _UpdateDeviceInfoRequestModel;
+
+  factory UpdateDeviceInfoRequestModel.fromDeviceModel(DeviceModel device) {
+    return UpdateDeviceInfoRequestModel(
+      deviceId: device.deviceUUID,
+      cpuThreshold: device.cpuAlertRange,
+      memThreshold: device.ramAlertRange,
+      storageThreshold: device.storageAlertRange,
+    );
+  }
+
+  factory UpdateDeviceInfoRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$UpdateDeviceInfoRequestModelFromJson(json);
 }

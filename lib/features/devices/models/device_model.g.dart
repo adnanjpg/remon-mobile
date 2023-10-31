@@ -3428,3 +3428,25 @@ extension DeviceModelQueryProperty3<R1, R2>
     });
   }
 }
+
+// **************************************************************************
+// JsonSerializableGenerator
+// **************************************************************************
+
+_$_UpdateDeviceInfoRequestModel _$$_UpdateDeviceInfoRequestModelFromJson(
+        Map<String, dynamic> json) =>
+    _$_UpdateDeviceInfoRequestModel(
+      deviceId: json['device_id'] as String,
+      cpuThreshold: (json['cpu_threshold'] as num).toDouble(),
+      memThreshold: (json['mem_threshold'] as num).toDouble(),
+      storageThreshold: (json['storage_threshold'] as num).toDouble(),
+    );
+
+Map<String, dynamic> _$$_UpdateDeviceInfoRequestModelToJson(
+        _$_UpdateDeviceInfoRequestModel instance) =>
+    <String, dynamic>{
+      'device_id': instance.deviceId,
+      'cpu_threshold': instance.cpuThreshold,
+      'mem_threshold': instance.memThreshold,
+      'storage_threshold': instance.storageThreshold,
+    };

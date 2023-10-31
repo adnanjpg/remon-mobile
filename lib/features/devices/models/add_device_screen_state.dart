@@ -64,6 +64,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
       ramAlertRange: device.ramAlertRange,
       cpuAlertRange: device.cpuAlertRange,
       storageAlertRange: device.storageAlertRange,
+      token: device.token,
     );
   }
 

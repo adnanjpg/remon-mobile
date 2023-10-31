@@ -5,6 +5,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
+import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
@@ -23,10 +24,8 @@ class ApiMethods {
 
   String pathToUrl(String path) => '$baseUrl/$path';
 
-  // Future<String?> get idToken =>
-  //     _ref.read(authProvider.notifier).getUserIdToken();
-  // TODO(adnanjpg)
-  Future<String?> get idToken async => 'thetoken';
+  Future<String?> get idToken =>
+      Future.value(_ref.read(selectedDeviceProv).token);
 
   Future<String?> get idTokenHeader async => 'Bearer ${await idToken}';
 
@@ -196,6 +195,7 @@ class ApiRoutes {
   static const hello = 'hello';
   static const getOtpQr = 'get-otp-qr';
   static const login = 'login';
+  static const updateDeviceInfo = 'update-info';
 }
 
 final apiServiceProvExternalUrl = Provider.family<ApiService, String?>(
@@ -301,6 +301,31 @@ extension AuthEndPoints on ApiService {
     } catch (e) {
       logger.e(e);
       return null;
+    }
+  }
+
+  Future<bool> updateDeviceInfo({
+    required UpdateDeviceInfoRequestModel model,
+  }) async {
+    try {
+      final res = await methods.post<String>(
+        path: ApiRoutes.updateDeviceInfo,
+        data: model.toJson(),
+      );
+
+      final dt = res.data;
+
+      if (dt == null) {
+        return false;
+      }
+
+      final decoded = json.decode(dt) as Map<String, dynamic>;
+      final success = decoded['success'] as bool;
+
+      return success;
+    } catch (e) {
+      logger.e(e);
+      return false;
     }
   }
 }
