@@ -66,6 +66,44 @@ class LocalDbService {
     );
   }
 
+  // TODO(adnanjpg): replace once this issue resolves
+  // https://github.com/isar/isar/issues/1478
+  Stream<int> watchDevicesCount() {
+    try {
+      final count = db.deviceModels.where().titleIsNotEmpty().watch(
+            fireImmediately: true,
+          );
+
+      return count.map(
+        (event) {
+          return event.length;
+        },
+      );
+    } catch (e) {
+      logger.e(e);
+
+      return const Stream.empty();
+    }
+  }
+
+  Stream<bool> watchHasAnyDevice() {
+    try {
+      final devicesCountStream = watchDevicesCount();
+
+      final hasAnyDeviceStream = devicesCountStream.map(
+        (event) {
+          return event > 0;
+        },
+      );
+
+      return hasAnyDeviceStream;
+    } catch (e) {
+      logger.e(e);
+
+      return const Stream.empty();
+    }
+  }
+
   Stream<List<DeviceModel>> watchAllDevices() {
     try {
       final devices = db.deviceModels.where().watch(
