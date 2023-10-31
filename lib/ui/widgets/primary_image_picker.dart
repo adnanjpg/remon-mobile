@@ -1,26 +1,13 @@
 import 'dart:io';
 
-import 'package:remon_mobile/gen/locale_keys.g.dart';
-import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:image_cropper/image_cropper.dart';
 import 'package:image_picker/image_picker.dart';
-
-import '../../utils/utils.dart';
+import 'package:remon_mobile/gen/locale_keys.g.dart';
+import 'package:remon_mobile/utils/app_theme.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 class PrimaryImagePicker extends StatefulWidget {
-  final File? pickedImage;
-  final String? pickedImageUrl;
-  final Function(File) onImagePicked;
-  final double ratioX;
-  final double ratioY;
-  final int maxWidth;
-  final int maxHeight;
-  final String? hintText;
-  final double? radius;
-  final BoxShape? shape;
-  final IconData? icon;
-
   const PrimaryImagePicker({
     required this.pickedImage,
     required this.onImagePicked,
@@ -35,10 +22,9 @@ class PrimaryImagePicker extends StatefulWidget {
     this.icon,
     super.key,
   });
-
-  factory PrimaryImagePicker.ProfileImage({
+  factory PrimaryImagePicker.profileImage({
     required File? pickedImage,
-    required Function(File) onImagePicked,
+    required void Function(File) onImagePicked,
     String? pickedImageUrl,
     String? hintText,
     double? radius,
@@ -60,6 +46,17 @@ class PrimaryImagePicker extends StatefulWidget {
       icon: Icons.person,
     );
   }
+  final File? pickedImage;
+  final String? pickedImageUrl;
+  final void Function(File) onImagePicked;
+  final double ratioX;
+  final double ratioY;
+  final int maxWidth;
+  final int maxHeight;
+  final String? hintText;
+  final double? radius;
+  final BoxShape? shape;
+  final IconData? icon;
 
   @override
   State<PrimaryImagePicker> createState() => _PrimaryImagePickerState();
@@ -68,7 +65,7 @@ class PrimaryImagePicker extends StatefulWidget {
 class _PrimaryImagePickerState extends State<PrimaryImagePicker> {
   final picker = ImagePicker();
 
-  void _pick() async {
+  Future<void> _pick() async {
     final pickedImg = await picker.pickImage(source: ImageSource.gallery);
 
     if (pickedImg == null) {
@@ -156,13 +153,14 @@ class _PrimaryImagePickerState extends State<PrimaryImagePicker> {
                         )
                       : (widget.icon != null
                           ? Icon(
-                              widget.icon!,
+                              widget.icon,
                               size: 60,
                             )
                           : Text(
                               widget.hintText ??
-                                  getStr(LocaleKeys
-                                      .image_picker_widget_default_hint),
+                                  getStr(
+                                    LocaleKeys.image_picker_widget_default_hint,
+                                  ),
                               textAlign: TextAlign.center,
                             )),
                 ),

@@ -1,12 +1,37 @@
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
 import 'package:remon_mobile/widgetbook/widgetbook_wrapper.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 class PrimaryField extends StatefulWidget {
+  const PrimaryField({
+    super.key,
+    this.initialValue,
+    this.value,
+    this.hintText,
+    this.labelText,
+    this.onChanged,
+    this.onSubmitted,
+    this.validator,
+    this.keyboardType,
+    this.textInputAction,
+    this.minLines,
+    this.maxLines,
+    this.icon,
+    this.prefixIcon,
+    this.suffixIcon,
+    this.isPassword = false,
+    this.onTap,
+    this.enabled = true,
+    this.enabledStyle = false,
+    this.textAlign = TextAlign.start,
+    this.contentPadding,
+    this.style,
+    this.inputFormatters,
+    this.focusNode,
+  });
   final String? initialValue;
 
   /// this will always be up to date.
@@ -18,7 +43,7 @@ class PrimaryField extends StatefulWidget {
   final String? value;
   final String? hintText;
   final String? labelText;
-  final Function(String)? onChanged;
+  final void Function(String)? onChanged;
   final ValueChanged<String>? onSubmitted;
   final String? Function(String?)? validator;
   final TextInputType? keyboardType;
@@ -51,33 +76,6 @@ class PrimaryField extends StatefulWidget {
   final TextStyle? style;
 
   final EdgeInsetsGeometry? contentPadding;
-
-  const PrimaryField({
-    super.key,
-    this.initialValue,
-    this.value,
-    this.hintText,
-    this.labelText,
-    this.onChanged,
-    this.onSubmitted,
-    this.validator,
-    this.keyboardType,
-    this.textInputAction,
-    this.minLines,
-    this.maxLines,
-    this.icon,
-    this.prefixIcon,
-    this.suffixIcon,
-    this.isPassword = false,
-    this.onTap,
-    this.enabled = true,
-    this.enabledStyle = false,
-    this.textAlign = TextAlign.start,
-    this.contentPadding,
-    this.style,
-    this.inputFormatters,
-    this.focusNode,
-  });
 
   @override
   State<PrimaryField> createState() => _PrimaryFieldState();
@@ -276,12 +274,12 @@ class _PrimaryFieldState extends State<PrimaryField> {
 }
 
 class _PassButton extends StatelessWidget {
-  final VoidCallback onPressed;
-  final bool obscureText;
   const _PassButton({
     required this.onPressed,
     required this.obscureText,
   });
+  final VoidCallback onPressed;
+  final bool obscureText;
 
   @override
   Widget build(BuildContext context) {
@@ -317,29 +315,29 @@ Widget primaryFieldUseCase(BuildContext context) {
         child: Column(
           children: [
             const PrimaryField(
-              labelText: "Widgetbook Primary field",
-              hintText: "Hint text here",
+              labelText: 'Widgetbook Primary field',
+              hintText: 'Hint text here',
             ),
             const PrimaryField(
-              labelText: "Widgetbook Primary field",
-              hintText: "Hint text here",
+              labelText: 'Widgetbook Primary field',
+              hintText: 'Hint text here',
               enabled: false,
             ),
             PrimaryField(
-              labelText: "Widgetbook Primary field",
-              hintText: "Hint text here",
+              labelText: 'Widgetbook Primary field',
+              hintText: 'Hint text here',
               focusNode: FocusNode()..requestFocus(),
             ),
             const PrimaryField(
-              labelText: "Widgetbook Primary field",
-              hintText: "Hint text here",
-              initialValue: "initial value",
+              labelText: 'Widgetbook Primary field',
+              hintText: 'Hint text here',
+              initialValue: 'initial value',
             ),
             PrimaryField(
-              labelText: "Widgetbook Primary field",
-              hintText: "Hint text here",
+              labelText: 'Widgetbook Primary field',
+              hintText: 'Hint text here',
               validator: (_) {
-                return "error";
+                return 'error';
               },
             ),
           ].joinWidgetList(

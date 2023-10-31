@@ -10,18 +10,16 @@ import 'package:remon_mobile/utils/utils.dart';
 
 final addDeviceScreenProv = StateNotifierProvider.autoDispose<
     _AddDeviceScreenStateNotifier, AddDeviceScreenState>(
-  (ref) => _AddDeviceScreenStateNotifier(
-    ref,
-  ),
+  _AddDeviceScreenStateNotifier.new,
 );
 
 class _AddDeviceScreenStateNotifier
     extends StateNotifier<AddDeviceScreenState> {
-  final Ref ref;
   _AddDeviceScreenStateNotifier(this.ref)
       : super(
           AddDeviceScreenState.initial(),
         );
+  final Ref ref;
 
   void init({
     required DeviceModel device,

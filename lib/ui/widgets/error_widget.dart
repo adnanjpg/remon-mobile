@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 
-import '../../utils/utils.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 // naming like this bcz there already a Widget named `ErrorWidget` in flutter
 class ErrWidget extends StatelessWidget {
+  const ErrWidget(this.error, this.stack, {super.key});
+
+  const ErrWidget.error(this.error, {super.key}) : stack = null;
+
+  const ErrWidget.empty({super.key})
+      : error = '',
+        stack = null;
   final Object? error;
   final StackTrace? stack;
-  const ErrWidget(this.error, this.stack, {Key? key}) : super(key: key);
-
-  const ErrWidget.error(this.error, {Key? key})
-      : stack = null,
-        super(key: key);
-
-  const ErrWidget.empty({Key? key})
-      : error = '',
-        stack = null,
-        super(key: key);
 
   @override
   Widget build(BuildContext context) {

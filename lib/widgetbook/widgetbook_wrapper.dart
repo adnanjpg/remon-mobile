@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
 
 class WidgetbookWrapper extends StatelessWidget {
+  const WidgetbookWrapper({required this.child, super.key});
   final Widget child;
-  const WidgetbookWrapper({Key? key, required this.child}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {

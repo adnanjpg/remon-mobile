@@ -1,8 +1,8 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/home/models/bottom_bar/bottom_bar_index.dart';
+import 'package:remon_mobile/features/home/models/bottom_bar/bottom_bar_state.dart';
 import 'package:remon_mobile/services/analytics_service.dart';
 import 'package:remon_mobile/utils/utils.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../models/bottom_bar/bottom_bar_state.dart';
 
 final bottomBarStateProvider =
     StateNotifierProvider.autoDispose<BottomBarStateNotifier, BottomBarState>(
@@ -10,8 +10,8 @@ final bottomBarStateProvider =
 );
 
 class BottomBarStateNotifier extends StateNotifier<BottomBarState> {
-  final Ref ref;
   BottomBarStateNotifier(this.ref) : super(BottomBarState.initial());
+  final Ref ref;
 
   void onBottomBarTap(int index) {
     // ref.read may fail, then our app would fail epically

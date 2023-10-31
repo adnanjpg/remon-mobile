@@ -1,27 +1,21 @@
 import 'package:flutter/material.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
-
-import '../../utils/utils.dart';
-import 'error_widget.dart';
-import 'go_home_btn.dart';
+import 'package:remon_mobile/ui/widgets/error_widget.dart';
+import 'package:remon_mobile/ui/widgets/go_home_btn.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 class ErrorScreen extends StatefulWidget {
+  const ErrorScreen(this.error, this.stack, {super.key});
+  const ErrorScreen.error(this.error, {super.key}) : stack = null;
+  ErrorScreen.routeError({super.key})
+      : stack = null,
+        error = getStr(LocaleKeys.error_screen_route_is_broken);
+
+  const ErrorScreen.empty({super.key})
+      : error = null,
+        stack = null;
   final Object? error;
   final StackTrace? stack;
-  const ErrorScreen(this.error, this.stack, {Key? key}) : super(key: key);
-
-  const ErrorScreen.error(this.error, {Key? key})
-      : stack = null,
-        super(key: key);
-  ErrorScreen.routeError({Key? key})
-      : stack = null,
-        error = getStr(LocaleKeys.error_screen_route_is_broken),
-        super(key: key);
-
-  const ErrorScreen.empty({Key? key})
-      : error = null,
-        stack = null,
-        super(key: key);
 
   @override
   State<ErrorScreen> createState() => _ErrorScreenState();

@@ -13,13 +13,11 @@ enum CurrentStep {
   bool get isOtp => this == CurrentStep.otp;
   bool get isConfig => this == CurrentStep.config;
 
-  bool get isLast => this.index == CurrentStep.values.length - 1;
+  bool get isLast => index == CurrentStep.values.length - 1;
 }
 
 @freezed
 class AddDeviceScreenState with _$AddDeviceScreenState {
-  const AddDeviceScreenState._();
-
   const factory AddDeviceScreenState({
     required GlobalKey<FormState> formKey,
     required CurrentStep currentStep,
@@ -33,6 +31,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
     required double? cpuAlertRange,
     required double? storageAlertRange,
   }) = _AddDeviceScreenState;
+  const AddDeviceScreenState._();
 
   factory AddDeviceScreenState.initial() => AddDeviceScreenState(
         formKey: GlobalKey<FormState>(),

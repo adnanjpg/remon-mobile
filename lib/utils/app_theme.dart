@@ -70,11 +70,11 @@ extension MyTheme on ThemeData {
 final appThemeProv = Provider(AppTheme.new);
 
 class AppTheme {
-  final Ref ref;
   AppTheme(this.ref);
+  final Ref ref;
 
   static const int _lightPrimaryValue = 0xFF96B6C5;
-  static const MaterialColor _lightPrimary = const MaterialColor(
+  static const MaterialColor _lightPrimary = MaterialColor(
     _lightPrimaryValue,
     <int, Color>{
       100: Color(0xFFA7C8D7),
@@ -93,7 +93,7 @@ class AppTheme {
   );
 
   static const int _lightSecondaryValue = 0xFFADC4CE;
-  static const MaterialColor _lightSecondary = const MaterialColor(
+  static const MaterialColor _lightSecondary = MaterialColor(
     _lightSecondaryValue,
     <int, Color>{
       100: Color(0xFFC2D6E0),
@@ -112,7 +112,7 @@ class AppTheme {
   );
 
   static const int _lightNeutralValue = 0xFFEEE0C9;
-  static const MaterialColor _lightNeutral = const MaterialColor(
+  static const MaterialColor _lightNeutral = MaterialColor(
     _lightNeutralValue,
     <int, Color>{
       100: Color(0xFFF6E8D6),
@@ -131,7 +131,7 @@ class AppTheme {
   );
 
   static const int _lightNeutral2Value = 0xFFF1F0E8;
-  static const MaterialColor _lightNeutral2 = const MaterialColor(
+  static const MaterialColor _lightNeutral2 = MaterialColor(
     _lightNeutral2Value,
     <int, Color>{
       100: Color(0xFFF6F5EF),

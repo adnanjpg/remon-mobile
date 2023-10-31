@@ -11,10 +11,10 @@ import 'package:go_router/go_router.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/devices/ui/add_device_screen.dart';
 
-import '../features/home/ui/bottom_nav_screen.dart';
-import '../features/home/ui/splash_screen.dart';
-import '../ui/widgets/error_screen.dart';
-import '../ui/widgets/loading_screen.dart';
+import 'package:remon_mobile/features/home/ui/bottom_nav_screen.dart';
+import 'package:remon_mobile/features/home/ui/splash_screen.dart';
+import 'package:remon_mobile/ui/widgets/error_screen.dart';
+import 'package:remon_mobile/ui/widgets/loading_screen.dart';
 
 export 'package:go_router/go_router.dart' show GoRouter;
 
@@ -34,24 +34,16 @@ final shellKeyPRov = Provider(
 class RouteTable {
   RouteTable._();
 
-  static const String
-      //
-      rAddDeviceScreen = 'add_device_screen',
-      rHome = 'home_screen'
-      //
-      ;
+  static const String rAddDeviceScreen = 'add_device_screen';
+  static const String rHome = 'home_screen';
 
-  static const String
-      //
-      rSplashScreen = 'splash_screen',
-      rErrorScreen = 'error_screen',
-      rLoadingScreen = 'loading_screen'
-      //
-      ;
+  static const String rSplashScreen = 'splash_screen';
+  static const String rErrorScreen = 'error_screen';
+  static const String rLoadingScreen = 'loading_screen';
 
   static const String initialLocation = '/';
 
-  static GoRoute _mainRoute(AutoDisposeProviderRef ref) => GoRoute(
+  static GoRoute _mainRoute(AutoDisposeProviderRef<GoRouter> ref) => GoRoute(
         name: rSplashScreen,
         path: '/',
         builder: (context, state) {
@@ -70,7 +62,7 @@ class RouteTable {
             path: 'add_device',
             builder: (context, state) {
               final extra = state.extra as Map<String, dynamic>?;
-              final DeviceModel? device = extra?["device"];
+              final device = extra?['device'] as DeviceModel?;
 
               return AddDeviceScreen(
                 device: device,
@@ -95,25 +87,26 @@ class RouteTable {
       final key = ref.watch(navKeyProv);
 
       return GoRouter(
-          navigatorKey: key,
-          debugLogDiagnostics: true,
-          initialLocation: initialLocation,
-          routes: [
-            _mainRoute(ref),
-          ],
-          errorBuilder: (context, state) {
-            return ErrorScreen.routeError();
-          },
-          redirect: (context, state) {
-            final splashLoc = '/';
-            final homeLoc = state.namedLocation(rHome);
+        navigatorKey: key,
+        debugLogDiagnostics: true,
+        initialLocation: initialLocation,
+        routes: [
+          _mainRoute(ref),
+        ],
+        errorBuilder: (context, state) {
+          return ErrorScreen.routeError();
+        },
+        redirect: (context, state) {
+          const splashLoc = '/';
+          final homeLoc = state.namedLocation(rHome);
 
-            if (state.location == splashLoc) {
-              return homeLoc;
-            }
+          if (state.location == splashLoc) {
+            return homeLoc;
+          }
 
-            return null;
-          });
+          return null;
+        },
+      );
     },
   );
 }
@@ -122,7 +115,7 @@ extension GR on GoRouter {
   void onPop(VoidCallback onPop) {
     final loc = location;
 
-    listener() async {
+    Future<void> listener() async {
       if (location == loc) {
         onPop();
         removeListener(listener);

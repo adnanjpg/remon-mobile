@@ -13,8 +13,6 @@ int get invalidTempPort => -1;
 @freezed
 @collectionOnFreezed
 class DeviceModel with _$DeviceModel {
-  const DeviceModel._();
-
   const factory DeviceModel({
     required int id,
     required String title,
@@ -29,6 +27,7 @@ class DeviceModel with _$DeviceModel {
     required DateTime? lastUsedOn,
     required DateTime? tokenUpdatedOn,
   }) = _DeviceModel;
+  const DeviceModel._();
 
   factory DeviceModel.create({
     int? id,

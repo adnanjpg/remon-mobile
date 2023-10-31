@@ -2,8 +2,8 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/widgets.dart';
 import 'package:logger/logger.dart';
 
-import '../app_runner.dart';
-import '../models/app_models/lang_model.dart';
+import 'package:remon_mobile/app_runner.dart';
+import 'package:remon_mobile/models/app_models/lang_model.dart';
 
 export 'package:life_saver_extensions/life_saver_extensions.dart';
 

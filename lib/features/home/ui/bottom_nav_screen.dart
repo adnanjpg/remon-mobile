@@ -1,13 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import "package:remixicon/remixicon.dart";
+import 'package:remixicon/remixicon.dart';
+import 'package:remon_mobile/features/home/prov/bottom_bar_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
-import '../../../utils/utils.dart';
-import '../prov/bottom_bar_prov.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 class BottomNavScreen extends ConsumerWidget {
-  const BottomNavScreen();
+  const BottomNavScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {

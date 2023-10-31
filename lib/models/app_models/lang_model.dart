@@ -1,20 +1,19 @@
-import 'dart:ui';
+import 'package:flutter/material.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
-import '../../utils/utils.dart';
-
+@immutable
 class LangModel {
-  final String langCode;
-  final String langCountry;
-  final String langName;
-
   const LangModel(
     this.langCode,
     this.langCountry,
     this.langName,
   );
+  final String langCode;
+  final String langCountry;
+  final String langName;
 
   static LangModel? fromLocale(Locale locale) {
-    for (var lang in appLangs) {
+    for (final lang in appLangs) {
       if (lang.langCode == locale.languageCode) {
         return lang;
       }

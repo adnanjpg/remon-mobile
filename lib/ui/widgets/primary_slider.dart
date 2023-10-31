@@ -1,22 +1,20 @@
+import 'package:flutter/material.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/widgetbook/widgetbook_wrapper.dart';
-import 'package:flutter/material.dart';
-
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 class PrimarySlider extends StatefulWidget {
-  final double? value;
-  final double minValue;
-  final double maxValue;
-  final Function(double?)? onChanged;
-
   const PrimarySlider({
-    super.key,
     required this.value,
     required this.onChanged,
     required this.minValue,
     required this.maxValue,
+    super.key,
   });
+  final double? value;
+  final double minValue;
+  final double maxValue;
+  final void Function(double?)? onChanged;
 
   @override
   State<PrimarySlider> createState() => _PrimarySliderState();
@@ -46,7 +44,7 @@ class _PrimarySliderState extends State<PrimarySlider> {
   name: 'Primary Slider',
   type: PrimarySlider,
 )
-Widget PrimarySliderUseCase(BuildContext context) {
+Widget primarySliderUseCase(BuildContext context) {
   return const WidgetbookWrapper(
     child: Column(
       children: [

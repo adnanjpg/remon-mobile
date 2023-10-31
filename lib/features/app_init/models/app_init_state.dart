@@ -1,5 +1,5 @@
-import 'package:remon_mobile/features/app_init/models/app_settings.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:remon_mobile/features/app_init/models/app_settings.dart';
 
 part 'app_init_state.freezed.dart';
 

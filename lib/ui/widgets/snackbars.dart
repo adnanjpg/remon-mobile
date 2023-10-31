@@ -11,11 +11,6 @@ enum PrimaryToastType {
 }
 
 class PrimaryToastProps {
-  final PrimaryToastType type;
-  final String title;
-  final String? message;
-  final VoidCallback? onDismiss;
-
   const PrimaryToastProps.success({
     required this.title,
     required this.message,
@@ -39,13 +34,16 @@ class PrimaryToastProps {
     required this.message,
     this.onDismiss,
   }) : type = PrimaryToastType.info;
+  final PrimaryToastType type;
+  final String title;
+  final String? message;
+  final VoidCallback? onDismiss;
 }
 
 class ToastMachine {
+  const ToastMachine(this._ref);
   // ignore: unused_field
   final Ref _ref;
-
-  const ToastMachine(this._ref);
 
   void _showToast({
     required BuildContext context,

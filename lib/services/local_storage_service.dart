@@ -6,12 +6,10 @@ import 'package:shared_preferences/shared_preferences.dart';
 final localStorageProv = Provider<LocalStorageService>(LocalStorageService.new);
 
 class LocalStorageService {
+  LocalStorageService(this.ref);
   final Ref ref;
 
-  LocalStorageService(this.ref);
-
-  Future<SharedPreferences> getPrefs() async =>
-      await SharedPreferences.getInstance();
+  Future<SharedPreferences> getPrefs() async => SharedPreferences.getInstance();
 
   Future<bool> _setVal(String key, String val) async {
     final prefs = await getPrefs();

@@ -1,8 +1,15 @@
-include: package:flutter_lints/flutter.yaml
+include: package:very_good_analysis/analysis_options.yaml
 linter:
   rules:
-    exclude: [build/**, lib/**.freezed.dart, lib/**.g.dart]
+    # exclude: [build/**, lib/**.freezed.dart, lib/**.g.dart]
     prefer_const_constructors: true
+    public_member_api_docs: false
+    lines_longer_than_80_chars: false
+    join_return_with_assignment: false
+    avoid_redundant_argument_values: false
+    use_build_context_synchronously: false
+    sort_pub_dependencies: false
 analyzer:
   plugins:
     - custom_lint
+  exclude: [build/**, lib/**.freezed.dart, lib/**.g.dart]

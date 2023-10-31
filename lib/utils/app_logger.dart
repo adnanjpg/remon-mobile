@@ -16,7 +16,12 @@ class _LoggerImpl extends Logger {
         );
 
   @override
-  void log(Level level, message, [error, StackTrace? stackTrace]) {
+  void log(
+    Level level,
+    dynamic message, [
+    dynamic error,
+    StackTrace? stackTrace,
+  ]) {
     try {
       stackTrace ??= StackTrace.current;
 

@@ -3,14 +3,13 @@ import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-
-import 'ui/widgets/loading_screen.dart';
-import 'utils/app_theme.dart';
-import 'utils/prov/app_info_prov.dart';
-import 'features/app_init/app_init_prov.dart';
-import 'utils/prov/app_refresh_listenable.dart';
-import 'utils/route_table.dart';
-import 'utils/utils.dart';
+import 'package:remon_mobile/features/app_init/app_init_prov.dart';
+import 'package:remon_mobile/ui/widgets/loading_screen.dart';
+import 'package:remon_mobile/utils/app_theme.dart';
+import 'package:remon_mobile/utils/prov/app_info_prov.dart';
+import 'package:remon_mobile/utils/prov/app_refresh_listenable.dart';
+import 'package:remon_mobile/utils/route_table.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 class TheApp extends StatelessWidget {
   const TheApp({super.key});
@@ -27,10 +26,11 @@ class TheApp extends StatelessWidget {
 }
 
 class EasyLocWrapper extends StatelessWidget {
-  final Widget child;
   const EasyLocWrapper({
     required this.child,
-  }) : super();
+    super.key,
+  });
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {
@@ -128,11 +128,11 @@ class _AppState extends ConsumerState<_App> {
 }
 
 class WidgetBldr extends StatelessWidget {
-  final Widget child;
   const WidgetBldr({
-    super.key,
     required this.child,
+    super.key,
   });
+  final Widget child;
 
   @override
   Widget build(BuildContext context) {

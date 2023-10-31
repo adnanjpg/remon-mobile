@@ -1,6 +1,6 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 
-import 'utils.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 /// Useful to log state change in our application
 /// Read the logs and you'll better understand what's going on under the hood
@@ -8,7 +8,7 @@ class StateLogger extends ProviderObserver {
   const StateLogger();
   @override
   void didUpdateProvider(
-    ProviderBase provider,
+    ProviderBase<Object?> provider,
     Object? previousValue,
     Object? newValue,
     ProviderContainer container,

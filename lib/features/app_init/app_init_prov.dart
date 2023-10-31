@@ -1,12 +1,7 @@
+import 'dart:async';
 import 'dart:convert';
-import 'package:isar/isar.dart';
-import 'package:path_provider/path_provider.dart';
-import 'package:remon_mobile/app_runner.dart';
-import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 
-import 'package:remon_mobile/features/app_init/models/app_init_state.dart';
-import 'package:remon_mobile/features/app_init/models/app_settings.dart';
-import 'package:remon_mobile/utils/utils.dart';
+import 'package:app_tracking_transparency/app_tracking_transparency.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
@@ -14,10 +9,15 @@ import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:isar/isar.dart';
+import 'package:path_provider/path_provider.dart';
+import 'package:remon_mobile/app_runner.dart';
+import 'package:remon_mobile/features/app_init/models/app_init_state.dart';
+import 'package:remon_mobile/features/app_init/models/app_settings.dart';
+import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/services/analytics_service.dart';
+import 'package:remon_mobile/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
-
-import '../../services/analytics_service.dart';
-import '../devices/models/device_model.dart';
 
 final appInitializerProv = Provider<AppInitProv>(AppInitProv.new);
 
@@ -45,6 +45,8 @@ final appInitedProv = Provider<bool>(
 final wantsToAuthAfterIntroProv = StateProvider<bool>((ref) => false);
 
 class AppInitProv {
+  AppInitProv(this.ref)
+      : flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
   final Ref ref;
 
   bool _inited = false;
@@ -53,9 +55,6 @@ class AppInitProv {
   bool get inited => _inited;
 
   FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
-
-  AppInitProv(this.ref)
-      : flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
 
   Future<bool> setAppOpened() async {
     try {
@@ -87,7 +86,7 @@ class AppInitProv {
 
       final json = jsonEncode(settings.toJson());
 
-      prefs.setString('settings', json);
+      await prefs.setString('settings', json);
 
       return true;
     } catch (e) {
@@ -133,7 +132,7 @@ class AppInitProv {
 
       // fb
       settings = await requestTracking(settings);
-      encodeSettings(settings);
+      await encodeSettings(settings);
 
       await initFb();
 
@@ -181,7 +180,7 @@ class AppInitProv {
 
   Future<void> initIsar() async {
     final dir = await getApplicationDocumentsDirectory();
-    await Isar.open(
+    Isar.open(
       schemas: ref.read(isarSchemasProv),
       directory: dir.path,
       name: ref.read(isarDefaultInstanceNameProv),
@@ -192,7 +191,9 @@ class AppInitProv {
     await EasyLocalization.ensureInitialized();
   }
 
-  Future<AppSettings> requestTracking(AppSettings settings) async {
+  Future<AppSettings> requestTracking(AppSettings sett) async {
+    var settings = sett;
+
     try {
       final appTrackStat =
           await AppTrackingTransparency.trackingAuthorizationStatus;
@@ -282,9 +283,7 @@ class AppInitProv {
 
       // crashlytics
       {
-        FlutterError.onError = (errorDetails) {
-          logger.e(errorDetails);
-        };
+        FlutterError.onError = logger.e;
         // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
         PlatformDispatcher.instance.onError = (error, stack) {
           logger.e(error, stack);
@@ -293,7 +292,7 @@ class AppInitProv {
       }
 
       try {
-        ref.read(fbAnalyticsProv).appOpened();
+        unawaited(ref.read(fbAnalyticsProv).appOpened());
       } catch (e) {
         logger.e(e);
       }

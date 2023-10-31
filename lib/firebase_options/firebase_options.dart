@@ -1,10 +1,10 @@
-import 'package:remon_mobile/app_runner.dart';
 import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
 import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
+    show TargetPlatform, defaultTargetPlatform, kIsWeb;
+import 'package:remon_mobile/app_runner.dart';
 
-part './firebase_options-development.dart';
-part './firebase_options-production.dart';
+part 'firebase_options_development.dart';
+part 'firebase_options_production.dart';
 
 abstract class DefaultFirebaseOptions {
   FirebaseOptions get currentPlatform {
@@ -30,13 +30,10 @@ abstract class DefaultFirebaseOptions {
           'you can reconfigure this by running the FlutterFire CLI again.',
         );
       case TargetPlatform.linux:
+      case TargetPlatform.fuchsia:
         throw UnsupportedError(
           'DefaultFirebaseOptions have not been configured for linux - '
           'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      default:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
         );
     }
   }
@@ -47,14 +44,10 @@ abstract class DefaultFirebaseOptions {
 
 DefaultFirebaseOptions defaultFirebaseOptions(Flavor flavor) {
   switch (flavor) {
-    case Flavor.LOCALDEV:
-    case Flavor.DEV:
+    case Flavor.localDev:
+    case Flavor.dev:
       return _DevelopmentOptions();
-    case Flavor.PROD:
+    case Flavor.prod:
       return _ProductionOptions();
-    default:
-      throw UnsupportedError(
-        'DefaultFirebaseOptions are not supported for this environment.',
-      );
   }
 }

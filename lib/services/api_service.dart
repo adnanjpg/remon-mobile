@@ -1,16 +1,15 @@
 import 'dart:io';
 
-import 'package:remon_mobile/app_runner.dart';
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
-
-import '../utils/utils.dart';
+import 'package:remon_mobile/app_runner.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 class ApiMethods {
-  final Ref _ref;
   const ApiMethods(this._ref);
+  final Ref _ref;
 
   Dio get _dio => _ref.read(_dioProv);
 
@@ -25,7 +24,7 @@ class ApiMethods {
 
   Future<String?> get idTokenHeader async => 'Bearer ${await idToken}';
 
-  Future<Response<dynamic>> post({
+  Future<Response<T>> post<T>({
     required String path,
     required Map<String, dynamic> data,
   }) async {
@@ -36,7 +35,7 @@ class ApiMethods {
       };
 
       final url = pathToUrl(path);
-      final res = await _dio.post(
+      final res = await _dio.post<T>(
         url,
         data: data,
         options: Options(
@@ -51,7 +50,7 @@ class ApiMethods {
     }
   }
 
-  Future<Response<dynamic>> get({
+  Future<Response<T>> get<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -62,7 +61,7 @@ class ApiMethods {
       };
 
       final url = pathToUrl(path);
-      final res = await _dio.get(
+      final res = await _dio.get<T>(
         url,
         queryParameters: queryParameters,
         options: Options(
@@ -78,7 +77,7 @@ class ApiMethods {
   }
 
 // partial update, only sent fields
-  Future<Response<dynamic>> patch({
+  Future<Response<T>> patch<T>({
     required String path,
     required Map<String, dynamic> data,
   }) async {
@@ -89,7 +88,7 @@ class ApiMethods {
       };
 
       final url = pathToUrl(path);
-      final res = await _dio.patch(
+      final res = await _dio.patch<T>(
         url,
         data: data,
         options: Options(
@@ -105,7 +104,7 @@ class ApiMethods {
   }
 
   // rip everything and replace
-  Future<Response<dynamic>> put({
+  Future<Response<T>> put<T>({
     required String path,
     required Map<String, dynamic> data,
   }) async {
@@ -116,7 +115,7 @@ class ApiMethods {
       };
 
       final url = pathToUrl(path);
-      final res = await _dio.put(
+      final res = await _dio.put<T>(
         url,
         data: data,
         options: Options(
@@ -131,7 +130,7 @@ class ApiMethods {
     }
   }
 
-  Future<Response<dynamic>> putFileToUrl({
+  Future<Response<T>> putFileToUrl<T>({
     required String url,
     required File file,
   }) async {
@@ -143,12 +142,12 @@ class ApiMethods {
         'file': MultipartFile.fromBytes(
           fileBytes,
           filename: file.path.split('/').last,
-          // TOOD: if this doesnt work, replace with 'application/octet-stream'
+          // TOOD(adnanjpg): if this doesnt work, replace with 'application/octet-stream'
           contentType: MediaType.parse(mimeType!),
         ),
       });
 
-      final res = await _dio.put(
+      final res = await _dio.put<T>(
         url,
         data: formData,
       );
@@ -160,7 +159,7 @@ class ApiMethods {
     }
   }
 
-  Future<Response<dynamic>> delete({
+  Future<Response<T>> delete<T>({
     required String path,
     Map<String, dynamic>? queryParameters,
   }) async {
@@ -171,7 +170,7 @@ class ApiMethods {
       };
 
       final url = pathToUrl(path);
-      final res = await _dio.delete(
+      final res = await _dio.delete<T>(
         url,
         queryParameters: queryParameters,
         options: Options(
@@ -202,9 +201,8 @@ final _apiMethodsProv = Provider(ApiMethods.new);
 final _dioProv = Provider((_) => Dio());
 
 class ApiService {
-  final Ref _ref;
-
   const ApiService(this._ref);
+  final Ref _ref;
 
   ApiMethods get methods => _ref.read(_apiMethodsProv);
 }
@@ -212,13 +210,11 @@ class ApiService {
 extension HelloEndpoints on ApiService {
   Future<String?> hello() async {
     try {
-      final res = await methods.get(
-        path: '${ApiRoutes.hello}',
+      final res = await methods.get<String>(
+        path: ApiRoutes.hello,
       );
 
-      final decoded = (res.data) as String;
-
-      return decoded;
+      return res.data;
     } catch (e) {
       logger.e(e);
 

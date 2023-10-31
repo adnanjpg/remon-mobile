@@ -5,7 +5,7 @@ import 'package:remon_mobile/services/api_service.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
-import '../../../utils/utils.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});

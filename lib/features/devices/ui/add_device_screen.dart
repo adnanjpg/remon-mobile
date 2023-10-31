@@ -5,17 +5,16 @@ import 'package:remon_mobile/features/devices/prov/add_device_screen_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
 import 'package:remon_mobile/ui/widgets/primary_field.dart';
+import 'package:remon_mobile/ui/widgets/primary_slider.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
-import '../../../ui/widgets/primary_slider.dart';
-
 class AddDeviceScreen extends ConsumerStatefulWidget {
-  final DeviceModel? device;
   const AddDeviceScreen({
-    super.key,
     required this.device,
+    super.key,
   });
+  final DeviceModel? device;
 
   @override
   ConsumerState<AddDeviceScreen> createState() => _AddDeviceScreenState();
@@ -68,7 +67,8 @@ class _AddDeviceScreenState extends ConsumerState<AddDeviceScreen> {
                           isExpanded: true,
                           eventName: 'add_device_screen_btn',
                           text: getStr(
-                              LocaleKeys.add_device_screen_submit_btn_title),
+                            LocaleKeys.add_device_screen_submit_btn_title,
+                          ),
                           onPressed: () {
                             notifier.onSubmitBtnPressed(context: context);
                           },
@@ -123,7 +123,7 @@ class _Titles extends ConsumerWidget {
       ),
     ];
 
-    final List children;
+    final List<Widget> children;
     if (isIp) {
       children = ipWidgets;
     } else if (isOtp) {

@@ -1,15 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/home/prov/settings_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
+import 'package:remon_mobile/ui/widgets/btns/text_btn.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
-import '../../../ui/widgets/btns/primary_btn.dart';
-import '../../../ui/widgets/btns/text_btn.dart';
-import '../../../utils/utils.dart';
-import '../../devices/models/device_model.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -110,10 +110,10 @@ class _DevicesList extends StatelessWidget {
 }
 
 class _DeviceItem extends StatelessWidget {
-  final DeviceModel model;
   const _DeviceItem({
     required this.model,
   });
+  final DeviceModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -154,8 +154,9 @@ class _DeviceItem extends StatelessWidget {
                   final notifier = ref.watch(settingsStateProvider.notifier);
                   return TextBtn(
                     eventName: 'configure_device',
-                    text: getStr(LocaleKeys
-                        .settings_screen_device_item_configure_button),
+                    text: getStr(
+                      LocaleKeys.settings_screen_device_item_configure_button,
+                    ),
                     onPressed: () {
                       notifier.onConfigureDevicePressed(
                         context: context,

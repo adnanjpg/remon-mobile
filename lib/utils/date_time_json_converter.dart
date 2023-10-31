@@ -24,6 +24,6 @@ class DatetimeLocalJsonConverter extends JsonConverter<DateTime, String> {
 }
 
 extension JsonConverterDateExtension on DateTime {
-  String convertToJson() => this.toUtc().toIso8601String();
-  String convertToJsonLocal() => this.toIso8601String();
+  String convertToJson() => toUtc().toIso8601String();
+  String convertToJsonLocal() => toIso8601String();
 }

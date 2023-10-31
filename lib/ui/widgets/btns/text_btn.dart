@@ -1,33 +1,33 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/ui/widgets/btns/app_btn_interface.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
 import 'package:remon_mobile/widgetbook/widgetbook_wrapper.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
-
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 class TextBtn extends AppBtnInterface {
-  final Widget? child;
-  final String? text;
-  final bool isExpanded;
-  final IconData? suffixIcon;
-  final EdgeInsets? padding;
   const TextBtn({
+    required super.eventName,
     super.key,
     super.onPressed,
     this.text,
     this.child,
     this.isExpanded = false,
-    required super.eventName,
     this.suffixIcon,
     this.padding,
   })  : assert(
           (text != null || child != null) && (text == null || child == null),
+          'TextBtn must have either text or child',
         ),
         super(
           buttonName: 'TextBtn',
         );
+  final Widget? child;
+  final String? text;
+  final bool isExpanded;
+  final IconData? suffixIcon;
+  final EdgeInsets? padding;
 
   @override
   ConsumerState<TextBtn> createState() => _TextBtnState();
@@ -73,14 +73,14 @@ class _TextBtnState extends ConsumerState<TextBtn> {
   VoidCallback? get _onPressed => widget.onPressed(ref);
 
   bool isPressed = false;
-  void onPointerDown(PointerDownEvent) {
+  void onPointerDown(PointerDownEvent event) {
     if (!enabled) return;
     setState(() {
       isPressed = true;
     });
   }
 
-  void onPointerUp(PointerUpEvent) {
+  void onPointerUp(PointerUpEvent event) {
     if (!enabled) return;
     setState(() {
       isPressed = false;
@@ -155,7 +155,7 @@ class _TextBtnState extends ConsumerState<TextBtn> {
   name: 'Primary Button',
   type: TextBtn,
 )
-Widget TextBtnUseCase(BuildContext context) => WidgetbookWrapper(
+Widget textBtnUseCase(BuildContext context) => WidgetbookWrapper(
       child: Container(
         margin: const EdgeInsets.all(8),
         child: ListView(
