@@ -140,6 +140,8 @@ class _AddDeviceScreenStateNotifier
         return false;
       }
 
+      state = state.copyWith(deviceId: res);
+
       setToNextStep(context: context);
 
       Loading.unload();

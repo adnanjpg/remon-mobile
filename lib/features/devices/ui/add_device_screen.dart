@@ -4,7 +4,6 @@ import 'package:loading/loading.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/devices/prov/add_device_screen_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
-import 'package:remon_mobile/services/api_service.dart';
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
 import 'package:remon_mobile/ui/widgets/primary_field.dart';
 import 'package:remon_mobile/ui/widgets/primary_slider.dart';
