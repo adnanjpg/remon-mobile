@@ -18,6 +18,7 @@ final _privateConstructorUsedError = UnsupportedError(
 mixin _$AddDeviceScreenState {
   GlobalKey<FormState> get formKey => throw _privateConstructorUsedError;
   CurrentStep get currentStep => throw _privateConstructorUsedError;
+  String get deviceUUID => throw _privateConstructorUsedError;
   int? get deviceId => throw _privateConstructorUsedError;
   String? get ip => throw _privateConstructorUsedError;
   String? get port => throw _privateConstructorUsedError;
@@ -42,6 +43,7 @@ abstract class $AddDeviceScreenStateCopyWith<$Res> {
   $Res call(
       {GlobalKey<FormState> formKey,
       CurrentStep currentStep,
+      String deviceUUID,
       int? deviceId,
       String? ip,
       String? port,
@@ -69,6 +71,7 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
   $Res call({
     Object? formKey = null,
     Object? currentStep = null,
+    Object? deviceUUID = null,
     Object? deviceId = freezed,
     Object? ip = freezed,
     Object? port = freezed,
@@ -88,6 +91,10 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
           ? _value.currentStep
           : currentStep // ignore: cast_nullable_to_non_nullable
               as CurrentStep,
+      deviceUUID: null == deviceUUID
+          ? _value.deviceUUID
+          : deviceUUID // ignore: cast_nullable_to_non_nullable
+              as String,
       deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
@@ -139,6 +146,7 @@ abstract class _$$_AddDeviceScreenStateCopyWith<$Res>
   $Res call(
       {GlobalKey<FormState> formKey,
       CurrentStep currentStep,
+      String deviceUUID,
       int? deviceId,
       String? ip,
       String? port,
@@ -163,6 +171,7 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
   $Res call({
     Object? formKey = null,
     Object? currentStep = null,
+    Object? deviceUUID = null,
     Object? deviceId = freezed,
     Object? ip = freezed,
     Object? port = freezed,
@@ -182,6 +191,10 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
           ? _value.currentStep
           : currentStep // ignore: cast_nullable_to_non_nullable
               as CurrentStep,
+      deviceUUID: null == deviceUUID
+          ? _value.deviceUUID
+          : deviceUUID // ignore: cast_nullable_to_non_nullable
+              as String,
       deviceId: freezed == deviceId
           ? _value.deviceId
           : deviceId // ignore: cast_nullable_to_non_nullable
@@ -228,6 +241,7 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
   const _$_AddDeviceScreenState(
       {required this.formKey,
       required this.currentStep,
+      required this.deviceUUID,
       required this.deviceId,
       required this.ip,
       required this.port,
@@ -243,6 +257,8 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
   final GlobalKey<FormState> formKey;
   @override
   final CurrentStep currentStep;
+  @override
+  final String deviceUUID;
   @override
   final int? deviceId;
   @override
@@ -264,7 +280,7 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
 
   @override
   String toString() {
-    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, deviceId: $deviceId, ip: $ip, port: $port, otp: $otp, title: $title, desc: $desc, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange)';
+    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, deviceUUID: $deviceUUID, deviceId: $deviceId, ip: $ip, port: $port, otp: $otp, title: $title, desc: $desc, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange)';
   }
 
   @override
@@ -275,6 +291,8 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
             (identical(other.formKey, formKey) || other.formKey == formKey) &&
             (identical(other.currentStep, currentStep) ||
                 other.currentStep == currentStep) &&
+            (identical(other.deviceUUID, deviceUUID) ||
+                other.deviceUUID == deviceUUID) &&
             (identical(other.deviceId, deviceId) ||
                 other.deviceId == deviceId) &&
             (identical(other.ip, ip) || other.ip == ip) &&
@@ -295,6 +313,7 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
       runtimeType,
       formKey,
       currentStep,
+      deviceUUID,
       deviceId,
       ip,
       port,
@@ -317,6 +336,7 @@ abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   const factory _AddDeviceScreenState(
       {required final GlobalKey<FormState> formKey,
       required final CurrentStep currentStep,
+      required final String deviceUUID,
       required final int? deviceId,
       required final String? ip,
       required final String? port,
@@ -332,6 +352,8 @@ abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   GlobalKey<FormState> get formKey;
   @override
   CurrentStep get currentStep;
+  @override
+  String get deviceUUID;
   @override
   int? get deviceId;
   @override

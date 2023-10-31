@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:uuid/uuid.dart';
 
 part 'add_device_screen_state.freezed.dart';
 
@@ -21,6 +22,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
   const factory AddDeviceScreenState({
     required GlobalKey<FormState> formKey,
     required CurrentStep currentStep,
+    required String deviceUUID,
     required int? deviceId,
     required String? ip,
     required String? port,
@@ -36,6 +38,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
   factory AddDeviceScreenState.initial() => AddDeviceScreenState(
         formKey: GlobalKey<FormState>(),
         currentStep: CurrentStep.ip,
+        deviceUUID: const Uuid().v4(),
         deviceId: null,
         ip: null,
         port: null,
@@ -71,6 +74,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
   DeviceModel toDeviceModel() {
     return DeviceModel.create(
       id: deviceId,
+      deviceUUID: deviceUUID,
       title: title,
       description: desc,
       ip: ip,

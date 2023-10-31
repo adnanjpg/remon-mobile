@@ -36,7 +36,7 @@ final directories = <_i1.WidgetbookNode>[
             useCases: [
               _i1.WidgetbookUseCase(
                 name: 'Primary Slider',
-                builder: _i3.PrimarySliderUseCase,
+                builder: _i3.primarySliderUseCase,
               )
             ],
           ),
@@ -57,7 +57,7 @@ final directories = <_i1.WidgetbookNode>[
                 useCases: [
                   _i1.WidgetbookUseCase(
                     name: 'Primary Button',
-                    builder: _i5.TextBtnUseCase,
+                    builder: _i5.textBtnUseCase,
                   )
                 ],
               ),

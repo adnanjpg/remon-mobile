@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DeviceModel {
   int get id => throw _privateConstructorUsedError;
+  String get deviceUUID => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get ip => throw _privateConstructorUsedError;
@@ -42,6 +43,7 @@ abstract class $DeviceModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      String deviceUUID,
       String title,
       String description,
       String ip,
@@ -69,6 +71,7 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
   @override
   $Res call({
     Object? id = null,
+    Object? deviceUUID = null,
     Object? title = null,
     Object? description = null,
     Object? ip = null,
@@ -86,6 +89,10 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      deviceUUID: null == deviceUUID
+          ? _value.deviceUUID
+          : deviceUUID // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -144,6 +151,7 @@ abstract class _$$_DeviceModelCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
+      String deviceUUID,
       String title,
       String description,
       String ip,
@@ -169,6 +177,7 @@ class __$$_DeviceModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? deviceUUID = null,
     Object? title = null,
     Object? description = null,
     Object? ip = null,
@@ -186,6 +195,10 @@ class __$$_DeviceModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      deviceUUID: null == deviceUUID
+          ? _value.deviceUUID
+          : deviceUUID // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -239,6 +252,7 @@ class __$$_DeviceModelCopyWithImpl<$Res>
 class _$_DeviceModel extends _DeviceModel {
   const _$_DeviceModel(
       {required this.id,
+      required this.deviceUUID,
       required this.title,
       required this.description,
       required this.ip,
@@ -254,6 +268,8 @@ class _$_DeviceModel extends _DeviceModel {
 
   @override
   final int id;
+  @override
+  final String deviceUUID;
   @override
   final String title;
   @override
@@ -279,7 +295,7 @@ class _$_DeviceModel extends _DeviceModel {
 
   @override
   String toString() {
-    return 'DeviceModel(id: $id, title: $title, description: $description, ip: $ip, port: $port, token: $token, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
+    return 'DeviceModel(id: $id, deviceUUID: $deviceUUID, title: $title, description: $description, ip: $ip, port: $port, token: $token, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
   }
 
   @override
@@ -288,6 +304,8 @@ class _$_DeviceModel extends _DeviceModel {
         (other.runtimeType == runtimeType &&
             other is _$_DeviceModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.deviceUUID, deviceUUID) ||
+                other.deviceUUID == deviceUUID) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -311,6 +329,7 @@ class _$_DeviceModel extends _DeviceModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      deviceUUID,
       title,
       description,
       ip,
@@ -333,6 +352,7 @@ class _$_DeviceModel extends _DeviceModel {
 abstract class _DeviceModel extends DeviceModel {
   const factory _DeviceModel(
       {required final int id,
+      required final String deviceUUID,
       required final String title,
       required final String description,
       required final String ip,
@@ -348,6 +368,8 @@ abstract class _DeviceModel extends DeviceModel {
 
   @override
   int get id;
+  @override
+  String get deviceUUID;
   @override
   String get title;
   @override

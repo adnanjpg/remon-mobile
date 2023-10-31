@@ -15,6 +15,7 @@ int get invalidTempPort => -1;
 class DeviceModel with _$DeviceModel {
   const factory DeviceModel({
     required int id,
+    required String deviceUUID,
     required String title,
     required String description,
     required String ip,
@@ -30,6 +31,7 @@ class DeviceModel with _$DeviceModel {
   const DeviceModel._();
 
   factory DeviceModel.create({
+    required String deviceUUID,
     int? id,
     String? title,
     String? description,
@@ -42,6 +44,7 @@ class DeviceModel with _$DeviceModel {
   }) {
     return DeviceModel(
       id: id ?? invalidTempId,
+      deviceUUID: deviceUUID,
       title: title ?? '',
       description: description ?? '',
       ip: ip ?? '',

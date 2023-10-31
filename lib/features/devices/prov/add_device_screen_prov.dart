@@ -73,9 +73,7 @@ class _AddDeviceScreenStateNotifier
     );
 
     if (state.currentStep.isIp) {
-      // TODO(adnanjpg): generate uuid before
-      // sending this request
-      const deviceId = 'adnan_test_device_id';
+      final deviceId = state.deviceUUID;
 
       final isQrShown = await api.getOtpQr(deviceId: deviceId);
 
