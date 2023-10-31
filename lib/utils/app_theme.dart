@@ -9,7 +9,7 @@ extension MyTexts on ThemeData {
       );
 
   TextStyle get pageDesc => TextStyle(
-        fontSize: 24,
+        fontSize: 17,
         fontWeight: fontWeightMedium,
         color: AppTheme._subTitleColor,
       );
