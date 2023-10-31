@@ -9,7 +9,7 @@ extension MyTexts on ThemeData {
       );
 
   TextStyle get pageDesc => TextStyle(
-        fontSize: 24,
+        fontSize: 17,
         fontWeight: fontWeightMedium,
         color: AppTheme._subTitleColor,
       );
@@ -65,6 +65,7 @@ extension MyTheme on ThemeData {
   Color get bottomBarSelectedItemColor => AppTheme._lightPrimary[700]!;
 
   Color get deviceItemBackgroundColor => AppTheme._lightPrimary[500]!;
+  Color get deviceItemSlidableDeleteActionBackgroundColor => _danger;
 }
 
 final appThemeProv = Provider(AppTheme.new);

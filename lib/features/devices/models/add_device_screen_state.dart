@@ -1,6 +1,8 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/features/devices/models/suggested_device_desc_model.dart';
+import 'package:uuid/uuid.dart';
 
 part 'add_device_screen_state.freezed.dart';
 
@@ -21,6 +23,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
   const factory AddDeviceScreenState({
     required GlobalKey<FormState> formKey,
     required CurrentStep currentStep,
+    required String deviceUUID,
     required int? deviceId,
     required String? ip,
     required String? port,
@@ -30,12 +33,15 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
     required double? ramAlertRange,
     required double? cpuAlertRange,
     required double? storageAlertRange,
+    required String? token,
+    required SuggestedDeviceDescModel? suggestedDeviceDesc,
   }) = _AddDeviceScreenState;
   const AddDeviceScreenState._();
 
   factory AddDeviceScreenState.initial() => AddDeviceScreenState(
         formKey: GlobalKey<FormState>(),
         currentStep: CurrentStep.ip,
+        deviceUUID: const Uuid().v4(),
         deviceId: null,
         ip: null,
         port: null,
@@ -45,6 +51,8 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
         ramAlertRange: null,
         cpuAlertRange: null,
         storageAlertRange: null,
+        token: null,
+        suggestedDeviceDesc: null,
       );
 
   AddDeviceScreenState copyWithDeviceModel({
@@ -59,12 +67,20 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
       ramAlertRange: device.ramAlertRange,
       cpuAlertRange: device.cpuAlertRange,
       storageAlertRange: device.storageAlertRange,
+      token: device.token,
     );
+  }
+
+  bool get isHttps => false;
+  String get url {
+    final ipWPort = '$ip:$port';
+    return isHttps ? 'https://$ipWPort' : 'http://$ipWPort';
   }
 
   DeviceModel toDeviceModel() {
     return DeviceModel.create(
       id: deviceId,
+      deviceUUID: deviceUUID,
       title: title,
       description: desc,
       ip: ip,
@@ -72,6 +88,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
       ramAlertRange: ramAlertRange,
       cpuAlertRange: cpuAlertRange,
       storageAlertRange: storageAlertRange,
+      token: token,
     );
   }
 

@@ -17,6 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$DeviceModel {
   int get id => throw _privateConstructorUsedError;
+  String get deviceUUID => throw _privateConstructorUsedError;
   String get title => throw _privateConstructorUsedError;
   String get description => throw _privateConstructorUsedError;
   String get ip => throw _privateConstructorUsedError;
@@ -42,6 +43,7 @@ abstract class $DeviceModelCopyWith<$Res> {
   @useResult
   $Res call(
       {int id,
+      String deviceUUID,
       String title,
       String description,
       String ip,
@@ -69,6 +71,7 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
   @override
   $Res call({
     Object? id = null,
+    Object? deviceUUID = null,
     Object? title = null,
     Object? description = null,
     Object? ip = null,
@@ -86,6 +89,10 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      deviceUUID: null == deviceUUID
+          ? _value.deviceUUID
+          : deviceUUID // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -144,6 +151,7 @@ abstract class _$$_DeviceModelCopyWith<$Res>
   @useResult
   $Res call(
       {int id,
+      String deviceUUID,
       String title,
       String description,
       String ip,
@@ -169,6 +177,7 @@ class __$$_DeviceModelCopyWithImpl<$Res>
   @override
   $Res call({
     Object? id = null,
+    Object? deviceUUID = null,
     Object? title = null,
     Object? description = null,
     Object? ip = null,
@@ -186,6 +195,10 @@ class __$$_DeviceModelCopyWithImpl<$Res>
           ? _value.id
           : id // ignore: cast_nullable_to_non_nullable
               as int,
+      deviceUUID: null == deviceUUID
+          ? _value.deviceUUID
+          : deviceUUID // ignore: cast_nullable_to_non_nullable
+              as String,
       title: null == title
           ? _value.title
           : title // ignore: cast_nullable_to_non_nullable
@@ -239,6 +252,7 @@ class __$$_DeviceModelCopyWithImpl<$Res>
 class _$_DeviceModel extends _DeviceModel {
   const _$_DeviceModel(
       {required this.id,
+      required this.deviceUUID,
       required this.title,
       required this.description,
       required this.ip,
@@ -254,6 +268,8 @@ class _$_DeviceModel extends _DeviceModel {
 
   @override
   final int id;
+  @override
+  final String deviceUUID;
   @override
   final String title;
   @override
@@ -279,7 +295,7 @@ class _$_DeviceModel extends _DeviceModel {
 
   @override
   String toString() {
-    return 'DeviceModel(id: $id, title: $title, description: $description, ip: $ip, port: $port, token: $token, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
+    return 'DeviceModel(id: $id, deviceUUID: $deviceUUID, title: $title, description: $description, ip: $ip, port: $port, token: $token, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
   }
 
   @override
@@ -288,6 +304,8 @@ class _$_DeviceModel extends _DeviceModel {
         (other.runtimeType == runtimeType &&
             other is _$_DeviceModel &&
             (identical(other.id, id) || other.id == id) &&
+            (identical(other.deviceUUID, deviceUUID) ||
+                other.deviceUUID == deviceUUID) &&
             (identical(other.title, title) || other.title == title) &&
             (identical(other.description, description) ||
                 other.description == description) &&
@@ -311,6 +329,7 @@ class _$_DeviceModel extends _DeviceModel {
   int get hashCode => Object.hash(
       runtimeType,
       id,
+      deviceUUID,
       title,
       description,
       ip,
@@ -333,6 +352,7 @@ class _$_DeviceModel extends _DeviceModel {
 abstract class _DeviceModel extends DeviceModel {
   const factory _DeviceModel(
       {required final int id,
+      required final String deviceUUID,
       required final String title,
       required final String description,
       required final String ip,
@@ -348,6 +368,8 @@ abstract class _DeviceModel extends DeviceModel {
 
   @override
   int get id;
+  @override
+  String get deviceUUID;
   @override
   String get title;
   @override
@@ -374,4 +396,232 @@ abstract class _DeviceModel extends DeviceModel {
   @JsonKey(ignore: true)
   _$$_DeviceModelCopyWith<_$_DeviceModel> get copyWith =>
       throw _privateConstructorUsedError;
+}
+
+UpdateDeviceInfoRequestModel _$UpdateDeviceInfoRequestModelFromJson(
+    Map<String, dynamic> json) {
+  return _UpdateDeviceInfoRequestModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$UpdateDeviceInfoRequestModel {
+  @JsonKey(name: 'device_id')
+  String get deviceId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cpu_threshold')
+  double get cpuThreshold => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mem_threshold')
+  double get memThreshold => throw _privateConstructorUsedError;
+  @JsonKey(name: 'storage_threshold')
+  double get storageThreshold => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $UpdateDeviceInfoRequestModelCopyWith<UpdateDeviceInfoRequestModel>
+      get copyWith => throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $UpdateDeviceInfoRequestModelCopyWith<$Res> {
+  factory $UpdateDeviceInfoRequestModelCopyWith(
+          UpdateDeviceInfoRequestModel value,
+          $Res Function(UpdateDeviceInfoRequestModel) then) =
+      _$UpdateDeviceInfoRequestModelCopyWithImpl<$Res,
+          UpdateDeviceInfoRequestModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'device_id') String deviceId,
+      @JsonKey(name: 'cpu_threshold') double cpuThreshold,
+      @JsonKey(name: 'mem_threshold') double memThreshold,
+      @JsonKey(name: 'storage_threshold') double storageThreshold});
+}
+
+/// @nodoc
+class _$UpdateDeviceInfoRequestModelCopyWithImpl<$Res,
+        $Val extends UpdateDeviceInfoRequestModel>
+    implements $UpdateDeviceInfoRequestModelCopyWith<$Res> {
+  _$UpdateDeviceInfoRequestModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deviceId = null,
+    Object? cpuThreshold = null,
+    Object? memThreshold = null,
+    Object? storageThreshold = null,
+  }) {
+    return _then(_value.copyWith(
+      deviceId: null == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cpuThreshold: null == cpuThreshold
+          ? _value.cpuThreshold
+          : cpuThreshold // ignore: cast_nullable_to_non_nullable
+              as double,
+      memThreshold: null == memThreshold
+          ? _value.memThreshold
+          : memThreshold // ignore: cast_nullable_to_non_nullable
+              as double,
+      storageThreshold: null == storageThreshold
+          ? _value.storageThreshold
+          : storageThreshold // ignore: cast_nullable_to_non_nullable
+              as double,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_UpdateDeviceInfoRequestModelCopyWith<$Res>
+    implements $UpdateDeviceInfoRequestModelCopyWith<$Res> {
+  factory _$$_UpdateDeviceInfoRequestModelCopyWith(
+          _$_UpdateDeviceInfoRequestModel value,
+          $Res Function(_$_UpdateDeviceInfoRequestModel) then) =
+      __$$_UpdateDeviceInfoRequestModelCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'device_id') String deviceId,
+      @JsonKey(name: 'cpu_threshold') double cpuThreshold,
+      @JsonKey(name: 'mem_threshold') double memThreshold,
+      @JsonKey(name: 'storage_threshold') double storageThreshold});
+}
+
+/// @nodoc
+class __$$_UpdateDeviceInfoRequestModelCopyWithImpl<$Res>
+    extends _$UpdateDeviceInfoRequestModelCopyWithImpl<$Res,
+        _$_UpdateDeviceInfoRequestModel>
+    implements _$$_UpdateDeviceInfoRequestModelCopyWith<$Res> {
+  __$$_UpdateDeviceInfoRequestModelCopyWithImpl(
+      _$_UpdateDeviceInfoRequestModel _value,
+      $Res Function(_$_UpdateDeviceInfoRequestModel) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? deviceId = null,
+    Object? cpuThreshold = null,
+    Object? memThreshold = null,
+    Object? storageThreshold = null,
+  }) {
+    return _then(_$_UpdateDeviceInfoRequestModel(
+      deviceId: null == deviceId
+          ? _value.deviceId
+          : deviceId // ignore: cast_nullable_to_non_nullable
+              as String,
+      cpuThreshold: null == cpuThreshold
+          ? _value.cpuThreshold
+          : cpuThreshold // ignore: cast_nullable_to_non_nullable
+              as double,
+      memThreshold: null == memThreshold
+          ? _value.memThreshold
+          : memThreshold // ignore: cast_nullable_to_non_nullable
+              as double,
+      storageThreshold: null == storageThreshold
+          ? _value.storageThreshold
+          : storageThreshold // ignore: cast_nullable_to_non_nullable
+              as double,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
+  const _$_UpdateDeviceInfoRequestModel(
+      {@JsonKey(name: 'device_id') required this.deviceId,
+      @JsonKey(name: 'cpu_threshold') required this.cpuThreshold,
+      @JsonKey(name: 'mem_threshold') required this.memThreshold,
+      @JsonKey(name: 'storage_threshold') required this.storageThreshold});
+
+  factory _$_UpdateDeviceInfoRequestModel.fromJson(Map<String, dynamic> json) =>
+      _$$_UpdateDeviceInfoRequestModelFromJson(json);
+
+  @override
+  @JsonKey(name: 'device_id')
+  final String deviceId;
+  @override
+  @JsonKey(name: 'cpu_threshold')
+  final double cpuThreshold;
+  @override
+  @JsonKey(name: 'mem_threshold')
+  final double memThreshold;
+  @override
+  @JsonKey(name: 'storage_threshold')
+  final double storageThreshold;
+
+  @override
+  String toString() {
+    return 'UpdateDeviceInfoRequestModel(deviceId: $deviceId, cpuThreshold: $cpuThreshold, memThreshold: $memThreshold, storageThreshold: $storageThreshold)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_UpdateDeviceInfoRequestModel &&
+            (identical(other.deviceId, deviceId) ||
+                other.deviceId == deviceId) &&
+            (identical(other.cpuThreshold, cpuThreshold) ||
+                other.cpuThreshold == cpuThreshold) &&
+            (identical(other.memThreshold, memThreshold) ||
+                other.memThreshold == memThreshold) &&
+            (identical(other.storageThreshold, storageThreshold) ||
+                other.storageThreshold == storageThreshold));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(
+      runtimeType, deviceId, cpuThreshold, memThreshold, storageThreshold);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_UpdateDeviceInfoRequestModelCopyWith<_$_UpdateDeviceInfoRequestModel>
+      get copyWith => __$$_UpdateDeviceInfoRequestModelCopyWithImpl<
+          _$_UpdateDeviceInfoRequestModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_UpdateDeviceInfoRequestModelToJson(
+      this,
+    );
+  }
+}
+
+abstract class _UpdateDeviceInfoRequestModel
+    implements UpdateDeviceInfoRequestModel {
+  const factory _UpdateDeviceInfoRequestModel(
+          {@JsonKey(name: 'device_id') required final String deviceId,
+          @JsonKey(name: 'cpu_threshold') required final double cpuThreshold,
+          @JsonKey(name: 'mem_threshold') required final double memThreshold,
+          @JsonKey(name: 'storage_threshold')
+          required final double storageThreshold}) =
+      _$_UpdateDeviceInfoRequestModel;
+
+  factory _UpdateDeviceInfoRequestModel.fromJson(Map<String, dynamic> json) =
+      _$_UpdateDeviceInfoRequestModel.fromJson;
+
+  @override
+  @JsonKey(name: 'device_id')
+  String get deviceId;
+  @override
+  @JsonKey(name: 'cpu_threshold')
+  double get cpuThreshold;
+  @override
+  @JsonKey(name: 'mem_threshold')
+  double get memThreshold;
+  @override
+  @JsonKey(name: 'storage_threshold')
+  double get storageThreshold;
+  @override
+  @JsonKey(ignore: true)
+  _$$_UpdateDeviceInfoRequestModelCopyWith<_$_UpdateDeviceInfoRequestModel>
+      get copyWith => throw _privateConstructorUsedError;
 }

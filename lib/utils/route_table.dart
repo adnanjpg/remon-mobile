@@ -13,6 +13,7 @@ import 'package:remon_mobile/features/devices/ui/add_device_screen.dart';
 
 import 'package:remon_mobile/features/home/ui/bottom_nav_screen.dart';
 import 'package:remon_mobile/features/home/ui/splash_screen.dart';
+import 'package:remon_mobile/services/local_db_service.dart';
 import 'package:remon_mobile/ui/widgets/error_screen.dart';
 import 'package:remon_mobile/ui/widgets/loading_screen.dart';
 
@@ -29,6 +30,14 @@ final navKeyProv = Provider(
 
 final shellKeyPRov = Provider(
   (_) => GlobalKey<NavigatorState>(),
+);
+
+final hasAnyDeviceProv = StreamProvider(
+  (ref) {
+    final hasAnyDeviceStream = ref.watch(localDbService).watchHasAnyDevice();
+
+    return hasAnyDeviceStream;
+  },
 );
 
 class RouteTable {
@@ -86,10 +95,12 @@ class RouteTable {
     (ref) {
       final key = ref.watch(navKeyProv);
 
+      final hasDev = ref.watch(hasAnyDeviceProv).value ?? false;
+
       return GoRouter(
         navigatorKey: key,
         debugLogDiagnostics: true,
-        initialLocation: initialLocation,
+        initialLocation: hasDev ? '/home' : '/add_device',
         routes: [
           _mainRoute(ref),
         ],

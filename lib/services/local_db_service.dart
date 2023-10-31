@@ -66,6 +66,55 @@ class LocalDbService {
     );
   }
 
+  // TODO(adnanjpg): replace once this issue resolves
+  // https://github.com/isar/isar/issues/1478
+  Stream<int> watchDevicesCount() {
+    try {
+      final count = db.deviceModels.where().titleIsNotEmpty().watch(
+            fireImmediately: true,
+          );
+
+      return count.map(
+        (event) {
+          return event.length;
+        },
+      );
+    } catch (e) {
+      logger.e(e);
+
+      return const Stream.empty();
+    }
+  }
+
+  Stream<bool> watchHasAnyDevice() {
+    try {
+      final devicesCountStream = watchDevicesCount();
+
+      final hasAnyDeviceStream = devicesCountStream.map(
+        (event) {
+          return event > 0;
+        },
+      );
+
+      return hasAnyDeviceStream;
+    } catch (e) {
+      logger.e(e);
+
+      return const Stream.empty();
+    }
+  }
+
+  DeviceModel? getFirstDevice() {
+    try {
+      final devices = db.deviceModels.where().findFirst();
+      return devices;
+    } catch (e) {
+      logger.e(e);
+
+      return null;
+    }
+  }
+
   Stream<List<DeviceModel>> watchAllDevices() {
     try {
       final devices = db.deviceModels.where().watch(
@@ -93,6 +142,26 @@ class LocalDbService {
       logger.e(e);
 
       return null;
+    }
+  }
+
+  Future<bool> deleteDevice({
+    required DeviceModel device,
+  }) async {
+    try {
+      await db.writeAsync(
+        (isar) {
+          isar.deviceModels.delete(
+            device.id,
+          );
+        },
+      );
+
+      return true;
+    } catch (e) {
+      logger.e(e);
+
+      return false;
     }
   }
 }

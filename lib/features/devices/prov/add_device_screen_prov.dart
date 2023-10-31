@@ -1,10 +1,13 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading/loading.dart';
 import 'package:remon_mobile/features/devices/models/add_device_screen_state.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
+import 'package:remon_mobile/services/api_service.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/route_table.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
@@ -31,6 +34,10 @@ class _AddDeviceScreenStateNotifier
         .copyWith(
           currentStep: CurrentStep.config,
         );
+
+    setGlobalSelectedDevice();
+
+    setSuggestedDeviceDesc();
   }
 
   Future<bool> _validate({
@@ -41,6 +48,21 @@ class _AddDeviceScreenStateNotifier
     }
 
     return true;
+  }
+
+  void setGlobalSelectedDevice() {
+    ref.read(selectedDeviceProv.notifier).state = state.toDeviceModel();
+  }
+
+  Future<void> setSuggestedDeviceDesc() async {
+    final api = ref.watch(apiServiceProv);
+    final suggested = await api.getSuggestedDeviceDesc();
+
+    state = state.copyWith(
+      suggestedDeviceDesc: suggested,
+      title: suggested?.name,
+      desc: suggested?.description,
+    );
   }
 
   void setToNextStep({
@@ -55,6 +77,8 @@ class _AddDeviceScreenStateNotifier
     state = state.copyWith(
       currentStep: CurrentStep.values[state.currentStep.index + 1],
     );
+
+    setGlobalSelectedDevice();
   }
 
   Future<bool> onSubmitBtnPressed({
@@ -64,15 +88,49 @@ class _AddDeviceScreenStateNotifier
       return false;
     }
 
+    Loading.load();
+
+    final api = ref.read(
+      apiServiceProvExternalUrl(state.url),
+    );
+    final deviceId = state.deviceUUID;
+
     if (state.currentStep.isIp) {
-      // TODO(adnanjpg): call api to send a code to the terminal
+      final isQrShown = await api.getOtpQr(deviceId: deviceId);
+
+      if (isQrShown != true) {
+        return false;
+      }
 
       setToNextStep(context: context);
+
+      Loading.unload();
 
       return true;
     }
 
     if (state.currentStep.isOtp) {
+      final otp = state.otp;
+      if (otp == null) {
+        logger.e('otp is null');
+        return false;
+      }
+
+      final token = await api.login(
+        deviceId: deviceId,
+        otp: otp,
+      );
+
+      if (token == null) {
+        return false;
+      }
+
+      state = state.copyWith(
+        token: token,
+      );
+
+      debugPrint('token: $token');
+
       final dev = state.toDeviceModel();
       final res = await ref.read(localDbService).updateDevice(
             device: dev,
@@ -82,12 +140,28 @@ class _AddDeviceScreenStateNotifier
         return false;
       }
 
+      state = state.copyWith(deviceId: res);
+
       setToNextStep(context: context);
+
+      Loading.unload();
+
+      await setSuggestedDeviceDesc();
 
       return true;
     }
 
     if (state.currentStep.isConfig) {
+      final isUpdated = await api.updateDeviceInfo(
+        model: UpdateDeviceInfoRequestModel.fromDeviceModel(
+          state.toDeviceModel(),
+        ),
+      );
+
+      if (isUpdated != true) {
+        return false;
+      }
+
       final dev = state.toDeviceModel();
       final res = await ref.read(localDbService).updateDevice(
             device: dev,
@@ -99,8 +173,12 @@ class _AddDeviceScreenStateNotifier
 
       setToNextStep(context: context);
 
+      Loading.unload();
+
       return true;
     }
+
+    Loading.unload();
 
     return false;
   }
