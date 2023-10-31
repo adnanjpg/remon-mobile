@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading/loading.dart';
 import 'package:remon_mobile/features/devices/models/add_device_screen_state.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
+import 'package:remon_mobile/services/api_service.dart';
 import 'package:remon_mobile/services/local_db_service.dart';
 import 'package:remon_mobile/utils/route_table.dart';
 import 'package:remon_mobile/utils/utils.dart';
@@ -64,8 +66,22 @@ class _AddDeviceScreenStateNotifier
       return false;
     }
 
+    Loading.load();
+
+    final api = ref.read(
+      apiServiceProvExternalUrl(state.url),
+    );
+
     if (state.currentStep.isIp) {
-      // TODO(adnanjpg): call api to send a code to the terminal
+      // TODO(adnanjpg): generate uuid before
+      // sending this request
+      const deviceId = 'adnan_test_device_id';
+
+      final isQrShown = await api.getOtpQr(deviceId: deviceId);
+
+      if (isQrShown != true) {
+        return false;
+      }
 
       setToNextStep(context: context);
 
@@ -99,8 +115,12 @@ class _AddDeviceScreenStateNotifier
 
       setToNextStep(context: context);
 
+      Loading.unload();
+
       return true;
     }
+
+    Loading.unload();
 
     return false;
   }

@@ -62,6 +62,12 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
     );
   }
 
+  bool get isHttps => false;
+  String get url {
+    final ipWPort = '$ip:$port';
+    return isHttps ? 'https://$ipWPort' : 'http://$ipWPort';
+  }
+
   DeviceModel toDeviceModel() {
     return DeviceModel.create(
       id: deviceId,

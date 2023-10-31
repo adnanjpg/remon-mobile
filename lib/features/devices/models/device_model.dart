@@ -57,4 +57,7 @@ class DeviceModel with _$DeviceModel {
   }
 
   String get ipWPort => '$ip:$port';
+
+  bool get isHttps => false;
+  String get url => isHttps ? 'https://$ipWPort' : 'http://$ipWPort';
 }

@@ -1,19 +1,25 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
-import 'package:remon_mobile/app_runner.dart';
+import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
 class ApiMethods {
-  const ApiMethods(this._ref);
+  const ApiMethods(
+    this._ref, {
+    String? baseUrl,
+  }) : _baseUrl = baseUrl;
+
+  final String? _baseUrl;
   final Ref _ref;
 
   Dio get _dio => _ref.read(_dioProv);
 
-  String get baseUrl => appConfig.hostUrl;
+  String get baseUrl => _baseUrl ?? _ref.watch(selectedDeviceProv).url;
 
   String pathToUrl(String path) => '$baseUrl/$path';
 
@@ -187,24 +193,41 @@ class ApiMethods {
 }
 
 class ApiRoutes {
-  static const
-      //
-      hello = 'hello'
-      //
-      ;
+  static const hello = 'hello';
+  static const getOtpQr = 'get-otp-qr';
 }
 
-final apiServiceProv = Provider(ApiService.new);
+final apiServiceProvExternalUrl = Provider.family<ApiService, String?>(
+  (ref, baseUrl) => ApiService(
+    ref,
+    baseUrl: baseUrl,
+  ),
+);
 
-final _apiMethodsProv = Provider(ApiMethods.new);
+final apiServiceProv = Provider(
+  (ref) => ref.watch(
+    apiServiceProvExternalUrl(null),
+  ),
+);
+
+final _apiMethodsProv = Provider.family<ApiMethods, String?>(
+  (ref, baseUrl) => ApiMethods(
+    ref,
+    baseUrl: baseUrl,
+  ),
+);
 
 final _dioProv = Provider((_) => Dio());
 
 class ApiService {
-  const ApiService(this._ref);
+  const ApiService(
+    this._ref, {
+    this.baseUrl,
+  });
+  final String? baseUrl;
   final Ref _ref;
 
-  ApiMethods get methods => _ref.read(_apiMethodsProv);
+  ApiMethods get methods => _ref.watch(_apiMethodsProv(baseUrl));
 }
 
 extension HelloEndpoints on ApiService {
@@ -219,6 +242,35 @@ extension HelloEndpoints on ApiService {
       logger.e(e);
 
       return null;
+    }
+  }
+}
+
+extension AuthEndPoints on ApiService {
+  Future<bool> getOtpQr({
+    required String deviceId,
+  }) async {
+    try {
+      final res = await methods.post<String>(
+        path: ApiRoutes.getOtpQr,
+        data: {
+          'device_id': deviceId,
+        },
+      );
+
+      final dt = res.data;
+
+      if (dt == null) {
+        return false;
+      }
+
+      final decoded = json.decode(dt) as Map<String, dynamic>;
+      final success = decoded['success'] as bool;
+
+      return success;
+    } catch (e) {
+      logger.e(e);
+      return false;
     }
   }
 }
