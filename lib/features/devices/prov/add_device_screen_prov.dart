@@ -36,6 +36,8 @@ class _AddDeviceScreenStateNotifier
         );
 
     setGlobalSelectedDevice();
+
+    setSuggestedDeviceDesc();
   }
 
   Future<bool> _validate({
@@ -50,6 +52,17 @@ class _AddDeviceScreenStateNotifier
 
   void setGlobalSelectedDevice() {
     ref.read(selectedDeviceProv.notifier).state = state.toDeviceModel();
+  }
+
+  Future<void> setSuggestedDeviceDesc() async {
+    final api = ref.watch(apiServiceProv);
+    final suggested = await api.getSuggestedDeviceDesc();
+
+    state = state.copyWith(
+      suggestedDeviceDesc: suggested,
+      title: suggested?.name,
+      desc: suggested?.description,
+    );
   }
 
   void setToNextStep({
@@ -91,6 +104,8 @@ class _AddDeviceScreenStateNotifier
 
       setToNextStep(context: context);
 
+      Loading.unload();
+
       return true;
     }
 
@@ -126,6 +141,10 @@ class _AddDeviceScreenStateNotifier
       }
 
       setToNextStep(context: context);
+
+      Loading.unload();
+
+      await setSuggestedDeviceDesc();
 
       return true;
     }

@@ -6,6 +6,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:http_parser/http_parser.dart';
 import 'package:mime/mime.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/features/devices/models/suggested_device_desc_model.dart';
 import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
@@ -196,6 +197,7 @@ class ApiRoutes {
   static const getOtpQr = 'get-otp-qr';
   static const login = 'login';
   static const updateDeviceInfo = 'update-info';
+  static const getsuggestedDeviceDesc = 'get-desc';
 }
 
 final apiServiceProvExternalUrl = Provider.family<ApiService, String?>(
@@ -326,6 +328,28 @@ extension AuthEndPoints on ApiService {
     } catch (e) {
       logger.e(e);
       return false;
+    }
+  }
+
+  Future<SuggestedDeviceDescModel?> getSuggestedDeviceDesc() async {
+    try {
+      final res = await methods.get<String>(
+        path: ApiRoutes.getsuggestedDeviceDesc,
+      );
+
+      final dt = res.data;
+
+      if (dt == null) {
+        return null;
+      }
+
+      final decoded = json.decode(dt) as Map<String, dynamic>;
+      final model = SuggestedDeviceDescModel.fromJson(decoded);
+
+      return model;
+    } catch (e) {
+      logger.e(e);
+      return null;
     }
   }
 }

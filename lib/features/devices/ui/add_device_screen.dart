@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:loading/loading.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/devices/prov/add_device_screen_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
+import 'package:remon_mobile/services/api_service.dart';
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
 import 'package:remon_mobile/ui/widgets/primary_field.dart';
 import 'package:remon_mobile/ui/widgets/primary_slider.dart';
@@ -39,46 +41,48 @@ class _AddDeviceScreenState extends ConsumerState<AddDeviceScreen> {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(),
-      body: Container(
-        margin: defPaddingAll,
-        child: Consumer(
-          builder: (context, ref, child) {
-            final form = ref.watch(addDeviceScreenProv);
-            return Form(
-              key: form.formKey,
-              child: child!,
-            );
-          },
-          child: ListView(
-            children: [
-              const _Titles(),
-              const _Fields(),
-              Consumer(
-                builder: (context, ref, _) {
-                  final notifier = ref.watch(addDeviceScreenProv.notifier);
-                  return Row(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      SizedBox(
-                        width: 200,
-                        child: PrimaryBtn(
-                          isExpanded: true,
-                          eventName: 'add_device_screen_btn',
-                          text: getStr(
-                            LocaleKeys.add_device_screen_submit_btn_title,
+    return Loading(
+      child: Scaffold(
+        appBar: AppBar(),
+        body: Container(
+          margin: defPaddingAll,
+          child: Consumer(
+            builder: (context, ref, child) {
+              final form = ref.watch(addDeviceScreenProv);
+              return Form(
+                key: form.formKey,
+                child: child!,
+              );
+            },
+            child: ListView(
+              children: [
+                const _Titles(),
+                const _Fields(),
+                Consumer(
+                  builder: (context, ref, _) {
+                    final notifier = ref.watch(addDeviceScreenProv.notifier);
+                    return Row(
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        SizedBox(
+                          width: 200,
+                          child: PrimaryBtn(
+                            isExpanded: true,
+                            eventName: 'add_device_screen_btn',
+                            text: getStr(
+                              LocaleKeys.add_device_screen_submit_btn_title,
+                            ),
+                            onPressed: () {
+                              notifier.onSubmitBtnPressed(context: context);
+                            },
                           ),
-                          onPressed: () {
-                            notifier.onSubmitBtnPressed(context: context);
-                          },
                         ),
-                      ),
-                    ],
-                  );
-                },
-              ),
-            ].joinWidgetList(doubleHeightSizedBoxIndex),
+                      ],
+                    );
+                  },
+                ),
+              ].joinWidgetList(doubleHeightSizedBoxIndex),
+            ),
           ),
         ),
       ),
@@ -178,10 +182,6 @@ class _Fields extends ConsumerWidget {
             validator: notifier.otpValidator,
           ),
         ],
-        //
-// viewRamRangeField
-// viewCpuRangeField
-// viewStorageRangeField
         if (form.viewTitleField) ...[
           PrimaryField(
             labelText: getStr(LocaleKeys.add_device_screen_title_field),

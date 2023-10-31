@@ -29,6 +29,8 @@ mixin _$AddDeviceScreenState {
   double? get cpuAlertRange => throw _privateConstructorUsedError;
   double? get storageAlertRange => throw _privateConstructorUsedError;
   String? get token => throw _privateConstructorUsedError;
+  SuggestedDeviceDescModel? get suggestedDeviceDesc =>
+      throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddDeviceScreenStateCopyWith<AddDeviceScreenState> get copyWith =>
@@ -54,7 +56,10 @@ abstract class $AddDeviceScreenStateCopyWith<$Res> {
       double? ramAlertRange,
       double? cpuAlertRange,
       double? storageAlertRange,
-      String? token});
+      String? token,
+      SuggestedDeviceDescModel? suggestedDeviceDesc});
+
+  $SuggestedDeviceDescModelCopyWith<$Res>? get suggestedDeviceDesc;
 }
 
 /// @nodoc
@@ -84,6 +89,7 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
     Object? cpuAlertRange = freezed,
     Object? storageAlertRange = freezed,
     Object? token = freezed,
+    Object? suggestedDeviceDesc = freezed,
   }) {
     return _then(_value.copyWith(
       formKey: null == formKey
@@ -138,7 +144,24 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      suggestedDeviceDesc: freezed == suggestedDeviceDesc
+          ? _value.suggestedDeviceDesc
+          : suggestedDeviceDesc // ignore: cast_nullable_to_non_nullable
+              as SuggestedDeviceDescModel?,
     ) as $Val);
+  }
+
+  @override
+  @pragma('vm:prefer-inline')
+  $SuggestedDeviceDescModelCopyWith<$Res>? get suggestedDeviceDesc {
+    if (_value.suggestedDeviceDesc == null) {
+      return null;
+    }
+
+    return $SuggestedDeviceDescModelCopyWith<$Res>(_value.suggestedDeviceDesc!,
+        (value) {
+      return _then(_value.copyWith(suggestedDeviceDesc: value) as $Val);
+    });
   }
 }
 
@@ -163,7 +186,11 @@ abstract class _$$_AddDeviceScreenStateCopyWith<$Res>
       double? ramAlertRange,
       double? cpuAlertRange,
       double? storageAlertRange,
-      String? token});
+      String? token,
+      SuggestedDeviceDescModel? suggestedDeviceDesc});
+
+  @override
+  $SuggestedDeviceDescModelCopyWith<$Res>? get suggestedDeviceDesc;
 }
 
 /// @nodoc
@@ -190,6 +217,7 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
     Object? cpuAlertRange = freezed,
     Object? storageAlertRange = freezed,
     Object? token = freezed,
+    Object? suggestedDeviceDesc = freezed,
   }) {
     return _then(_$_AddDeviceScreenState(
       formKey: null == formKey
@@ -244,6 +272,10 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
           ? _value.token
           : token // ignore: cast_nullable_to_non_nullable
               as String?,
+      suggestedDeviceDesc: freezed == suggestedDeviceDesc
+          ? _value.suggestedDeviceDesc
+          : suggestedDeviceDesc // ignore: cast_nullable_to_non_nullable
+              as SuggestedDeviceDescModel?,
     ));
   }
 }
@@ -264,7 +296,8 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
       required this.ramAlertRange,
       required this.cpuAlertRange,
       required this.storageAlertRange,
-      required this.token})
+      required this.token,
+      required this.suggestedDeviceDesc})
       : super._();
 
   @override
@@ -293,10 +326,12 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
   final double? storageAlertRange;
   @override
   final String? token;
+  @override
+  final SuggestedDeviceDescModel? suggestedDeviceDesc;
 
   @override
   String toString() {
-    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, deviceUUID: $deviceUUID, deviceId: $deviceId, ip: $ip, port: $port, otp: $otp, title: $title, desc: $desc, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, token: $token)';
+    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, deviceUUID: $deviceUUID, deviceId: $deviceId, ip: $ip, port: $port, otp: $otp, title: $title, desc: $desc, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, token: $token, suggestedDeviceDesc: $suggestedDeviceDesc)';
   }
 
   @override
@@ -322,7 +357,9 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
                 other.cpuAlertRange == cpuAlertRange) &&
             (identical(other.storageAlertRange, storageAlertRange) ||
                 other.storageAlertRange == storageAlertRange) &&
-            (identical(other.token, token) || other.token == token));
+            (identical(other.token, token) || other.token == token) &&
+            (identical(other.suggestedDeviceDesc, suggestedDeviceDesc) ||
+                other.suggestedDeviceDesc == suggestedDeviceDesc));
   }
 
   @override
@@ -340,7 +377,8 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
       ramAlertRange,
       cpuAlertRange,
       storageAlertRange,
-      token);
+      token,
+      suggestedDeviceDesc);
 
   @JsonKey(ignore: true)
   @override
@@ -352,19 +390,21 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
 
 abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   const factory _AddDeviceScreenState(
-      {required final GlobalKey<FormState> formKey,
-      required final CurrentStep currentStep,
-      required final String deviceUUID,
-      required final int? deviceId,
-      required final String? ip,
-      required final String? port,
-      required final String? otp,
-      required final String? title,
-      required final String? desc,
-      required final double? ramAlertRange,
-      required final double? cpuAlertRange,
-      required final double? storageAlertRange,
-      required final String? token}) = _$_AddDeviceScreenState;
+          {required final GlobalKey<FormState> formKey,
+          required final CurrentStep currentStep,
+          required final String deviceUUID,
+          required final int? deviceId,
+          required final String? ip,
+          required final String? port,
+          required final String? otp,
+          required final String? title,
+          required final String? desc,
+          required final double? ramAlertRange,
+          required final double? cpuAlertRange,
+          required final double? storageAlertRange,
+          required final String? token,
+          required final SuggestedDeviceDescModel? suggestedDeviceDesc}) =
+      _$_AddDeviceScreenState;
   const _AddDeviceScreenState._() : super._();
 
   @override
@@ -393,6 +433,8 @@ abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   double? get storageAlertRange;
   @override
   String? get token;
+  @override
+  SuggestedDeviceDescModel? get suggestedDeviceDesc;
   @override
   @JsonKey(ignore: true)
   _$$_AddDeviceScreenStateCopyWith<_$_AddDeviceScreenState> get copyWith =>
