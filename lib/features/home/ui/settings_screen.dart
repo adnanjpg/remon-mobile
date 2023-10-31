@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_slidable/flutter_slidable.dart';
+import 'package:remixicon/remixicon.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/home/prov/settings_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
@@ -109,73 +111,99 @@ class _DevicesList extends StatelessWidget {
   }
 }
 
-class _DeviceItem extends StatelessWidget {
+class _DeviceItem extends ConsumerWidget {
   const _DeviceItem({
     required this.model,
   });
   final DeviceModel model;
 
   @override
-  Widget build(BuildContext context) {
-    return Container(
-      decoration: BoxDecoration(
-        color: Theme.of(context).deviceItemBackgroundColor,
-        borderRadius: BorderRadius.circular(12),
-      ),
-      padding: defPaddingAll,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.watch(settingsStateProvider.notifier);
+
+    return Slidable(
+      // Specify a key if the Slidable is dismissible.
+      key: ValueKey(model.id),
+
+      // The end action pane is the one at the right or the bottom side.
+      endActionPane: ActionPane(
+        motion: const ScrollMotion(),
         children: [
-          Row(
-            children: [
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      model.title,
-                      style: TextStyle(
-                        fontSize: 16,
-                        fontWeight: Theme.of(context).fontWeightMedium,
-                      ),
-                    ),
-                    Text(
-                      model.ipWPort,
-                      style: TextStyle(
-                        fontSize: 13,
-                        fontWeight: Theme.of(context).fontWeightBold,
-                      ),
-                    ),
-                  ],
-                ),
-              ),
-              Consumer(
-                builder: (context, ref, _) {
-                  final notifier = ref.watch(settingsStateProvider.notifier);
-                  return TextBtn(
-                    eventName: 'configure_device',
-                    text: getStr(
-                      LocaleKeys.settings_screen_device_item_configure_button,
-                    ),
-                    onPressed: () {
-                      notifier.onConfigureDevicePressed(
-                        context: context,
-                        device: model,
-                      );
-                    },
-                  );
-                },
-              ),
-            ],
-          ),
-          Text(
-            model.description,
-            style: TextStyle(
-              fontSize: 11,
-              fontWeight: Theme.of(context).fontWeightLight,
+          SlidableAction(
+            onPressed: (_) {
+              notifier.onDeleteDevicePressed(
+                context: context,
+                device: model,
+              );
+            },
+            backgroundColor:
+                Theme.of(context).deviceItemSlidableDeleteActionBackgroundColor,
+            foregroundColor: Colors.white,
+            icon: Remix.delete_bin_6_line,
+            borderRadius: BorderRadius.circular(13),
+            autoClose: true,
+            label: getStr(
+              LocaleKeys.settings_screen_delete_device_button,
             ),
           ),
         ],
+      ),
+
+      child: Container(
+        decoration: BoxDecoration(
+          color: Theme.of(context).deviceItemBackgroundColor,
+          borderRadius: BorderRadius.circular(12),
+        ),
+        padding: defPaddingAll,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              children: [
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        model.title,
+                        style: TextStyle(
+                          fontSize: 16,
+                          fontWeight: Theme.of(context).fontWeightMedium,
+                        ),
+                      ),
+                      Text(
+                        model.ipWPort,
+                        style: TextStyle(
+                          fontSize: 13,
+                          fontWeight: Theme.of(context).fontWeightBold,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+                TextBtn(
+                  eventName: 'configure_device',
+                  text: getStr(
+                    LocaleKeys.settings_screen_device_item_configure_button,
+                  ),
+                  onPressed: () {
+                    notifier.onConfigureDevicePressed(
+                      context: context,
+                      device: model,
+                    );
+                  },
+                ),
+              ],
+            ),
+            Text(
+              model.description,
+              style: TextStyle(
+                fontSize: 11,
+                fontWeight: Theme.of(context).fontWeightLight,
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

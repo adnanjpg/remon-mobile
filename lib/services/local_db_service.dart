@@ -95,4 +95,24 @@ class LocalDbService {
       return null;
     }
   }
+
+  Future<bool> deleteDevice({
+    required DeviceModel device,
+  }) async {
+    try {
+      await db.writeAsync(
+        (isar) {
+          isar.deviceModels.delete(
+            device.id,
+          );
+        },
+      );
+
+      return true;
+    } catch (e) {
+      logger.e(e);
+
+      return false;
+    }
+  }
 }
