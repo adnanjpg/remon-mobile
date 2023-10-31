@@ -32,6 +32,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
     required double? ramAlertRange,
     required double? cpuAlertRange,
     required double? storageAlertRange,
+    required String? token,
   }) = _AddDeviceScreenState;
   const AddDeviceScreenState._();
 
@@ -48,6 +49,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
         ramAlertRange: null,
         cpuAlertRange: null,
         storageAlertRange: null,
+        token: null,
       );
 
   AddDeviceScreenState copyWithDeviceModel({
@@ -82,6 +84,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
       ramAlertRange: ramAlertRange,
       cpuAlertRange: cpuAlertRange,
       storageAlertRange: storageAlertRange,
+      token: token,
     );
   }
 

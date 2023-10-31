@@ -195,6 +195,7 @@ class ApiMethods {
 class ApiRoutes {
   static const hello = 'hello';
   static const getOtpQr = 'get-otp-qr';
+  static const login = 'login';
 }
 
 final apiServiceProvExternalUrl = Provider.family<ApiService, String?>(
@@ -271,6 +272,35 @@ extension AuthEndPoints on ApiService {
     } catch (e) {
       logger.e(e);
       return false;
+    }
+  }
+
+  Future<String?> login({
+    required String deviceId,
+    required String otp,
+  }) async {
+    try {
+      final res = await methods.post<String>(
+        path: ApiRoutes.login,
+        data: {
+          'device_id': deviceId,
+          'otp': otp,
+        },
+      );
+
+      final dt = res.data;
+
+      if (dt == null) {
+        return null;
+      }
+
+      final decoded = json.decode(dt) as Map<String, dynamic>;
+      final token = decoded['token'] as String;
+
+      return token;
+    } catch (e) {
+      logger.e(e);
+      return null;
     }
   }
 }

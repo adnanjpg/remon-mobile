@@ -71,10 +71,9 @@ class _AddDeviceScreenStateNotifier
     final api = ref.read(
       apiServiceProvExternalUrl(state.url),
     );
+    final deviceId = state.deviceUUID;
 
     if (state.currentStep.isIp) {
-      final deviceId = state.deviceUUID;
-
       final isQrShown = await api.getOtpQr(deviceId: deviceId);
 
       if (isQrShown != true) {
@@ -87,6 +86,27 @@ class _AddDeviceScreenStateNotifier
     }
 
     if (state.currentStep.isOtp) {
+      final otp = state.otp;
+      if (otp == null) {
+        logger.e('otp is null');
+        return false;
+      }
+
+      final token = await api.login(
+        deviceId: deviceId,
+        otp: otp,
+      );
+
+      if (token == null) {
+        return false;
+      }
+
+      state = state.copyWith(
+        token: token,
+      );
+
+      debugPrint('token: $token');
+
       final dev = state.toDeviceModel();
       final res = await ref.read(localDbService).updateDevice(
             device: dev,
