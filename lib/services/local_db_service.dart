@@ -104,6 +104,17 @@ class LocalDbService {
     }
   }
 
+  DeviceModel? getFirstDevice() {
+    try {
+      final devices = db.deviceModels.where().findFirst();
+      return devices;
+    } catch (e) {
+      logger.e(e);
+
+      return null;
+    }
+  }
+
   Stream<List<DeviceModel>> watchAllDevices() {
     try {
       final devices = db.deviceModels.where().watch(
