@@ -176,6 +176,7 @@ class _Fields extends ConsumerWidget {
             value: form.ip,
             onChanged: notifier.onIpChanged,
             validator: notifier.ipValidator,
+            keyboardType: TextInputType.number,
           ),
         ],
         if (form.viewPortField) ...[
@@ -184,6 +185,7 @@ class _Fields extends ConsumerWidget {
             value: form.port,
             onChanged: notifier.onPortChanged,
             validator: notifier.portValidator,
+            keyboardType: TextInputType.number,
           ),
         ],
         //
@@ -220,6 +222,7 @@ class _Fields extends ConsumerWidget {
             value: form.otp,
             onChanged: notifier.onOtpChanged,
             validator: notifier.otpValidator,
+            keyboardType: TextInputType.number,
           ),
         ],
 
