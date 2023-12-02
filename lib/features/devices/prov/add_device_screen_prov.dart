@@ -29,12 +29,6 @@ class _AddDeviceScreenStateNotifier
         );
   final Ref ref;
 
-  @override
-  void dispose() {
-    debugPrint('dispose _AddDeviceScreenStateNotifier');
-    super.dispose();
-  }
-
   void init({
     required DeviceModel device,
   }) {
