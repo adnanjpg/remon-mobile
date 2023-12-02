@@ -59,6 +59,7 @@ class _AddDeviceScreenStateNotifier
     }
 
     if (state.currentStep.isOtp &&
+        state.otpUrlPickFromOptions.isOptionUrlManaged &&
         (state.otpUrl?.isEmpty == true || state.otpUrl == null)) {
       return getStr(
         LocaleKeys.add_device_screen_validator_otp_url_error_invalid,
