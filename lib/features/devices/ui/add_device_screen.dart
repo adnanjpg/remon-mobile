@@ -1,7 +1,10 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading/loading.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/features/devices/models/pick_from_options.dart';
 import 'package:remon_mobile/features/devices/prov/add_device_screen_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
@@ -60,6 +63,7 @@ class _AddDeviceScreenState extends ConsumerState<AddDeviceScreen> {
                 Consumer(
                   builder: (context, ref, _) {
                     final notifier = ref.watch(addDeviceScreenProv.notifier);
+
                     return Row(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
@@ -98,6 +102,7 @@ class _Titles extends ConsumerWidget {
     final isIp = form.currentStep.isIp;
     final isOtp = form.currentStep.isOtp;
     final isConfig = form.currentStep.isConfig;
+    final pickOption = form.otpUrlPickFromOptions;
 
     final ipWidgets = [
       Text(
@@ -109,16 +114,25 @@ class _Titles extends ConsumerWidget {
         style: Theme.of(context).pageDesc,
       ),
     ];
+
     final otpWidgets = [
       Text(
         getStr(LocaleKeys.add_device_screen_otp_title),
         style: Theme.of(context).pageTitle,
       ),
+      const _OtpUrlOptionPicker(),
       Text(
-        getStr(LocaleKeys.add_device_screen_otp_desc),
+        pickOption.isExternalApp
+            ? getStr(LocaleKeys.add_device_screen_otp_external_app_desc)
+            : pickOption.isCamera
+                ? getStr(LocaleKeys.add_device_screen_otp_camera_desc)
+                : pickOption.isInputUrl
+                    ? getStr(LocaleKeys.add_device_screen_otp_input_url_desc)
+                    : '',
         style: Theme.of(context).pageDesc,
       ),
     ];
+
     final configWidgets = [
       Text(
         getStr(LocaleKeys.add_device_screen_config_title),
@@ -173,6 +187,33 @@ class _Fields extends ConsumerWidget {
           ),
         ],
         //
+        if (form.viewOtpCameraScanner) ...[
+          SizedBox(
+            height: 300,
+            child: MobileScanner(
+              controller: MobileScannerController(
+                detectionSpeed: DetectionSpeed.normal,
+                formats: [
+                  BarcodeFormat.qrCode,
+                ],
+              ),
+              onDetect: (capture) {
+                notifier.onOtpUrlCameraDetected(
+                  context: context,
+                  capture: capture,
+                );
+              },
+            ),
+          ),
+        ],
+        if (form.viewOtpUrlField) ...[
+          PrimaryField(
+            labelText: getStr(LocaleKeys.add_device_screen_otp_url_field),
+            value: form.otpUrl,
+            onChanged: notifier.onOtpUrlChanged,
+            validator: notifier.otpUrlValidator,
+          ),
+        ],
         if (form.viewOtpField) ...[
           PrimaryField(
             labelText: getStr(LocaleKeys.add_device_screen_otp_field),
@@ -181,6 +222,8 @@ class _Fields extends ConsumerWidget {
             validator: notifier.otpValidator,
           ),
         ],
+
+        //
         if (form.viewTitleField) ...[
           PrimaryField(
             labelText: getStr(LocaleKeys.add_device_screen_title_field),
@@ -294,9 +337,46 @@ class _Fields extends ConsumerWidget {
             ],
           ),
         ],
-
 //
       ].joinWidgetList(heightSizedBoxIndex),
+    );
+  }
+}
+
+class _OtpUrlOptionPicker extends ConsumerWidget {
+  const _OtpUrlOptionPicker();
+
+  @override
+  Widget build(BuildContext context, WidgetRef ref) {
+    final notifier = ref.watch(addDeviceScreenProv.notifier);
+    final pickOption = ref.watch(addDeviceScreenProv).otpUrlPickFromOptions;
+
+    return Column(
+      children: [
+        CupertinoSegmentedControl<OtpUrlPickFromOptions>(
+          onValueChanged: notifier.setOtpUrlPickFromOptions,
+          groupValue: pickOption,
+          children: {
+            OtpUrlPickFromOptions.externalApp: Text(
+              getStr(
+                LocaleKeys
+                    .add_device_screen_otp_url_pick_from_options_external_app,
+              ),
+            ),
+            OtpUrlPickFromOptions.camera: Text(
+              getStr(
+                LocaleKeys.add_device_screen_otp_url_pick_from_options_camera,
+              ),
+            ),
+            OtpUrlPickFromOptions.inputUrl: Text(
+              getStr(
+                LocaleKeys
+                    .add_device_screen_otp_url_pick_from_options_input_url,
+              ),
+            ),
+          },
+        ),
+      ],
     );
   }
 }

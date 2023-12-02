@@ -1,6 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/features/devices/models/pick_from_options.dart';
 import 'package:remon_mobile/features/devices/models/suggested_device_desc_model.dart';
 import 'package:uuid/uuid.dart';
 
@@ -35,6 +36,8 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
     required double? storageAlertRange,
     required String? token,
     required SuggestedDeviceDescModel? suggestedDeviceDesc,
+    required OtpUrlPickFromOptions otpUrlPickFromOptions,
+    required String? otpUrl,
   }) = _AddDeviceScreenState;
   const AddDeviceScreenState._();
 
@@ -53,6 +56,8 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
         storageAlertRange: null,
         token: null,
         suggestedDeviceDesc: null,
+        otpUrlPickFromOptions: OtpUrlPickFromOptions.camera,
+        otpUrl: null,
       );
 
   AddDeviceScreenState copyWithDeviceModel({
@@ -107,7 +112,12 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
   bool get viewIpField => currentStep.isIp;
   bool get viewPortField => currentStep.isIp;
 
-  bool get viewOtpField => currentStep.isOtp;
+  bool get viewOtpCameraScanner =>
+      currentStep.isOtp && otpUrlPickFromOptions.isCamera;
+  bool get viewOtpUrlField =>
+      currentStep.isOtp && otpUrlPickFromOptions.isInputUrl;
+  bool get viewOtpField =>
+      currentStep.isOtp && otpUrlPickFromOptions.isExternalApp;
 
   bool get viewTitleField => currentStep.isConfig;
   bool get viewDescField => currentStep.isConfig;

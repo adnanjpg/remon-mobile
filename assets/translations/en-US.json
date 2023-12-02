@@ -15,7 +15,9 @@
     "add_device_screen_title": "Add device",
     "add_device_screen_desc": "Please enter the server’s info below",
     "add_device_screen_otp_title": "Enter OTP",
-    "add_device_screen_otp_desc": "There should be a qr code now appearing on your server's terminal, please scan it with your camera app to be redirected to your 2fa app, and then enter the otp appearing there",
+    "add_device_screen_otp_external_app_desc": "There should be a qr code now appearing on your server's terminal, please scan it with your camera app to be redirected to your 2fa app, and then enter the otp appearing there",
+    "add_device_screen_otp_camera_desc": "There should be a qr code now appearing on your server's terminal, please make sure your camera is enabled and then scan it",
+    "add_device_screen_otp_input_url_desc": "There should be a qr code and a url string now appearing on your server's terminal, please input the url string into the field below",
     "add_device_screen_config_title": "Configure device",
     "add_device_screen_ip_field": "IP address",
     "add_device_screen_port_field": "Port",
@@ -36,5 +38,13 @@
     "add_device_screen_cpu_field_title": "CPU Alert",
     "add_device_screen_cpu_field_desc": "You will receive a notification when your CPU usage exceeds {}%",
     "add_device_screen_storage_field_title": "Storage Alert",
-    "add_device_screen_storage_field_desc": "You will receive a notification when your Storage usage exceeds {}%"
+    "add_device_screen_storage_field_desc": "You will receive a notification when your Storage usage exceeds {}",
+    "add_device_screen_otp_url_pick_from_options_external_app": "External app",
+    "add_device_screen_otp_url_pick_from_options_camera": "Camera",
+    "add_device_screen_otp_url_pick_from_options_input_url": "Input URL",
+    "add_device_screen_otp_url_field": "OTP URL",
+    "add_device_screen_otp_url_field_error_empty": "OTP URL cannot be empty",
+    "add_device_screen_otp_url_field_error_invalid": "Invalid OTP URL",
+    "add_device_screen_validator_otp_url_error_invalid": "Invalid OTP URL",
+    "add_device_screen_validator_camera_otp_url_error_invalid": "Invalid OTP URL"
 }

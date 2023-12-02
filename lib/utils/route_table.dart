@@ -13,7 +13,7 @@ import 'package:remon_mobile/features/devices/ui/add_device_screen.dart';
 
 import 'package:remon_mobile/features/home/ui/bottom_nav_screen.dart';
 import 'package:remon_mobile/features/home/ui/splash_screen.dart';
-import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/services/local_db_service/local_db_service.dart';
 import 'package:remon_mobile/ui/widgets/error_screen.dart';
 import 'package:remon_mobile/ui/widgets/loading_screen.dart';
 

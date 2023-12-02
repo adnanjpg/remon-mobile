@@ -31,6 +31,9 @@ mixin _$AddDeviceScreenState {
   String? get token => throw _privateConstructorUsedError;
   SuggestedDeviceDescModel? get suggestedDeviceDesc =>
       throw _privateConstructorUsedError;
+  OtpUrlPickFromOptions get otpUrlPickFromOptions =>
+      throw _privateConstructorUsedError;
+  String? get otpUrl => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
   $AddDeviceScreenStateCopyWith<AddDeviceScreenState> get copyWith =>
@@ -57,7 +60,9 @@ abstract class $AddDeviceScreenStateCopyWith<$Res> {
       double? cpuAlertRange,
       double? storageAlertRange,
       String? token,
-      SuggestedDeviceDescModel? suggestedDeviceDesc});
+      SuggestedDeviceDescModel? suggestedDeviceDesc,
+      OtpUrlPickFromOptions otpUrlPickFromOptions,
+      String? otpUrl});
 
   $SuggestedDeviceDescModelCopyWith<$Res>? get suggestedDeviceDesc;
 }
@@ -90,6 +95,8 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
     Object? storageAlertRange = freezed,
     Object? token = freezed,
     Object? suggestedDeviceDesc = freezed,
+    Object? otpUrlPickFromOptions = null,
+    Object? otpUrl = freezed,
   }) {
     return _then(_value.copyWith(
       formKey: null == formKey
@@ -148,6 +155,14 @@ class _$AddDeviceScreenStateCopyWithImpl<$Res,
           ? _value.suggestedDeviceDesc
           : suggestedDeviceDesc // ignore: cast_nullable_to_non_nullable
               as SuggestedDeviceDescModel?,
+      otpUrlPickFromOptions: null == otpUrlPickFromOptions
+          ? _value.otpUrlPickFromOptions
+          : otpUrlPickFromOptions // ignore: cast_nullable_to_non_nullable
+              as OtpUrlPickFromOptions,
+      otpUrl: freezed == otpUrl
+          ? _value.otpUrl
+          : otpUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 
@@ -187,7 +202,9 @@ abstract class _$$_AddDeviceScreenStateCopyWith<$Res>
       double? cpuAlertRange,
       double? storageAlertRange,
       String? token,
-      SuggestedDeviceDescModel? suggestedDeviceDesc});
+      SuggestedDeviceDescModel? suggestedDeviceDesc,
+      OtpUrlPickFromOptions otpUrlPickFromOptions,
+      String? otpUrl});
 
   @override
   $SuggestedDeviceDescModelCopyWith<$Res>? get suggestedDeviceDesc;
@@ -218,6 +235,8 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
     Object? storageAlertRange = freezed,
     Object? token = freezed,
     Object? suggestedDeviceDesc = freezed,
+    Object? otpUrlPickFromOptions = null,
+    Object? otpUrl = freezed,
   }) {
     return _then(_$_AddDeviceScreenState(
       formKey: null == formKey
@@ -276,6 +295,14 @@ class __$$_AddDeviceScreenStateCopyWithImpl<$Res>
           ? _value.suggestedDeviceDesc
           : suggestedDeviceDesc // ignore: cast_nullable_to_non_nullable
               as SuggestedDeviceDescModel?,
+      otpUrlPickFromOptions: null == otpUrlPickFromOptions
+          ? _value.otpUrlPickFromOptions
+          : otpUrlPickFromOptions // ignore: cast_nullable_to_non_nullable
+              as OtpUrlPickFromOptions,
+      otpUrl: freezed == otpUrl
+          ? _value.otpUrl
+          : otpUrl // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -297,7 +324,9 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
       required this.cpuAlertRange,
       required this.storageAlertRange,
       required this.token,
-      required this.suggestedDeviceDesc})
+      required this.suggestedDeviceDesc,
+      required this.otpUrlPickFromOptions,
+      required this.otpUrl})
       : super._();
 
   @override
@@ -328,10 +357,14 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
   final String? token;
   @override
   final SuggestedDeviceDescModel? suggestedDeviceDesc;
+  @override
+  final OtpUrlPickFromOptions otpUrlPickFromOptions;
+  @override
+  final String? otpUrl;
 
   @override
   String toString() {
-    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, deviceUUID: $deviceUUID, deviceId: $deviceId, ip: $ip, port: $port, otp: $otp, title: $title, desc: $desc, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, token: $token, suggestedDeviceDesc: $suggestedDeviceDesc)';
+    return 'AddDeviceScreenState(formKey: $formKey, currentStep: $currentStep, deviceUUID: $deviceUUID, deviceId: $deviceId, ip: $ip, port: $port, otp: $otp, title: $title, desc: $desc, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, token: $token, suggestedDeviceDesc: $suggestedDeviceDesc, otpUrlPickFromOptions: $otpUrlPickFromOptions, otpUrl: $otpUrl)';
   }
 
   @override
@@ -359,7 +392,10 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
                 other.storageAlertRange == storageAlertRange) &&
             (identical(other.token, token) || other.token == token) &&
             (identical(other.suggestedDeviceDesc, suggestedDeviceDesc) ||
-                other.suggestedDeviceDesc == suggestedDeviceDesc));
+                other.suggestedDeviceDesc == suggestedDeviceDesc) &&
+            (identical(other.otpUrlPickFromOptions, otpUrlPickFromOptions) ||
+                other.otpUrlPickFromOptions == otpUrlPickFromOptions) &&
+            (identical(other.otpUrl, otpUrl) || other.otpUrl == otpUrl));
   }
 
   @override
@@ -378,7 +414,9 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
       cpuAlertRange,
       storageAlertRange,
       token,
-      suggestedDeviceDesc);
+      suggestedDeviceDesc,
+      otpUrlPickFromOptions,
+      otpUrl);
 
   @JsonKey(ignore: true)
   @override
@@ -390,21 +428,22 @@ class _$_AddDeviceScreenState extends _AddDeviceScreenState {
 
 abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   const factory _AddDeviceScreenState(
-          {required final GlobalKey<FormState> formKey,
-          required final CurrentStep currentStep,
-          required final String deviceUUID,
-          required final int? deviceId,
-          required final String? ip,
-          required final String? port,
-          required final String? otp,
-          required final String? title,
-          required final String? desc,
-          required final double? ramAlertRange,
-          required final double? cpuAlertRange,
-          required final double? storageAlertRange,
-          required final String? token,
-          required final SuggestedDeviceDescModel? suggestedDeviceDesc}) =
-      _$_AddDeviceScreenState;
+      {required final GlobalKey<FormState> formKey,
+      required final CurrentStep currentStep,
+      required final String deviceUUID,
+      required final int? deviceId,
+      required final String? ip,
+      required final String? port,
+      required final String? otp,
+      required final String? title,
+      required final String? desc,
+      required final double? ramAlertRange,
+      required final double? cpuAlertRange,
+      required final double? storageAlertRange,
+      required final String? token,
+      required final SuggestedDeviceDescModel? suggestedDeviceDesc,
+      required final OtpUrlPickFromOptions otpUrlPickFromOptions,
+      required final String? otpUrl}) = _$_AddDeviceScreenState;
   const _AddDeviceScreenState._() : super._();
 
   @override
@@ -435,6 +474,10 @@ abstract class _AddDeviceScreenState extends AddDeviceScreenState {
   String? get token;
   @override
   SuggestedDeviceDescModel? get suggestedDeviceDesc;
+  @override
+  OtpUrlPickFromOptions get otpUrlPickFromOptions;
+  @override
+  String? get otpUrl;
   @override
   @JsonKey(ignore: true)
   _$$_AddDeviceScreenStateCopyWith<_$_AddDeviceScreenState> get copyWith =>

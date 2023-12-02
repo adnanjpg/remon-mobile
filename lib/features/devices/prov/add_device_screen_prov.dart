@@ -2,11 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:loading/loading.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:remon_mobile/features/devices/models/add_device_screen_state.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/features/devices/models/pick_from_options.dart';
+import 'package:remon_mobile/features/two_fa/models/account_model.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/services/api_service.dart';
-import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/services/local_db_service/local_db_service.dart';
+import 'package:remon_mobile/ui/widgets/snackbars.dart';
+import 'package:remon_mobile/utils/otp_extensions.dart';
 import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/route_table.dart';
 import 'package:remon_mobile/utils/utils.dart';
@@ -24,6 +29,12 @@ class _AddDeviceScreenStateNotifier
         );
   final Ref ref;
 
+  @override
+  void dispose() {
+    debugPrint('dispose _AddDeviceScreenStateNotifier');
+    super.dispose();
+  }
+
   void init({
     required DeviceModel device,
   }) {
@@ -40,14 +51,21 @@ class _AddDeviceScreenStateNotifier
     setSuggestedDeviceDesc();
   }
 
-  Future<bool> _validate({
+  Future<String?> _validate({
     required BuildContext context,
   }) async {
     if (state.formKey.currentState?.validate() != true) {
-      return false;
+      return '';
     }
 
-    return true;
+    if (state.currentStep.isOtp &&
+        (state.otpUrl?.isEmpty == true || state.otpUrl == null)) {
+      return getStr(
+        LocaleKeys.add_device_screen_validator_otp_url_error_invalid,
+      );
+    }
+
+    return null;
   }
 
   void setGlobalSelectedDevice() {
@@ -77,110 +95,195 @@ class _AddDeviceScreenStateNotifier
     state = state.copyWith(
       currentStep: CurrentStep.values[state.currentStep.index + 1],
     );
-
-    setGlobalSelectedDevice();
   }
 
-  Future<bool> onSubmitBtnPressed({
+  Future<bool> submitIpStep({
     required BuildContext context,
   }) async {
-    if (await _validate(context: context) != true) {
-      return false;
-    }
-
-    Loading.load();
-
     final api = ref.read(
       apiServiceProvExternalUrl(state.url),
     );
     final deviceId = state.deviceUUID;
 
-    if (state.currentStep.isIp) {
-      final isQrShown = await api.getOtpQr(deviceId: deviceId);
+    final isQrShown = await api.getOtpQr(deviceId: deviceId);
 
-      if (isQrShown != true) {
-        return false;
-      }
-
-      setToNextStep(context: context);
-
-      Loading.unload();
-
-      return true;
-    }
-
-    if (state.currentStep.isOtp) {
-      final otp = state.otp;
-      if (otp == null) {
-        logger.e('otp is null');
-        return false;
-      }
-
-      final token = await api.login(
-        deviceId: deviceId,
-        otp: otp,
-      );
-
-      if (token == null) {
-        return false;
-      }
-
-      state = state.copyWith(
-        token: token,
-      );
-
-      debugPrint('token: $token');
-
-      final dev = state.toDeviceModel();
-      final res = await ref.read(localDbService).updateDevice(
-            device: dev,
-          );
-
-      if (res == null) {
-        return false;
-      }
-
-      state = state.copyWith(deviceId: res);
-
-      setToNextStep(context: context);
-
-      Loading.unload();
-
-      await setSuggestedDeviceDesc();
-
-      return true;
-    }
-
-    if (state.currentStep.isConfig) {
-      final isUpdated = await api.updateDeviceInfo(
-        model: UpdateDeviceInfoRequestModel.fromDeviceModel(
-          state.toDeviceModel(),
-        ),
-      );
-
-      if (isUpdated != true) {
-        return false;
-      }
-
-      final dev = state.toDeviceModel();
-      final res = await ref.read(localDbService).updateDevice(
-            device: dev,
-          );
-
-      if (res == null) {
-        return false;
-      }
-
-      setToNextStep(context: context);
-
-      Loading.unload();
-
-      return true;
+    if (isQrShown != true) {
+      return false;
     }
 
     Loading.unload();
 
-    return false;
+    return true;
+  }
+
+  Future<bool> submitOtpStep({
+    required BuildContext context,
+  }) async {
+    final api = ref.read(
+      apiServiceProvExternalUrl(state.url),
+    );
+    final deviceId = state.deviceUUID;
+
+    String otp;
+
+    switch (state.otpUrlPickFromOptions) {
+      case OtpUrlPickFromOptions.camera:
+      case OtpUrlPickFromOptions.inputUrl:
+        {
+          final otpUrl = state.otpUrl;
+          if (otpUrl == null) {
+            logger.e('otpUrl is null');
+            return false;
+          }
+          final dbProv = ref.read(localDbService);
+          final acc = AccountModel.fromUrl(
+            otpUrl,
+          );
+          if (acc == null) {
+            logger.e('acc is null');
+            return false;
+          }
+
+          final addedAcc = await dbProv.addAccount(account: acc);
+
+          if (addedAcc == null) {
+            logger.e('addedAcc is null');
+            return false;
+          }
+
+          otp = acc.totpString;
+        }
+
+      case OtpUrlPickFromOptions.externalApp:
+        {
+          final enteredOtp = state.otp;
+          if (enteredOtp == null) {
+            logger.e('otp is null');
+            return false;
+          }
+          otp = enteredOtp;
+        }
+    }
+
+    final token = await api.login(
+      deviceId: deviceId,
+      otp: otp,
+    );
+
+    if (token == null) {
+      return false;
+    }
+
+    state = state.copyWith(
+      token: token,
+    );
+
+    debugPrint('token: $token');
+
+    final dev = state.toDeviceModel();
+    final res = await ref.read(localDbService).updateDevice(
+          device: dev,
+        );
+
+    if (res == null) {
+      return false;
+    }
+
+    state = state.copyWith(deviceId: res);
+
+    Loading.unload();
+
+    setGlobalSelectedDevice();
+
+    await setSuggestedDeviceDesc();
+
+    return true;
+  }
+
+  Future<bool> submitConfigStep({
+    required BuildContext context,
+  }) async {
+    final api = ref.read(
+      apiServiceProvExternalUrl(state.url),
+    );
+
+    final isUpdated = await api.updateDeviceInfo(
+      model: UpdateDeviceInfoRequestModel.fromDeviceModel(
+        state.toDeviceModel(),
+      ),
+    );
+
+    if (isUpdated != true) {
+      return false;
+    }
+
+    final dev = state.toDeviceModel();
+    final res = await ref.read(localDbService).updateDevice(
+          device: dev,
+        );
+
+    if (res == null) {
+      return false;
+    }
+
+    Loading.unload();
+
+    return true;
+  }
+
+  bool _isSubmitting = false;
+  Future<bool> onSubmitBtnPressed({
+    required BuildContext context,
+  }) async {
+    if (_isSubmitting) {
+      return false;
+    }
+
+    _isSubmitting = true;
+
+    final val = await _validate(
+      context: context,
+    );
+    if (val != null) {
+      ref.read(toastMachineProv).showErrorToast(
+            context: context,
+            title: val,
+            message: '',
+          );
+      _isSubmitting = false;
+      return false;
+    }
+
+    Loading.load();
+
+    var sub = false;
+
+    if (state.currentStep.isIp) {
+      sub = await submitIpStep(
+        context: context,
+      );
+    }
+
+    if (state.currentStep.isOtp) {
+      sub = await submitOtpStep(
+        context: context,
+      );
+    }
+
+    if (state.currentStep.isConfig) {
+      sub = await submitConfigStep(
+        context: context,
+      );
+    }
+
+    _isSubmitting = false;
+    Loading.unload();
+
+    if (sub) {
+      setToNextStep(context: context);
+    }
+
+    return sub;
   }
 
   //
@@ -251,6 +354,18 @@ class _AddDeviceScreenStateNotifier
     return null;
   }
 
+  String? otpUrlValidator(String? value) {
+    if (value == null || value.isEmpty) {
+      return getStr(LocaleKeys.add_device_screen_otp_url_field_error_empty);
+    }
+
+    if (!value.isValidTotpUrl) {
+      return getStr(LocaleKeys.add_device_screen_otp_url_field_error_invalid);
+    }
+
+    return null;
+  }
+
   //
   void onTitleChanged(String value) {
     state = state.copyWith(
@@ -299,6 +414,60 @@ class _AddDeviceScreenStateNotifier
   void onStorageRangeChanged(double? value) {
     state = state.copyWith(
       storageAlertRange: value,
+    );
+  }
+
+  void setOtpUrlPickFromOptions(OtpUrlPickFromOptions value) {
+    state = state.copyWith(
+      otpUrlPickFromOptions: value,
+    );
+  }
+
+  void onOtpUrlChanged(String value) {
+    state = state.copyWith(
+      otpUrl: value,
+    );
+  }
+
+  String? detectedURL;
+
+  void onOtpUrlCameraDetected({
+    required BuildContext context,
+    required BarcodeCapture capture,
+  }) {
+    final barcodes = capture.barcodes;
+    final barcode = barcodes.isEmpty ? null : barcodes.first;
+    final url = barcode?.rawValue ?? '';
+
+    if (url.isEmpty) {
+      return;
+    }
+
+    if (url == detectedURL) {
+      return;
+    }
+
+    detectedURL = url;
+
+    if (!url.isValidTotpUrl) {
+      ref.read(toastMachineProv).showErrorToast(
+            context: context,
+            title: getStr(
+              LocaleKeys
+                  .add_device_screen_validator_camera_otp_url_error_invalid,
+            ),
+            message: '',
+          );
+
+      return;
+    }
+
+    state = state.copyWith(
+      otpUrl: url,
+    );
+
+    onSubmitBtnPressed(
+      context: context,
     );
   }
 }

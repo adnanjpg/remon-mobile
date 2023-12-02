@@ -15,6 +15,7 @@ import 'package:remon_mobile/app_runner.dart';
 import 'package:remon_mobile/features/app_init/models/app_init_state.dart';
 import 'package:remon_mobile/features/app_init/models/app_settings.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
+import 'package:remon_mobile/features/two_fa/models/account_model.dart';
 import 'package:remon_mobile/services/analytics_service.dart';
 import 'package:remon_mobile/utils/utils.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -29,7 +30,7 @@ final appInitStateProv = StateProvider<AppInitState>(
 );
 
 final isarSchemasProv = Provider<List<IsarGeneratedSchema>>(
-  (ref) => [DeviceModelSchema],
+  (ref) => [DeviceModelSchema, AccountModelSchema],
 );
 
 final isarDefaultInstanceNameProv = Provider<String>(

@@ -5,7 +5,7 @@ import 'package:remixicon/remixicon.dart';
 import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/home/prov/settings_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
-import 'package:remon_mobile/services/local_db_service.dart';
+import 'package:remon_mobile/services/local_db_service/local_db_service.dart';
 import 'package:remon_mobile/ui/widgets/btns/primary_btn.dart';
 import 'package:remon_mobile/ui/widgets/btns/text_btn.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
