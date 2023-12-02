@@ -25,6 +25,14 @@ const AccountModelSchema = IsarGeneratedSchema(
         type: IsarType.long,
       ),
       IsarPropertySchema(
+        name: 'totpString',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
+        name: 'totpFormatted',
+        type: IsarType.string,
+      ),
+      IsarPropertySchema(
         name: 'appname',
         type: IsarType.string,
       ),
@@ -66,13 +74,15 @@ const AccountModelSchema = IsarGeneratedSchema(
 @isarProtected
 int serializeAccountModel(IsarWriter writer, AccountModel object) {
   IsarCore.writeLong(writer, 1, object.totp);
-  IsarCore.writeString(writer, 2, object.appname);
-  IsarCore.writeString(writer, 3, object.username);
-  IsarCore.writeString(writer, 4, object.secret);
-  IsarCore.writeString(writer, 5, object.issuer);
-  IsarCore.writeString(writer, 6, object.algorithm);
-  IsarCore.writeLong(writer, 7, object.digits);
-  IsarCore.writeLong(writer, 8, object.period);
+  IsarCore.writeString(writer, 2, object.totpString);
+  IsarCore.writeString(writer, 3, object.totpFormatted);
+  IsarCore.writeString(writer, 4, object.appname);
+  IsarCore.writeString(writer, 5, object.username);
+  IsarCore.writeString(writer, 6, object.secret);
+  IsarCore.writeString(writer, 7, object.issuer);
+  IsarCore.writeString(writer, 8, object.algorithm);
+  IsarCore.writeLong(writer, 9, object.digits);
+  IsarCore.writeLong(writer, 10, object.period);
   return object.id;
 }
 
@@ -81,19 +91,19 @@ AccountModel deserializeAccountModel(IsarReader reader) {
   final int _id;
   _id = IsarCore.readId(reader);
   final String _appname;
-  _appname = IsarCore.readString(reader, 2) ?? '';
+  _appname = IsarCore.readString(reader, 4) ?? '';
   final String _username;
-  _username = IsarCore.readString(reader, 3) ?? '';
+  _username = IsarCore.readString(reader, 5) ?? '';
   final String _secret;
-  _secret = IsarCore.readString(reader, 4) ?? '';
+  _secret = IsarCore.readString(reader, 6) ?? '';
   final String _issuer;
-  _issuer = IsarCore.readString(reader, 5) ?? '';
+  _issuer = IsarCore.readString(reader, 7) ?? '';
   final String _algorithm;
-  _algorithm = IsarCore.readString(reader, 6) ?? '';
+  _algorithm = IsarCore.readString(reader, 8) ?? '';
   final int _digits;
-  _digits = IsarCore.readLong(reader, 7);
+  _digits = IsarCore.readLong(reader, 9);
   final int _period;
-  _period = IsarCore.readLong(reader, 8);
+  _period = IsarCore.readLong(reader, 10);
   final object = AccountModel(
     id: _id,
     appname: _appname,
@@ -112,12 +122,12 @@ dynamic deserializeAccountModelProp(IsarReader reader, int property) {
   switch (property) {
     case 1:
       return IsarCore.readLong(reader, 1);
-    case 0:
-      return IsarCore.readId(reader);
     case 2:
       return IsarCore.readString(reader, 2) ?? '';
     case 3:
       return IsarCore.readString(reader, 3) ?? '';
+    case 0:
+      return IsarCore.readId(reader);
     case 4:
       return IsarCore.readString(reader, 4) ?? '';
     case 5:
@@ -125,9 +135,13 @@ dynamic deserializeAccountModelProp(IsarReader reader, int property) {
     case 6:
       return IsarCore.readString(reader, 6) ?? '';
     case 7:
-      return IsarCore.readLong(reader, 7);
+      return IsarCore.readString(reader, 7) ?? '';
     case 8:
-      return IsarCore.readLong(reader, 8);
+      return IsarCore.readString(reader, 8) ?? '';
+    case 9:
+      return IsarCore.readLong(reader, 9);
+    case 10:
+      return IsarCore.readLong(reader, 10);
     default:
       throw ArgumentError('Unknown property: $property');
   }
@@ -137,6 +151,8 @@ sealed class _AccountModelUpdate {
   bool call({
     required int id,
     int? totp,
+    String? totpString,
+    String? totpFormatted,
     String? appname,
     String? username,
     String? secret,
@@ -156,6 +172,8 @@ class _AccountModelUpdateImpl implements _AccountModelUpdate {
   bool call({
     required int id,
     Object? totp = ignore,
+    Object? totpString = ignore,
+    Object? totpFormatted = ignore,
     Object? appname = ignore,
     Object? username = ignore,
     Object? secret = ignore,
@@ -168,13 +186,15 @@ class _AccountModelUpdateImpl implements _AccountModelUpdate {
           id
         ], {
           if (totp != ignore) 1: totp as int?,
-          if (appname != ignore) 2: appname as String?,
-          if (username != ignore) 3: username as String?,
-          if (secret != ignore) 4: secret as String?,
-          if (issuer != ignore) 5: issuer as String?,
-          if (algorithm != ignore) 6: algorithm as String?,
-          if (digits != ignore) 7: digits as int?,
-          if (period != ignore) 8: period as int?,
+          if (totpString != ignore) 2: totpString as String?,
+          if (totpFormatted != ignore) 3: totpFormatted as String?,
+          if (appname != ignore) 4: appname as String?,
+          if (username != ignore) 5: username as String?,
+          if (secret != ignore) 6: secret as String?,
+          if (issuer != ignore) 7: issuer as String?,
+          if (algorithm != ignore) 8: algorithm as String?,
+          if (digits != ignore) 9: digits as int?,
+          if (period != ignore) 10: period as int?,
         }) >
         0;
   }
@@ -184,6 +204,8 @@ sealed class _AccountModelUpdateAll {
   int call({
     required List<int> id,
     int? totp,
+    String? totpString,
+    String? totpFormatted,
     String? appname,
     String? username,
     String? secret,
@@ -203,6 +225,8 @@ class _AccountModelUpdateAllImpl implements _AccountModelUpdateAll {
   int call({
     required List<int> id,
     Object? totp = ignore,
+    Object? totpString = ignore,
+    Object? totpFormatted = ignore,
     Object? appname = ignore,
     Object? username = ignore,
     Object? secret = ignore,
@@ -213,13 +237,15 @@ class _AccountModelUpdateAllImpl implements _AccountModelUpdateAll {
   }) {
     return collection.updateProperties(id, {
       if (totp != ignore) 1: totp as int?,
-      if (appname != ignore) 2: appname as String?,
-      if (username != ignore) 3: username as String?,
-      if (secret != ignore) 4: secret as String?,
-      if (issuer != ignore) 5: issuer as String?,
-      if (algorithm != ignore) 6: algorithm as String?,
-      if (digits != ignore) 7: digits as int?,
-      if (period != ignore) 8: period as int?,
+      if (totpString != ignore) 2: totpString as String?,
+      if (totpFormatted != ignore) 3: totpFormatted as String?,
+      if (appname != ignore) 4: appname as String?,
+      if (username != ignore) 5: username as String?,
+      if (secret != ignore) 6: secret as String?,
+      if (issuer != ignore) 7: issuer as String?,
+      if (algorithm != ignore) 8: algorithm as String?,
+      if (digits != ignore) 9: digits as int?,
+      if (period != ignore) 10: period as int?,
     });
   }
 }
@@ -233,6 +259,8 @@ extension AccountModelUpdate on IsarCollection<int, AccountModel> {
 sealed class _AccountModelQueryUpdate {
   int call({
     int? totp,
+    String? totpString,
+    String? totpFormatted,
     String? appname,
     String? username,
     String? secret,
@@ -252,6 +280,8 @@ class _AccountModelQueryUpdateImpl implements _AccountModelQueryUpdate {
   @override
   int call({
     Object? totp = ignore,
+    Object? totpString = ignore,
+    Object? totpFormatted = ignore,
     Object? appname = ignore,
     Object? username = ignore,
     Object? secret = ignore,
@@ -262,13 +292,15 @@ class _AccountModelQueryUpdateImpl implements _AccountModelQueryUpdate {
   }) {
     return query.updateProperties(limit: limit, {
       if (totp != ignore) 1: totp as int?,
-      if (appname != ignore) 2: appname as String?,
-      if (username != ignore) 3: username as String?,
-      if (secret != ignore) 4: secret as String?,
-      if (issuer != ignore) 5: issuer as String?,
-      if (algorithm != ignore) 6: algorithm as String?,
-      if (digits != ignore) 7: digits as int?,
-      if (period != ignore) 8: period as int?,
+      if (totpString != ignore) 2: totpString as String?,
+      if (totpFormatted != ignore) 3: totpFormatted as String?,
+      if (appname != ignore) 4: appname as String?,
+      if (username != ignore) 5: username as String?,
+      if (secret != ignore) 6: secret as String?,
+      if (issuer != ignore) 7: issuer as String?,
+      if (algorithm != ignore) 8: algorithm as String?,
+      if (digits != ignore) 9: digits as int?,
+      if (period != ignore) 10: period as int?,
     });
   }
 }
@@ -289,6 +321,8 @@ class _AccountModelQueryBuilderUpdateImpl implements _AccountModelQueryUpdate {
   @override
   int call({
     Object? totp = ignore,
+    Object? totpString = ignore,
+    Object? totpFormatted = ignore,
     Object? appname = ignore,
     Object? username = ignore,
     Object? secret = ignore,
@@ -301,13 +335,15 @@ class _AccountModelQueryBuilderUpdateImpl implements _AccountModelQueryUpdate {
     try {
       return q.updateProperties(limit: limit, {
         if (totp != ignore) 1: totp as int?,
-        if (appname != ignore) 2: appname as String?,
-        if (username != ignore) 3: username as String?,
-        if (secret != ignore) 4: secret as String?,
-        if (issuer != ignore) 5: issuer as String?,
-        if (algorithm != ignore) 6: algorithm as String?,
-        if (digits != ignore) 7: digits as int?,
-        if (period != ignore) 8: period as int?,
+        if (totpString != ignore) 2: totpString as String?,
+        if (totpFormatted != ignore) 3: totpFormatted as String?,
+        if (appname != ignore) 4: appname as String?,
+        if (username != ignore) 5: username as String?,
+        if (secret != ignore) 6: secret as String?,
+        if (issuer != ignore) 7: issuer as String?,
+        if (algorithm != ignore) 8: algorithm as String?,
+        if (digits != ignore) 9: digits as int?,
+        if (period != ignore) 10: period as int?,
       });
     } finally {
       q.close();
@@ -409,6 +445,366 @@ extension AccountModelQueryFilter
     });
   }
 
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringGreaterThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringLessThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringBetween(
+    String lower,
+    String upper, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 2,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 2,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 2,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 2,
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpStringIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 2,
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EqualCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedGreaterThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedGreaterThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        GreaterOrEqualCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedLessThan(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedLessThanOrEqualTo(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        LessOrEqualCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedBetween(
+    String lower,
+    String upper, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        BetweenCondition(
+          property: 3,
+          lower: lower,
+          upper: upper,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedStartsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        StartsWithCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedEndsWith(
+    String value, {
+    bool caseSensitive = true,
+  }) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        EndsWithCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedContains(String value, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        ContainsCondition(
+          property: 3,
+          value: value,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedMatches(String pattern, {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        MatchesCondition(
+          property: 3,
+          wildcard: pattern,
+          caseSensitive: caseSensitive,
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedIsEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const EqualCondition(
+          property: 3,
+          value: '',
+        ),
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition>
+      totpFormattedIsNotEmpty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addFilterCondition(
+        const GreaterCondition(
+          property: 3,
+          value: '',
+        ),
+      );
+    });
+  }
+
   QueryBuilder<AccountModel, AccountModel, QAfterFilterCondition> idEqualTo(
     int value,
   ) {
@@ -499,7 +895,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -515,7 +911,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -531,7 +927,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -547,7 +943,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -563,7 +959,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -580,7 +976,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 2,
+          property: 4,
           lower: lower,
           upper: upper,
           caseSensitive: caseSensitive,
@@ -597,7 +993,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -613,7 +1009,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -626,7 +1022,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
-          property: 2,
+          property: 4,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -639,7 +1035,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
-          property: 2,
+          property: 4,
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -652,7 +1048,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const EqualCondition(
-          property: 2,
+          property: 4,
           value: '',
         ),
       );
@@ -664,7 +1060,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const GreaterCondition(
-          property: 2,
+          property: 4,
           value: '',
         ),
       );
@@ -679,7 +1075,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -695,7 +1091,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -711,7 +1107,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -727,7 +1123,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -743,7 +1139,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -760,7 +1156,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 3,
+          property: 5,
           lower: lower,
           upper: upper,
           caseSensitive: caseSensitive,
@@ -777,7 +1173,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -793,7 +1189,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -806,7 +1202,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
-          property: 3,
+          property: 5,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -819,7 +1215,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
-          property: 3,
+          property: 5,
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -832,7 +1228,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const EqualCondition(
-          property: 3,
+          property: 5,
           value: '',
         ),
       );
@@ -844,7 +1240,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const GreaterCondition(
-          property: 3,
+          property: 5,
           value: '',
         ),
       );
@@ -858,7 +1254,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -874,7 +1270,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -890,7 +1286,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -906,7 +1302,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -922,7 +1318,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -938,7 +1334,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 4,
+          property: 6,
           lower: lower,
           upper: upper,
           caseSensitive: caseSensitive,
@@ -955,7 +1351,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -971,7 +1367,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -984,7 +1380,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
-          property: 4,
+          property: 6,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -998,7 +1394,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
-          property: 4,
+          property: 6,
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -1011,7 +1407,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const EqualCondition(
-          property: 4,
+          property: 6,
           value: '',
         ),
       );
@@ -1023,7 +1419,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const GreaterCondition(
-          property: 4,
+          property: 6,
           value: '',
         ),
       );
@@ -1037,7 +1433,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1053,7 +1449,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1069,7 +1465,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1085,7 +1481,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1101,7 +1497,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1117,7 +1513,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 5,
+          property: 7,
           lower: lower,
           upper: upper,
           caseSensitive: caseSensitive,
@@ -1134,7 +1530,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1150,7 +1546,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1163,7 +1559,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
-          property: 5,
+          property: 7,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1177,7 +1573,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
-          property: 5,
+          property: 7,
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -1190,7 +1586,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const EqualCondition(
-          property: 5,
+          property: 7,
           value: '',
         ),
       );
@@ -1202,7 +1598,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const GreaterCondition(
-          property: 5,
+          property: 7,
           value: '',
         ),
       );
@@ -1217,7 +1613,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1233,7 +1629,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1249,7 +1645,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1265,7 +1661,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1281,7 +1677,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1298,7 +1694,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 6,
+          property: 8,
           lower: lower,
           upper: upper,
           caseSensitive: caseSensitive,
@@ -1315,7 +1711,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         StartsWithCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1331,7 +1727,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EndsWithCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1344,7 +1740,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         ContainsCondition(
-          property: 6,
+          property: 8,
           value: value,
           caseSensitive: caseSensitive,
         ),
@@ -1357,7 +1753,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         MatchesCondition(
-          property: 6,
+          property: 8,
           wildcard: pattern,
           caseSensitive: caseSensitive,
         ),
@@ -1370,7 +1766,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const EqualCondition(
-          property: 6,
+          property: 8,
           value: '',
         ),
       );
@@ -1382,7 +1778,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         const GreaterCondition(
-          property: 6,
+          property: 8,
           value: '',
         ),
       );
@@ -1395,7 +1791,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 7,
+          property: 9,
           value: value,
         ),
       );
@@ -1409,7 +1805,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 7,
+          property: 9,
           value: value,
         ),
       );
@@ -1423,7 +1819,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 7,
+          property: 9,
           value: value,
         ),
       );
@@ -1437,7 +1833,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 7,
+          property: 9,
           value: value,
         ),
       );
@@ -1451,7 +1847,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 7,
+          property: 9,
           value: value,
         ),
       );
@@ -1465,7 +1861,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 7,
+          property: 9,
           lower: lower,
           upper: upper,
         ),
@@ -1479,7 +1875,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         EqualCondition(
-          property: 8,
+          property: 10,
           value: value,
         ),
       );
@@ -1493,7 +1889,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterCondition(
-          property: 8,
+          property: 10,
           value: value,
         ),
       );
@@ -1507,7 +1903,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         GreaterOrEqualCondition(
-          property: 8,
+          property: 10,
           value: value,
         ),
       );
@@ -1521,7 +1917,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessCondition(
-          property: 8,
+          property: 10,
           value: value,
         ),
       );
@@ -1535,7 +1931,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         LessOrEqualCondition(
-          property: 8,
+          property: 10,
           value: value,
         ),
       );
@@ -1549,7 +1945,7 @@ extension AccountModelQueryFilter
     return QueryBuilder.apply(this, (query) {
       return query.addFilterCondition(
         BetweenCondition(
-          property: 8,
+          property: 10,
           lower: lower,
           upper: upper,
         ),
@@ -1575,6 +1971,48 @@ extension AccountModelQuerySortBy
     });
   }
 
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByTotpString(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        2,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByTotpStringDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        2,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByTotpFormatted(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        3,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy>
+      sortByTotpFormattedDesc({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(
+        3,
+        sort: Sort.desc,
+        caseSensitive: caseSensitive,
+      );
+    });
+  }
+
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(0);
@@ -1591,7 +2029,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        2,
+        4,
         caseSensitive: caseSensitive,
       );
     });
@@ -1601,7 +2039,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        2,
+        4,
         sort: Sort.desc,
         caseSensitive: caseSensitive,
       );
@@ -1612,7 +2050,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        3,
+        5,
         caseSensitive: caseSensitive,
       );
     });
@@ -1622,7 +2060,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        3,
+        5,
         sort: Sort.desc,
         caseSensitive: caseSensitive,
       );
@@ -1633,7 +2071,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        4,
+        6,
         caseSensitive: caseSensitive,
       );
     });
@@ -1643,7 +2081,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        4,
+        6,
         sort: Sort.desc,
         caseSensitive: caseSensitive,
       );
@@ -1654,7 +2092,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        5,
+        7,
         caseSensitive: caseSensitive,
       );
     });
@@ -1664,7 +2102,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        5,
+        7,
         sort: Sort.desc,
         caseSensitive: caseSensitive,
       );
@@ -1675,7 +2113,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        6,
+        8,
         caseSensitive: caseSensitive,
       );
     });
@@ -1685,7 +2123,7 @@ extension AccountModelQuerySortBy
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(
-        6,
+        8,
         sort: Sort.desc,
         caseSensitive: caseSensitive,
       );
@@ -1694,25 +2132,25 @@ extension AccountModelQuerySortBy
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByDigits() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(7);
+      return query.addSortBy(9);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByDigitsDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(7, sort: Sort.desc);
+      return query.addSortBy(9, sort: Sort.desc);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByPeriod() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(8);
+      return query.addSortBy(10);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> sortByPeriodDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(8, sort: Sort.desc);
+      return query.addSortBy(10, sort: Sort.desc);
     });
   }
 }
@@ -1731,6 +2169,34 @@ extension AccountModelQuerySortThenBy
     });
   }
 
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByTotpString(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByTotpStringDesc(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(2, sort: Sort.desc, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByTotpFormatted(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(3, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterSortBy>
+      thenByTotpFormattedDesc({bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addSortBy(3, sort: Sort.desc, caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenById() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(0);
@@ -1746,94 +2212,94 @@ extension AccountModelQuerySortThenBy
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByAppname(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(2, caseSensitive: caseSensitive);
+      return query.addSortBy(4, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByAppnameDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(2, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(4, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByUsername(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(3, caseSensitive: caseSensitive);
+      return query.addSortBy(5, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByUsernameDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(3, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(5, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenBySecret(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(4, caseSensitive: caseSensitive);
+      return query.addSortBy(6, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenBySecretDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(4, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(6, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByIssuer(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(5, caseSensitive: caseSensitive);
+      return query.addSortBy(7, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByIssuerDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(5, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(7, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByAlgorithm(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(6, caseSensitive: caseSensitive);
+      return query.addSortBy(8, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByAlgorithmDesc(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(6, sort: Sort.desc, caseSensitive: caseSensitive);
+      return query.addSortBy(8, sort: Sort.desc, caseSensitive: caseSensitive);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByDigits() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(7);
+      return query.addSortBy(9);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByDigitsDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(7, sort: Sort.desc);
+      return query.addSortBy(9, sort: Sort.desc);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByPeriod() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(8);
+      return query.addSortBy(10);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterSortBy> thenByPeriodDesc() {
     return QueryBuilder.apply(this, (query) {
-      return query.addSortBy(8, sort: Sort.desc);
+      return query.addSortBy(10, sort: Sort.desc);
     });
   }
 }
@@ -1846,50 +2312,64 @@ extension AccountModelQueryWhereDistinct
     });
   }
 
-  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByAppname(
+  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByTotpString(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(2, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByUsername(
-      {bool caseSensitive = true}) {
+  QueryBuilder<AccountModel, AccountModel, QAfterDistinct>
+      distinctByTotpFormatted({bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(3, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctBySecret(
+  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByAppname(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(4, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByIssuer(
+  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByUsername(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(5, caseSensitive: caseSensitive);
     });
   }
 
-  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByAlgorithm(
+  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctBySecret(
       {bool caseSensitive = true}) {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(6, caseSensitive: caseSensitive);
     });
   }
 
+  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByIssuer(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(7, caseSensitive: caseSensitive);
+    });
+  }
+
+  QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByAlgorithm(
+      {bool caseSensitive = true}) {
+    return QueryBuilder.apply(this, (query) {
+      return query.addDistinctBy(8, caseSensitive: caseSensitive);
+    });
+  }
+
   QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByDigits() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(7);
+      return query.addDistinctBy(9);
     });
   }
 
   QueryBuilder<AccountModel, AccountModel, QAfterDistinct> distinctByPeriod() {
     return QueryBuilder.apply(this, (query) {
-      return query.addDistinctBy(8);
+      return query.addDistinctBy(10);
     });
   }
 }
@@ -1902,6 +2382,18 @@ extension AccountModelQueryProperty1
     });
   }
 
+  QueryBuilder<AccountModel, String, QAfterProperty> totpStringProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<AccountModel, String, QAfterProperty> totpFormattedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
   QueryBuilder<AccountModel, int, QAfterProperty> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(0);
@@ -1910,43 +2402,43 @@ extension AccountModelQueryProperty1
 
   QueryBuilder<AccountModel, String, QAfterProperty> appnameProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(2);
+      return query.addProperty(4);
     });
   }
 
   QueryBuilder<AccountModel, String, QAfterProperty> usernameProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(3);
+      return query.addProperty(5);
     });
   }
 
   QueryBuilder<AccountModel, String, QAfterProperty> secretProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(4);
+      return query.addProperty(6);
     });
   }
 
   QueryBuilder<AccountModel, String, QAfterProperty> issuerProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(5);
+      return query.addProperty(7);
     });
   }
 
   QueryBuilder<AccountModel, String, QAfterProperty> algorithmProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(6);
+      return query.addProperty(8);
     });
   }
 
   QueryBuilder<AccountModel, int, QAfterProperty> digitsProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(7);
+      return query.addProperty(9);
     });
   }
 
   QueryBuilder<AccountModel, int, QAfterProperty> periodProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(8);
+      return query.addProperty(10);
     });
   }
 }
@@ -1959,6 +2451,19 @@ extension AccountModelQueryProperty2<R>
     });
   }
 
+  QueryBuilder<AccountModel, (R, String), QAfterProperty> totpStringProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<AccountModel, (R, String), QAfterProperty>
+      totpFormattedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
   QueryBuilder<AccountModel, (R, int), QAfterProperty> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(0);
@@ -1967,43 +2472,43 @@ extension AccountModelQueryProperty2<R>
 
   QueryBuilder<AccountModel, (R, String), QAfterProperty> appnameProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(2);
+      return query.addProperty(4);
     });
   }
 
   QueryBuilder<AccountModel, (R, String), QAfterProperty> usernameProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(3);
+      return query.addProperty(5);
     });
   }
 
   QueryBuilder<AccountModel, (R, String), QAfterProperty> secretProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(4);
+      return query.addProperty(6);
     });
   }
 
   QueryBuilder<AccountModel, (R, String), QAfterProperty> issuerProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(5);
+      return query.addProperty(7);
     });
   }
 
   QueryBuilder<AccountModel, (R, String), QAfterProperty> algorithmProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(6);
+      return query.addProperty(8);
     });
   }
 
   QueryBuilder<AccountModel, (R, int), QAfterProperty> digitsProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(7);
+      return query.addProperty(9);
     });
   }
 
   QueryBuilder<AccountModel, (R, int), QAfterProperty> periodProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(8);
+      return query.addProperty(10);
     });
   }
 }
@@ -2016,6 +2521,20 @@ extension AccountModelQueryProperty3<R1, R2>
     });
   }
 
+  QueryBuilder<AccountModel, (R1, R2, String), QOperations>
+      totpStringProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(2);
+    });
+  }
+
+  QueryBuilder<AccountModel, (R1, R2, String), QOperations>
+      totpFormattedProperty() {
+    return QueryBuilder.apply(this, (query) {
+      return query.addProperty(3);
+    });
+  }
+
   QueryBuilder<AccountModel, (R1, R2, int), QOperations> idProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(0);
@@ -2024,44 +2543,44 @@ extension AccountModelQueryProperty3<R1, R2>
 
   QueryBuilder<AccountModel, (R1, R2, String), QOperations> appnameProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(2);
+      return query.addProperty(4);
     });
   }
 
   QueryBuilder<AccountModel, (R1, R2, String), QOperations> usernameProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(3);
+      return query.addProperty(5);
     });
   }
 
   QueryBuilder<AccountModel, (R1, R2, String), QOperations> secretProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(4);
+      return query.addProperty(6);
     });
   }
 
   QueryBuilder<AccountModel, (R1, R2, String), QOperations> issuerProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(5);
+      return query.addProperty(7);
     });
   }
 
   QueryBuilder<AccountModel, (R1, R2, String), QOperations>
       algorithmProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(6);
+      return query.addProperty(8);
     });
   }
 
   QueryBuilder<AccountModel, (R1, R2, int), QOperations> digitsProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(7);
+      return query.addProperty(9);
     });
   }
 
   QueryBuilder<AccountModel, (R1, R2, int), QOperations> periodProperty() {
     return QueryBuilder.apply(this, (query) {
-      return query.addProperty(8);
+      return query.addProperty(10);
     });
   }
 }
