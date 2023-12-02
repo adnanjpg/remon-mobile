@@ -68,7 +68,6 @@ class DeviceModel with _$DeviceModel {
 }
 
 // {
-//     "device_id": "test",
 //     "cpu_threshold": 1.2,
 //     "mem_threshold": 3.4,
 //     "storage_threshold": 5.6
@@ -76,7 +75,6 @@ class DeviceModel with _$DeviceModel {
 @freezed
 class UpdateDeviceInfoRequestModel with _$UpdateDeviceInfoRequestModel {
   const factory UpdateDeviceInfoRequestModel({
-    @JsonKey(name: 'device_id') required String deviceId,
     @JsonKey(name: 'cpu_threshold') required double cpuThreshold,
     @JsonKey(name: 'mem_threshold') required double memThreshold,
     @JsonKey(name: 'storage_threshold') required double storageThreshold,
@@ -84,7 +82,6 @@ class UpdateDeviceInfoRequestModel with _$UpdateDeviceInfoRequestModel {
 
   factory UpdateDeviceInfoRequestModel.fromDeviceModel(DeviceModel device) {
     return UpdateDeviceInfoRequestModel(
-      deviceId: device.deviceUUID,
       cpuThreshold: device.cpuAlertRange,
       memThreshold: device.ramAlertRange,
       storageThreshold: device.storageAlertRange,
