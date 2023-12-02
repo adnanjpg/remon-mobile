@@ -70,6 +70,7 @@ class _AddDeviceScreenState extends ConsumerState<AddDeviceScreen> {
                         SizedBox(
                           width: 200,
                           child: PrimaryBtn(
+                            key: const Key('add_device_screen_submit_btn'),
                             isExpanded: true,
                             eventName: 'add_device_screen_btn',
                             text: getStr(
@@ -172,6 +173,7 @@ class _Fields extends ConsumerWidget {
         //
         if (form.viewIpField) ...[
           PrimaryField(
+            key: const Key('add_device_screen_ip_field'),
             labelText: getStr(LocaleKeys.add_device_screen_ip_field),
             value: form.ip,
             onChanged: notifier.onIpChanged,
@@ -181,6 +183,7 @@ class _Fields extends ConsumerWidget {
         ],
         if (form.viewPortField) ...[
           PrimaryField(
+            key: const Key('add_device_screen_port_field'),
             labelText: getStr(LocaleKeys.add_device_screen_port_field),
             value: form.port,
             onChanged: notifier.onPortChanged,
@@ -193,6 +196,7 @@ class _Fields extends ConsumerWidget {
           SizedBox(
             height: 300,
             child: MobileScanner(
+              key: const Key('add_device_screen_otp_camera_scanner'),
               controller: MobileScannerController(
                 detectionSpeed: DetectionSpeed.normal,
                 formats: [
@@ -210,6 +214,7 @@ class _Fields extends ConsumerWidget {
         ],
         if (form.viewOtpUrlField) ...[
           PrimaryField(
+            key: const Key('add_device_screen_otp_url_field'),
             labelText: getStr(LocaleKeys.add_device_screen_otp_url_field),
             value: form.otpUrl,
             onChanged: notifier.onOtpUrlChanged,
@@ -218,6 +223,7 @@ class _Fields extends ConsumerWidget {
         ],
         if (form.viewOtpField) ...[
           PrimaryField(
+            key: const Key('add_device_screen_otp_field'),
             labelText: getStr(LocaleKeys.add_device_screen_otp_field),
             value: form.otp,
             onChanged: notifier.onOtpChanged,
