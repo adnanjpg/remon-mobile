@@ -3,9 +3,10 @@ import 'package:remon_mobile/features/server_status/models/server_status_model.d
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
+import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
-class CpuStatusGraphWidget extends StatelessWidget {
-  const CpuStatusGraphWidget({
+class CpuStatusDataWidget extends StatelessWidget {
+  const CpuStatusDataWidget({
     required this.items,
     super.key,
   });
@@ -89,7 +90,7 @@ class CpuStatusGraphWidget extends StatelessWidget {
                       )
                       .toList(),
                 ),
-                ...items.cpuUsage.mapWIndex(
+                ...items.usageItems.mapWIndex(
                   (index, e) {
                     return TableRow(
                       children: [
@@ -137,7 +138,27 @@ class CpuStatusGraphWidget extends StatelessWidget {
             ),
           ),
         ),
+        _Graphs(
+          model: items,
+        ),
       ],
+    );
+  }
+}
+
+class _Graphs extends StatelessWidget {
+  const _Graphs({
+    required this.model,
+  });
+
+  final CpuUsageModel model;
+
+  @override
+  Widget build(BuildContext context) {
+    return SfSparkLineChart(
+      data: const [1, 30, 50, 80, 2],
+      axisLineWidth: 1,
+      axisLineDashArray: const [1, 1],
     );
   }
 }

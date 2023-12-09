@@ -1,7 +1,7 @@
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/server_status/prov/server_status_prov.dart';
-import 'package:remon_mobile/features/server_status/ui/cpu_status_graph_widget.dart';
+import 'package:remon_mobile/features/server_status/ui/cpu_status_data_widget.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
@@ -26,7 +26,7 @@ class StatusGraphsListWidget extends ConsumerWidget {
 
         return Column(
           children: [
-            CpuStatusGraphWidget(
+            CpuStatusDataWidget(
               items: data.cpuUsageItems,
             ),
           ],

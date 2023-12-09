@@ -31,7 +31,7 @@ _$_CpuUsageModel _$$_CpuUsageModelFromJson(Map<String, dynamic> json) =>
     _$_CpuUsageModel(
       vendorId: json['vendor_id'] as String,
       brand: json['brand'] as String,
-      cpuUsage: (json['cpu_usage'] as List<dynamic>)
+      usageItems: (json['cpu_usage'] as List<dynamic>)
           .map((e) => CpuUsageItemModel.fromJson(e as Map<String, dynamic>))
           .toList(),
     );
@@ -40,7 +40,7 @@ Map<String, dynamic> _$$_CpuUsageModelToJson(_$_CpuUsageModel instance) =>
     <String, dynamic>{
       'vendor_id': instance.vendorId,
       'brand': instance.brand,
-      'cpu_usage': instance.cpuUsage.map((e) => e.toJson()).toList(),
+      'cpu_usage': instance.usageItems.map((e) => e.toJson()).toList(),
     };
 
 _$_CpuUsageItemModel _$$_CpuUsageItemModelFromJson(Map<String, dynamic> json) =>

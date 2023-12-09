@@ -62,7 +62,7 @@ class CpuUsageModel with _$CpuUsageModel {
   const factory CpuUsageModel({
     @JsonKey(name: 'vendor_id') required String vendorId,
     required String brand,
-    @JsonKey(name: 'cpu_usage') required List<CpuUsageItemModel> cpuUsage,
+    @JsonKey(name: 'cpu_usage') required List<CpuUsageItemModel> usageItems,
   }) = _CpuUsageModel;
 
   const CpuUsageModel._();

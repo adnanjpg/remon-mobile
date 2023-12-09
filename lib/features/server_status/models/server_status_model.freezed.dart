@@ -279,7 +279,7 @@ mixin _$CpuUsageModel {
   String get vendorId => throw _privateConstructorUsedError;
   String get brand => throw _privateConstructorUsedError;
   @JsonKey(name: 'cpu_usage')
-  List<CpuUsageItemModel> get cpuUsage => throw _privateConstructorUsedError;
+  List<CpuUsageItemModel> get usageItems => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -296,7 +296,7 @@ abstract class $CpuUsageModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'vendor_id') String vendorId,
       String brand,
-      @JsonKey(name: 'cpu_usage') List<CpuUsageItemModel> cpuUsage});
+      @JsonKey(name: 'cpu_usage') List<CpuUsageItemModel> usageItems});
 }
 
 /// @nodoc
@@ -314,7 +314,7 @@ class _$CpuUsageModelCopyWithImpl<$Res, $Val extends CpuUsageModel>
   $Res call({
     Object? vendorId = null,
     Object? brand = null,
-    Object? cpuUsage = null,
+    Object? usageItems = null,
   }) {
     return _then(_value.copyWith(
       vendorId: null == vendorId
@@ -325,9 +325,9 @@ class _$CpuUsageModelCopyWithImpl<$Res, $Val extends CpuUsageModel>
           ? _value.brand
           : brand // ignore: cast_nullable_to_non_nullable
               as String,
-      cpuUsage: null == cpuUsage
-          ? _value.cpuUsage
-          : cpuUsage // ignore: cast_nullable_to_non_nullable
+      usageItems: null == usageItems
+          ? _value.usageItems
+          : usageItems // ignore: cast_nullable_to_non_nullable
               as List<CpuUsageItemModel>,
     ) as $Val);
   }
@@ -344,7 +344,7 @@ abstract class _$$_CpuUsageModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'vendor_id') String vendorId,
       String brand,
-      @JsonKey(name: 'cpu_usage') List<CpuUsageItemModel> cpuUsage});
+      @JsonKey(name: 'cpu_usage') List<CpuUsageItemModel> usageItems});
 }
 
 /// @nodoc
@@ -360,7 +360,7 @@ class __$$_CpuUsageModelCopyWithImpl<$Res>
   $Res call({
     Object? vendorId = null,
     Object? brand = null,
-    Object? cpuUsage = null,
+    Object? usageItems = null,
   }) {
     return _then(_$_CpuUsageModel(
       vendorId: null == vendorId
@@ -371,9 +371,9 @@ class __$$_CpuUsageModelCopyWithImpl<$Res>
           ? _value.brand
           : brand // ignore: cast_nullable_to_non_nullable
               as String,
-      cpuUsage: null == cpuUsage
-          ? _value._cpuUsage
-          : cpuUsage // ignore: cast_nullable_to_non_nullable
+      usageItems: null == usageItems
+          ? _value._usageItems
+          : usageItems // ignore: cast_nullable_to_non_nullable
               as List<CpuUsageItemModel>,
     ));
   }
@@ -386,8 +386,8 @@ class _$_CpuUsageModel extends _CpuUsageModel {
       {@JsonKey(name: 'vendor_id') required this.vendorId,
       required this.brand,
       @JsonKey(name: 'cpu_usage')
-      required final List<CpuUsageItemModel> cpuUsage})
-      : _cpuUsage = cpuUsage,
+      required final List<CpuUsageItemModel> usageItems})
+      : _usageItems = usageItems,
         super._();
 
   factory _$_CpuUsageModel.fromJson(Map<String, dynamic> json) =>
@@ -398,18 +398,18 @@ class _$_CpuUsageModel extends _CpuUsageModel {
   final String vendorId;
   @override
   final String brand;
-  final List<CpuUsageItemModel> _cpuUsage;
+  final List<CpuUsageItemModel> _usageItems;
   @override
   @JsonKey(name: 'cpu_usage')
-  List<CpuUsageItemModel> get cpuUsage {
-    if (_cpuUsage is EqualUnmodifiableListView) return _cpuUsage;
+  List<CpuUsageItemModel> get usageItems {
+    if (_usageItems is EqualUnmodifiableListView) return _usageItems;
     // ignore: implicit_dynamic_type
-    return EqualUnmodifiableListView(_cpuUsage);
+    return EqualUnmodifiableListView(_usageItems);
   }
 
   @override
   String toString() {
-    return 'CpuUsageModel(vendorId: $vendorId, brand: $brand, cpuUsage: $cpuUsage)';
+    return 'CpuUsageModel(vendorId: $vendorId, brand: $brand, usageItems: $usageItems)';
   }
 
   @override
@@ -420,13 +420,14 @@ class _$_CpuUsageModel extends _CpuUsageModel {
             (identical(other.vendorId, vendorId) ||
                 other.vendorId == vendorId) &&
             (identical(other.brand, brand) || other.brand == brand) &&
-            const DeepCollectionEquality().equals(other._cpuUsage, _cpuUsage));
+            const DeepCollectionEquality()
+                .equals(other._usageItems, _usageItems));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode => Object.hash(runtimeType, vendorId, brand,
-      const DeepCollectionEquality().hash(_cpuUsage));
+      const DeepCollectionEquality().hash(_usageItems));
 
   @JsonKey(ignore: true)
   @override
@@ -447,7 +448,7 @@ abstract class _CpuUsageModel extends CpuUsageModel {
       {@JsonKey(name: 'vendor_id') required final String vendorId,
       required final String brand,
       @JsonKey(name: 'cpu_usage')
-      required final List<CpuUsageItemModel> cpuUsage}) = _$_CpuUsageModel;
+      required final List<CpuUsageItemModel> usageItems}) = _$_CpuUsageModel;
   const _CpuUsageModel._() : super._();
 
   factory _CpuUsageModel.fromJson(Map<String, dynamic> json) =
@@ -460,7 +461,7 @@ abstract class _CpuUsageModel extends CpuUsageModel {
   String get brand;
   @override
   @JsonKey(name: 'cpu_usage')
-  List<CpuUsageItemModel> get cpuUsage;
+  List<CpuUsageItemModel> get usageItems;
   @override
   @JsonKey(ignore: true)
   _$$_CpuUsageModelCopyWith<_$_CpuUsageModel> get copyWith =>
