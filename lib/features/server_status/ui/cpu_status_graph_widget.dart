@@ -6,11 +6,11 @@ import 'package:remon_mobile/utils/utils.dart';
 
 class CpuStatusGraphWidget extends StatelessWidget {
   const CpuStatusGraphWidget({
-    required this.usage,
+    required this.items,
     super.key,
   });
 
-  final CpuUsageModel usage;
+  final CpuUsageModel items;
 
   @override
   Widget build(BuildContext context) {
@@ -28,13 +28,13 @@ class CpuStatusGraphWidget extends StatelessWidget {
                 Text(
                   [
                     getStr(LocaleKeys.cpu_status_graph_dets_vendor_id),
-                    usage.vendorId,
+                    items.vendorId,
                   ].join(': '),
                 ),
                 Text(
                   [
                     getStr(LocaleKeys.cpu_status_graph_dets_brand),
-                    usage.brand,
+                    items.brand,
                   ].join(': '),
                 ),
               ].joinWidgetList(
@@ -89,7 +89,7 @@ class CpuStatusGraphWidget extends StatelessWidget {
                       )
                       .toList(),
                 ),
-                ...usage.cpuUsage.mapWIndex(
+                ...items.cpuUsage.mapWIndex(
                   (index, e) {
                     return TableRow(
                       children: [
@@ -110,7 +110,7 @@ class CpuStatusGraphWidget extends StatelessWidget {
                             LocaleKeys
                                 .cpu_status_graph_dets_cores_table_cpu_usage_item,
                             args: [
-                              e.cpuUsage.toString(),
+                              e.cpuUsagePercentage.toString(),
                             ],
                           ),
                         ),

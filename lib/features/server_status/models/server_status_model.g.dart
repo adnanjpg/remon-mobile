@@ -8,7 +8,7 @@ part of 'server_status_model.dart';
 
 _$_ServerStatusModel _$$_ServerStatusModelFromJson(Map<String, dynamic> json) =>
     _$_ServerStatusModel(
-      cpuUsage:
+      cpuUsageItems:
           CpuUsageModel.fromJson(json['cpu_usage'] as Map<String, dynamic>),
       memUsage:
           MemUsageModel.fromJson(json['mem_usage'] as Map<String, dynamic>),
@@ -21,7 +21,7 @@ _$_ServerStatusModel _$$_ServerStatusModelFromJson(Map<String, dynamic> json) =>
 Map<String, dynamic> _$$_ServerStatusModelToJson(
         _$_ServerStatusModel instance) =>
     <String, dynamic>{
-      'cpu_usage': instance.cpuUsage.toJson(),
+      'cpu_usage': instance.cpuUsageItems.toJson(),
       'mem_usage': instance.memUsage.toJson(),
       'storage_usage': instance.storageUsage.map((e) => e.toJson()).toList(),
       'last_check': instance.lastCheckInt,

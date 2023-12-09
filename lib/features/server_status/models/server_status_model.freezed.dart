@@ -21,7 +21,7 @@ ServerStatusModel _$ServerStatusModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$ServerStatusModel {
   @JsonKey(name: 'cpu_usage')
-  CpuUsageModel get cpuUsage => throw _privateConstructorUsedError;
+  CpuUsageModel get cpuUsageItems => throw _privateConstructorUsedError;
   @JsonKey(name: 'mem_usage')
   MemUsageModel get memUsage => throw _privateConstructorUsedError;
   @JsonKey(name: 'storage_usage')
@@ -43,12 +43,12 @@ abstract class $ServerStatusModelCopyWith<$Res> {
       _$ServerStatusModelCopyWithImpl<$Res, ServerStatusModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'cpu_usage') CpuUsageModel cpuUsage,
+      {@JsonKey(name: 'cpu_usage') CpuUsageModel cpuUsageItems,
       @JsonKey(name: 'mem_usage') MemUsageModel memUsage,
       @JsonKey(name: 'storage_usage') List<StorageUsageModel> storageUsage,
       @JsonKey(name: 'last_check') int lastCheckInt});
 
-  $CpuUsageModelCopyWith<$Res> get cpuUsage;
+  $CpuUsageModelCopyWith<$Res> get cpuUsageItems;
   $MemUsageModelCopyWith<$Res> get memUsage;
 }
 
@@ -65,15 +65,15 @@ class _$ServerStatusModelCopyWithImpl<$Res, $Val extends ServerStatusModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cpuUsage = null,
+    Object? cpuUsageItems = null,
     Object? memUsage = null,
     Object? storageUsage = null,
     Object? lastCheckInt = null,
   }) {
     return _then(_value.copyWith(
-      cpuUsage: null == cpuUsage
-          ? _value.cpuUsage
-          : cpuUsage // ignore: cast_nullable_to_non_nullable
+      cpuUsageItems: null == cpuUsageItems
+          ? _value.cpuUsageItems
+          : cpuUsageItems // ignore: cast_nullable_to_non_nullable
               as CpuUsageModel,
       memUsage: null == memUsage
           ? _value.memUsage
@@ -92,9 +92,9 @@ class _$ServerStatusModelCopyWithImpl<$Res, $Val extends ServerStatusModel>
 
   @override
   @pragma('vm:prefer-inline')
-  $CpuUsageModelCopyWith<$Res> get cpuUsage {
-    return $CpuUsageModelCopyWith<$Res>(_value.cpuUsage, (value) {
-      return _then(_value.copyWith(cpuUsage: value) as $Val);
+  $CpuUsageModelCopyWith<$Res> get cpuUsageItems {
+    return $CpuUsageModelCopyWith<$Res>(_value.cpuUsageItems, (value) {
+      return _then(_value.copyWith(cpuUsageItems: value) as $Val);
     });
   }
 
@@ -116,13 +116,13 @@ abstract class _$$_ServerStatusModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'cpu_usage') CpuUsageModel cpuUsage,
+      {@JsonKey(name: 'cpu_usage') CpuUsageModel cpuUsageItems,
       @JsonKey(name: 'mem_usage') MemUsageModel memUsage,
       @JsonKey(name: 'storage_usage') List<StorageUsageModel> storageUsage,
       @JsonKey(name: 'last_check') int lastCheckInt});
 
   @override
-  $CpuUsageModelCopyWith<$Res> get cpuUsage;
+  $CpuUsageModelCopyWith<$Res> get cpuUsageItems;
   @override
   $MemUsageModelCopyWith<$Res> get memUsage;
 }
@@ -138,15 +138,15 @@ class __$$_ServerStatusModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? cpuUsage = null,
+    Object? cpuUsageItems = null,
     Object? memUsage = null,
     Object? storageUsage = null,
     Object? lastCheckInt = null,
   }) {
     return _then(_$_ServerStatusModel(
-      cpuUsage: null == cpuUsage
-          ? _value.cpuUsage
-          : cpuUsage // ignore: cast_nullable_to_non_nullable
+      cpuUsageItems: null == cpuUsageItems
+          ? _value.cpuUsageItems
+          : cpuUsageItems // ignore: cast_nullable_to_non_nullable
               as CpuUsageModel,
       memUsage: null == memUsage
           ? _value.memUsage
@@ -168,7 +168,7 @@ class __$$_ServerStatusModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_ServerStatusModel extends _ServerStatusModel {
   const _$_ServerStatusModel(
-      {@JsonKey(name: 'cpu_usage') required this.cpuUsage,
+      {@JsonKey(name: 'cpu_usage') required this.cpuUsageItems,
       @JsonKey(name: 'mem_usage') required this.memUsage,
       @JsonKey(name: 'storage_usage')
       required final List<StorageUsageModel> storageUsage,
@@ -181,7 +181,7 @@ class _$_ServerStatusModel extends _ServerStatusModel {
 
   @override
   @JsonKey(name: 'cpu_usage')
-  final CpuUsageModel cpuUsage;
+  final CpuUsageModel cpuUsageItems;
   @override
   @JsonKey(name: 'mem_usage')
   final MemUsageModel memUsage;
@@ -200,7 +200,7 @@ class _$_ServerStatusModel extends _ServerStatusModel {
 
   @override
   String toString() {
-    return 'ServerStatusModel(cpuUsage: $cpuUsage, memUsage: $memUsage, storageUsage: $storageUsage, lastCheckInt: $lastCheckInt)';
+    return 'ServerStatusModel(cpuUsageItems: $cpuUsageItems, memUsage: $memUsage, storageUsage: $storageUsage, lastCheckInt: $lastCheckInt)';
   }
 
   @override
@@ -208,8 +208,8 @@ class _$_ServerStatusModel extends _ServerStatusModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_ServerStatusModel &&
-            (identical(other.cpuUsage, cpuUsage) ||
-                other.cpuUsage == cpuUsage) &&
+            (identical(other.cpuUsageItems, cpuUsageItems) ||
+                other.cpuUsageItems == cpuUsageItems) &&
             (identical(other.memUsage, memUsage) ||
                 other.memUsage == memUsage) &&
             const DeepCollectionEquality()
@@ -220,7 +220,7 @@ class _$_ServerStatusModel extends _ServerStatusModel {
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, cpuUsage, memUsage,
+  int get hashCode => Object.hash(runtimeType, cpuUsageItems, memUsage,
       const DeepCollectionEquality().hash(_storageUsage), lastCheckInt);
 
   @JsonKey(ignore: true)
@@ -240,12 +240,12 @@ class _$_ServerStatusModel extends _ServerStatusModel {
 
 abstract class _ServerStatusModel extends ServerStatusModel {
   const factory _ServerStatusModel(
-          {@JsonKey(name: 'cpu_usage') required final CpuUsageModel cpuUsage,
-          @JsonKey(name: 'mem_usage') required final MemUsageModel memUsage,
-          @JsonKey(name: 'storage_usage')
-          required final List<StorageUsageModel> storageUsage,
-          @JsonKey(name: 'last_check') required final int lastCheckInt}) =
-      _$_ServerStatusModel;
+      {@JsonKey(name: 'cpu_usage') required final CpuUsageModel cpuUsageItems,
+      @JsonKey(name: 'mem_usage') required final MemUsageModel memUsage,
+      @JsonKey(name: 'storage_usage')
+      required final List<StorageUsageModel> storageUsage,
+      @JsonKey(name: 'last_check')
+      required final int lastCheckInt}) = _$_ServerStatusModel;
   const _ServerStatusModel._() : super._();
 
   factory _ServerStatusModel.fromJson(Map<String, dynamic> json) =
@@ -253,7 +253,7 @@ abstract class _ServerStatusModel extends ServerStatusModel {
 
   @override
   @JsonKey(name: 'cpu_usage')
-  CpuUsageModel get cpuUsage;
+  CpuUsageModel get cpuUsageItems;
   @override
   @JsonKey(name: 'mem_usage')
   MemUsageModel get memUsage;
@@ -474,7 +474,7 @@ CpuUsageItemModel _$CpuUsageItemModelFromJson(Map<String, dynamic> json) {
 /// @nodoc
 mixin _$CpuUsageItemModel {
   @JsonKey(name: 'cpu_freq')
-  double get cpuFreq => throw _privateConstructorUsedError;
+  double get cpuFreq => throw _privateConstructorUsedError; // between 0 and 1
   @JsonKey(name: 'cpu_usage')
   double get cpuUsage => throw _privateConstructorUsedError;
 
@@ -578,6 +578,7 @@ class _$_CpuUsageItemModel extends _CpuUsageItemModel {
   @override
   @JsonKey(name: 'cpu_freq')
   final double cpuFreq;
+// between 0 and 1
   @override
   @JsonKey(name: 'cpu_usage')
   final double cpuUsage;
@@ -629,7 +630,7 @@ abstract class _CpuUsageItemModel extends CpuUsageItemModel {
   @override
   @JsonKey(name: 'cpu_freq')
   double get cpuFreq;
-  @override
+  @override // between 0 and 1
   @JsonKey(name: 'cpu_usage')
   double get cpuUsage;
   @override

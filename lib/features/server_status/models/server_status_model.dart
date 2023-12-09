@@ -42,7 +42,7 @@ part 'server_status_model.g.dart';
 @freezed
 class ServerStatusModel with _$ServerStatusModel {
   const factory ServerStatusModel({
-    @JsonKey(name: 'cpu_usage') required CpuUsageModel cpuUsage,
+    @JsonKey(name: 'cpu_usage') required CpuUsageModel cpuUsageItems,
     @JsonKey(name: 'mem_usage') required MemUsageModel memUsage,
     @JsonKey(name: 'storage_usage')
     required List<StorageUsageModel> storageUsage,
@@ -75,6 +75,7 @@ class CpuUsageModel with _$CpuUsageModel {
 class CpuUsageItemModel with _$CpuUsageItemModel {
   const factory CpuUsageItemModel({
     @JsonKey(name: 'cpu_freq') required double cpuFreq,
+    // between 0 and 1
     @JsonKey(name: 'cpu_usage') required double cpuUsage,
   }) = _CpuUsageItemModel;
 
@@ -82,6 +83,8 @@ class CpuUsageItemModel with _$CpuUsageItemModel {
 
   factory CpuUsageItemModel.fromJson(Map<String, dynamic> json) =>
       _$CpuUsageItemModelFromJson(json);
+
+  double get cpuUsagePercentage => cpuUsage * 100;
 }
 
 @freezed

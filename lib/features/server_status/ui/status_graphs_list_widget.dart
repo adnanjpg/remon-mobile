@@ -27,7 +27,7 @@ class StatusGraphsListWidget extends ConsumerWidget {
         return Column(
           children: [
             CpuStatusGraphWidget(
-              usage: data.cpuUsage,
+              items: data.cpuUsageItems,
             ),
           ],
         );
