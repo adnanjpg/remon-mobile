@@ -46,5 +46,14 @@
     "add_device_screen_otp_url_field_error_empty": "OTP URL cannot be empty",
     "add_device_screen_otp_url_field_error_invalid": "Invalid OTP URL",
     "add_device_screen_validator_otp_url_error_invalid": "Invalid OTP URL",
-    "add_device_screen_validator_camera_otp_url_error_invalid": "Invalid OTP URL"
+    "add_device_screen_validator_camera_otp_url_error_invalid": "Invalid OTP URL",
+    "failed_to_fetch_server_status_error": "Failed to fetch server status",
+    "cpu_status_graph_title": "CPU usage",
+    "cpu_status_graph_dets_vendor_id": "Vendor ID",
+    "cpu_status_graph_dets_brand": "Brand",
+    "cpu_status_graph_dets_cores_table_index_col_title": "Index",
+    "cpu_status_graph_dets_cores_table_cpu_freq_title": "Frequency",
+    "cpu_status_graph_dets_cores_table_cpu_usage_title": "Usage",
+    "cpu_status_graph_dets_cores_table_cpu_freq_item": "{} GHz",
+    "cpu_status_graph_dets_cores_table_cpu_usage_item": "{}%"
 }

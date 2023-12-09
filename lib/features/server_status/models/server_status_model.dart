@@ -41,8 +41,6 @@ part 'server_status_model.g.dart';
 // }
 @freezed
 class ServerStatusModel with _$ServerStatusModel {
-  factory ServerStatusModel.fromJson(Map<String, dynamic> json) =>
-      _$ServerStatusModelFromJson(json);
   const factory ServerStatusModel({
     @JsonKey(name: 'cpu_usage') required CpuUsageModel cpuUsage,
     @JsonKey(name: 'mem_usage') required MemUsageModel memUsage,
@@ -50,6 +48,9 @@ class ServerStatusModel with _$ServerStatusModel {
     required List<StorageUsageModel> storageUsage,
     @JsonKey(name: 'last_check') required int lastCheckInt,
   }) = _ServerStatusModel;
+
+  factory ServerStatusModel.fromJson(Map<String, dynamic> json) =>
+      _$ServerStatusModelFromJson(json);
 
   const ServerStatusModel._();
 
