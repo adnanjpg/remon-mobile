@@ -9,8 +9,9 @@ import 'package:remon_mobile/features/devices/models/device_model.dart';
 import 'package:remon_mobile/features/devices/models/suggested_device_desc_model.dart';
 import 'package:remon_mobile/features/server_status/models/server_cpu_status_model.dart';
 import 'package:remon_mobile/features/server_status/models/server_cpu_status_request_model.dart';
+import 'package:remon_mobile/features/server_status/models/server_disk_status_model.dart';
 import 'package:remon_mobile/features/server_status/models/server_hardware_info_model.dart';
-import 'package:remon_mobile/features/server_status/models/server_status_model.dart';
+import 'package:remon_mobile/features/server_status/models/server_mem_status_model.dart';
 import 'package:remon_mobile/features/server_status/prov/server_status_prov.dart';
 import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/utils.dart';
@@ -205,7 +206,8 @@ class ApiRoutes {
   static const getsuggestedDeviceDesc = 'get-desc';
   static const getHardwareInfo = 'get-hardware-info';
   static const getCpuStatus = 'get-cpu-status';
-  static const getServerStatus = 'get-status';
+  static const getMemStatus = 'get-mem-status';
+  static const getDiskStatus = 'get-disk-status';
 }
 
 final apiServiceProvExternalUrl = Provider.family<ApiService, String?>(
@@ -417,10 +419,20 @@ extension ServerStatusEndPoints on ApiService {
     }
   }
 
-  Future<ServerStatusModel?> getServerStatus() async {
+  Future<ServerMemStatusModel?> getServerMemStatus() async {
+    final startAndEndTime = _ref.watch(serverStatusFetchingStartAndEndProv);
+    final startTime = startAndEndTime.start;
+    final endTime = startAndEndTime.end;
+
+    final request = ServerCpuStatusRequestModel(
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+    );
+
     try {
       final res = await methods.get<String>(
-        path: ApiRoutes.getServerStatus,
+        path: ApiRoutes.getMemStatus,
+        queryParameters: request.toJson(),
       );
 
       final dt = res.data;
@@ -430,7 +442,39 @@ extension ServerStatusEndPoints on ApiService {
       }
 
       final decoded = json.decode(dt) as Map<String, dynamic>;
-      final model = ServerStatusModel.fromJson(decoded);
+      final model = ServerMemStatusModel.fromJson(decoded);
+
+      return model;
+    } catch (e) {
+      logger.e(e);
+      return null;
+    }
+  }
+
+  Future<ServerDiskStatusModel?> getServerDiskStatus() async {
+    final startAndEndTime = _ref.watch(serverStatusFetchingStartAndEndProv);
+    final startTime = startAndEndTime.start;
+    final endTime = startAndEndTime.end;
+
+    final request = ServerCpuStatusRequestModel(
+      startTime: startTime.millisecondsSinceEpoch,
+      endTime: endTime.millisecondsSinceEpoch,
+    );
+
+    try {
+      final res = await methods.get<String>(
+        path: ApiRoutes.getDiskStatus,
+        queryParameters: request.toJson(),
+      );
+
+      final dt = res.data;
+
+      if (dt == null) {
+        return null;
+      }
+
+      final decoded = json.decode(dt) as Map<String, dynamic>;
+      final model = ServerDiskStatusModel.fromJson(decoded);
 
       return model;
     } catch (e) {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:remon_mobile/features/server_status/models/server_cpu_status_model.dart';
+import 'package:remon_mobile/features/server_status/models/server_disk_status_model.dart';
 import 'package:remon_mobile/features/server_status/models/server_hardware_info_model.dart';
 import 'package:remon_mobile/features/server_status/prov/server_status_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
@@ -9,46 +9,31 @@ import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/utils.dart';
 import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
-class CpuStatusDataWidget extends ConsumerWidget {
-  const CpuStatusDataWidget({
+class DiskStatusDataWidget extends ConsumerWidget {
+  const DiskStatusDataWidget({
     required this.model,
     super.key,
   });
 
-  final CpuInfoModel model;
+  final List<DiskInfoModel> model;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serverCpuStatus = ref.watch(serverCpuStatusFutureProv);
+    final serverDiskStatus = ref.watch(serverDiskStatusFutureProv);
 
     return Column(
       children: [
         ExpansionTile(
           title: Text(
-            getStr(LocaleKeys.cpu_status_graph_title),
+            getStr(LocaleKeys.disk_status_graph_title),
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  [
-                    getStr(LocaleKeys.cpu_status_graph_dets_vendor_id),
-                    model.vendorId,
-                  ].join(': '),
-                ),
-                Text(
-                  [
-                    getStr(LocaleKeys.cpu_status_graph_dets_brand),
-                    model.brand,
-                  ].join(': '),
-                ),
-              ].joinWidgetList(
-                (_) => const SizedBox(
-                  height: quartDefPaddingSize,
-                ),
-              ),
+            Text(
+              [
+                getStr(LocaleKeys.disk_status_graph_dets_names_list),
+                model.map((e) => e.name).join(', '),
+              ].join(': '),
             ),
           ].joinWidgetList(
             (_) => const SizedBox(
@@ -56,7 +41,7 @@ class CpuStatusDataWidget extends ConsumerWidget {
             ),
           ),
         ),
-        serverCpuStatus.when(
+        serverDiskStatus.when(
           error: ErrWidget.new,
           loading: LoadingWidget.new,
           data: (data) {
@@ -83,7 +68,7 @@ class _Graphs extends StatelessWidget {
     required this.model,
   });
 
-  final ServerCpuStatusModel model;
+  final ServerDiskStatusModel model;
 
   @override
   Widget build(BuildContext context) {
@@ -92,7 +77,7 @@ class _Graphs extends StatelessWidget {
       axisLineColor: Colors.grey,
       data: model.frames
           .map(
-            (frame) => frame.coresUsageMean,
+            (frame) => frame.disksUsageMean,
           )
           .toList(),
     );

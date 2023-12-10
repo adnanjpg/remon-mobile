@@ -17,6 +17,22 @@ final serverCpuStatusFutureProv = FutureProvider.autoDispose(
   },
 );
 
+final serverMemStatusFutureProv = FutureProvider.autoDispose(
+  (ref) {
+    final api = ref.read(apiServiceProv);
+
+    return api.getServerMemStatus();
+  },
+);
+
+final serverDiskStatusFutureProv = FutureProvider.autoDispose(
+  (ref) {
+    final api = ref.read(apiServiceProv);
+
+    return api.getServerDiskStatus();
+  },
+);
+
 // TODO(adnanjpg): will be updated frequently
 final serverStatusFetchingStartAndEndProv = StateProvider(
   (ref) => (
@@ -34,12 +50,4 @@ final serverStatusFetchingFrequencyProv = StateProvider(
   (ref) => const Duration(
     seconds: 1,
   ),
-);
-
-final serverStatusFutureProv = FutureProvider.autoDispose(
-  (ref) {
-    final api = ref.read(apiServiceProv);
-
-    return api.getServerStatus();
-  },
 );
