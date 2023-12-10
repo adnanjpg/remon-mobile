@@ -23,17 +23,19 @@ class _Body extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      margin: defPaddingAll,
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            getStr(LocaleKeys.home_screen_title),
-            style: Theme.of(context).pageTitle,
-          ),
-          const StatusGraphsListWidget(),
-        ].joinWidgetList(doubleHeightSizedBoxIndex),
+    return SingleChildScrollView(
+      child: Container(
+        margin: defPaddingAll,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              getStr(LocaleKeys.home_screen_title),
+              style: Theme.of(context).pageTitle,
+            ),
+            const StatusGraphsListWidget(),
+          ].joinWidgetList(doubleHeightSizedBoxIndex),
+        ),
       ),
     );
   }

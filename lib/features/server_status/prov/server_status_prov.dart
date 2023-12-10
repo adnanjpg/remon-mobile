@@ -9,6 +9,33 @@ final serverHardwareInfoFutureProv = FutureProvider.autoDispose(
   },
 );
 
+final serverCpuStatusFutureProv = FutureProvider.autoDispose(
+  (ref) {
+    final api = ref.read(apiServiceProv);
+
+    return api.getServerCpuStatus();
+  },
+);
+
+// TODO(adnanjpg): will be updated frequently
+final serverStatusFetchingStartAndEndProv = StateProvider(
+  (ref) => (
+    start: DateTime.now(),
+    end: DateTime.now().add(
+      const Duration(
+        seconds: 10,
+      ),
+    ),
+  ),
+);
+
+// TODO(adnanjpg): will be read from config
+final serverStatusFetchingFrequencyProv = StateProvider(
+  (ref) => const Duration(
+    seconds: 1,
+  ),
+);
+
 final serverStatusFutureProv = FutureProvider.autoDispose(
   (ref) {
     final api = ref.read(apiServiceProv);

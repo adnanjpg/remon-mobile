@@ -12,7 +12,7 @@ class StatusGraphsListWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serverStatProv = ref.watch(serverStatusFutureProv);
+    // final serverStatProv = ref.watch(serverStatusFutureProv);
     final serverHardwawreInfo = ref.watch(serverHardwareInfoFutureProv);
 
     return serverHardwawreInfo.when(
