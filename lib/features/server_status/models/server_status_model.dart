@@ -39,6 +39,7 @@ part 'server_status_model.g.dart';
 //     ],
 //     "last_check": 1702150811
 // }
+
 @freezed
 class ServerStatusModel with _$ServerStatusModel {
   const factory ServerStatusModel({
@@ -64,11 +65,18 @@ class CpuUsageModel with _$CpuUsageModel {
     required String brand,
     @JsonKey(name: 'cpu_usage') required List<CpuUsageItemModel> usageItems,
   }) = _CpuUsageModel;
+  factory CpuUsageModel.fromJson(Map<String, dynamic> json) =>
+      _$CpuUsageModelFromJson(json);
 
   const CpuUsageModel._();
 
-  factory CpuUsageModel.fromJson(Map<String, dynamic> json) =>
-      _$CpuUsageModelFromJson(json);
+  double get frequencyMean =>
+      usageItems.map((e) => e.cpuFreq).reduce((a, b) => a + b) /
+      usageItems.length;
+
+  double get usagePercentageMean =>
+      usageItems.map((e) => e.cpuUsagePercentage).reduce((a, b) => a + b) /
+      usageItems.length;
 }
 
 @freezed

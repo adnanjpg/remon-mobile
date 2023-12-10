@@ -13,8 +13,9 @@ class StatusGraphsListWidget extends ConsumerWidget {
   @override
   Widget build(BuildContext context, WidgetRef ref) {
     final serverStatProv = ref.watch(serverStatusFutureProv);
+    final serverHardwawreInfo = ref.watch(serverHardwareInfoFutureProv);
 
-    return serverStatProv.when(
+    return serverHardwawreInfo.when(
       error: ErrWidget.new,
       loading: LoadingWidget.new,
       data: (data) {
@@ -27,7 +28,7 @@ class StatusGraphsListWidget extends ConsumerWidget {
         return Column(
           children: [
             CpuStatusDataWidget(
-              items: data.cpuUsageItems,
+              model: data.cpuInfo,
             ),
           ],
         );
