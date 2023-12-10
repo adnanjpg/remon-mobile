@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/server_status/models/server_cpu_status_model.dart';
 import 'package:remon_mobile/features/server_status/models/server_hardware_info_model.dart';
-import 'package:remon_mobile/features/server_status/models/server_status_model.dart';
 import 'package:remon_mobile/features/server_status/prov/server_status_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
@@ -90,17 +89,30 @@ class CpuStatusDataWidget extends ConsumerWidget {
             ),
           ),
         ),
-        // _Graphs(
-        //   model: items,
-        // ),
-      ],
+        serverCpuStatus.when(
+          error: ErrWidget.new,
+          loading: LoadingWidget.new,
+          data: (data) {
+            if (data == null) {
+              return const SizedBox();
+            }
+
+            return _Graphs(
+              model: data,
+            );
+          },
+        ),
+      ].joinWidgetList(
+        (_) => const SizedBox(
+          height: defPaddingSize,
+        ),
+      ),
     );
   }
 }
 
 class _SingleFrameDetail extends StatelessWidget {
   const _SingleFrameDetail({
-    super.key,
     required this.index,
     required this.frame,
     required this.startTime,
@@ -117,118 +129,122 @@ class _SingleFrameDetail extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            frame.frameTime(index, startTime, endTime, frequency).toString(),
+      crossAxisAlignment: CrossAxisAlignment.start,
+      children: [
+        Text(
+          frame.frameTime(index, startTime, endTime, frequency).toString(),
+        ),
+        Table(
+          border: TableBorder.all(
+            width: .1,
           ),
-          Table(
-            border: TableBorder.all(
-              width: .1,
-            ),
-            columnWidths: const {
-              0: FlexColumnWidth(1),
-              1: FlexColumnWidth(2),
-              2: FlexColumnWidth(2),
-            },
-            children: [
-              TableRow(
-                decoration: BoxDecoration(
-                  color: Theme.of(context).cpuUsageTableTitleRowBg,
+          columnWidths: const {
+            0: FlexColumnWidth(1),
+            1: FlexColumnWidth(2),
+            2: FlexColumnWidth(2),
+          },
+          children: [
+            TableRow(
+              decoration: BoxDecoration(
+                color: Theme.of(context).cpuUsageTableTitleRowBg,
+              ),
+              children: [
+                Text(
+                  getStr(
+                    LocaleKeys
+                        .cpu_status_graph_dets_cores_table_index_col_title,
+                  ),
                 ),
-                children: [
-                  Text(
-                    getStr(
-                      LocaleKeys
-                          .cpu_status_graph_dets_cores_table_index_col_title,
-                    ),
+                Text(
+                  getStr(
+                    LocaleKeys.cpu_status_graph_dets_cores_table_cpu_freq_title,
                   ),
-                  Text(
-                    getStr(
-                      LocaleKeys
-                          .cpu_status_graph_dets_cores_table_cpu_freq_title,
-                    ),
+                ),
+                Text(
+                  getStr(
+                    LocaleKeys
+                        .cpu_status_graph_dets_cores_table_cpu_usage_title,
                   ),
-                  Text(
-                    getStr(
-                      LocaleKeys
-                          .cpu_status_graph_dets_cores_table_cpu_usage_title,
+                ),
+              ]
+                  .map(
+                    (e) => Row(
+                      children: [
+                        const SizedBox(
+                          width: quartDefPaddingSize,
+                        ),
+                        e,
+                      ],
                     ),
-                  ),
-                ]
-                    .map(
-                      (e) => Row(
-                        children: [
-                          const SizedBox(
-                            width: quartDefPaddingSize,
-                          ),
-                          e,
+                  )
+                  .toList(),
+            ),
+            ...frame.coresUsage.mapWIndex(
+              (index, core) {
+                return TableRow(
+                  children: [
+                    Text(
+                      (index + 1).toString(),
+                    ),
+                    Text(
+                      getStrArgs(
+                        LocaleKeys
+                            .cpu_status_graph_dets_cores_table_cpu_freq_item,
+                        args: [
+                          core.freq.toString(),
                         ],
                       ),
-                    )
-                    .toList(),
-              ),
-              ...frame.coresUsage.mapWIndex(
-                (index, core) {
-                  return TableRow(
-                    children: [
-                      Text(
-                        (index + 1).toString(),
+                    ),
+                    Text(
+                      getStrArgs(
+                        LocaleKeys
+                            .cpu_status_graph_dets_cores_table_cpu_usage_item,
+                        args: [
+                          core.usagePercentage.toString(),
+                        ],
                       ),
-                      Text(
-                        getStrArgs(
-                          LocaleKeys
-                              .cpu_status_graph_dets_cores_table_cpu_freq_item,
-                          args: [
-                            core.freq.toString(),
+                    ),
+                  ]
+                      .map(
+                        (e) => Row(
+                          children: [
+                            const SizedBox(
+                              width: quartDefPaddingSize,
+                            ),
+                            e,
                           ],
                         ),
-                      ),
-                      Text(
-                        getStrArgs(
-                          LocaleKeys
-                              .cpu_status_graph_dets_cores_table_cpu_usage_item,
-                          args: [
-                            core.usagePercentage.toString(),
-                          ],
-                        ),
-                      ),
-                    ]
-                        .map(
-                          (e) => Row(
-                            children: [
-                              const SizedBox(
-                                width: quartDefPaddingSize,
-                              ),
-                              e,
-                            ],
-                          ),
-                        )
-                        .toList(),
-                  );
-                },
-              ),
-            ],
-          ),
-        ].joinWidgetList(
-          (_) => const SizedBox(
-            height: quartDefPaddingSize,
-          ),
-        ));
+                      )
+                      .toList(),
+                );
+              },
+            ),
+          ],
+        ),
+      ].joinWidgetList(
+        (_) => const SizedBox(
+          height: quartDefPaddingSize,
+        ),
+      ),
+    );
   }
 }
 
-// class _Graphs extends StatelessWidget {
-//   const _Graphs({
-//     required this.model,
-//   });
+class _Graphs extends StatelessWidget {
+  const _Graphs({
+    required this.model,
+  });
 
-//   final CpuUsageModel model;
+  final ServerCpuStatusModel model;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SfSparkLineChart(
-//       data: [model.frequencyMean, 1, 3, 6],
-//     );
-//   }
-// }
+  @override
+  Widget build(BuildContext context) {
+    return SfSparkLineChart(
+      data: model.frames
+          .map(
+            (frame) => frame.coresUsageMean,
+          )
+          .toList(),
+    );
+  }
+}

@@ -57,6 +57,13 @@ class CpuUsageFrameModel with _$CpuUsageFrameModel {
 
   const CpuUsageFrameModel._();
 
+  int get coresUsageMean {
+    final ret =
+        coresUsage.map((e) => e.usagePercentage).reduce((a, b) => a + b);
+
+    return ret ~/ coresUsage.length;
+  }
+
   DateTime frameTime(
     int index,
     DateTime startTime,
