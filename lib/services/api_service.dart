@@ -387,14 +387,19 @@ extension ServerStatusEndPoints on ApiService {
     }
   }
 
-  Future<ServerCpuStatusModel?> getServerCpuStatus() async {
-    final startAndEndTime = _ref.watch(serverStatusFetchingStartAndEndProv);
+  Future<ServerCpuStatusModel?> getServerCpuStatus({
+    required ServerStatusFetchingTimeRange startAndEndTime,
+  }) async {
     final startTime = startAndEndTime.start;
     final endTime = startAndEndTime.end;
 
     final request = ServerCpuStatusRequestModel(
       startTime: startTime.millisecondsSinceEpoch,
       endTime: endTime.millisecondsSinceEpoch,
+    );
+
+    logger.d(
+      'checking server status between ${startTime.toIso8601String()} ${startTime.millisecondsSinceEpoch} and  ${endTime.toIso8601String()} ${endTime.millisecondsSinceEpoch} (UTC)',
     );
 
     try {
@@ -419,8 +424,9 @@ extension ServerStatusEndPoints on ApiService {
     }
   }
 
-  Future<ServerMemStatusModel?> getServerMemStatus() async {
-    final startAndEndTime = _ref.watch(serverStatusFetchingStartAndEndProv);
+  Future<ServerMemStatusModel?> getServerMemStatus({
+    required ServerStatusFetchingTimeRange startAndEndTime,
+  }) async {
     final startTime = startAndEndTime.start;
     final endTime = startAndEndTime.end;
 
@@ -451,8 +457,9 @@ extension ServerStatusEndPoints on ApiService {
     }
   }
 
-  Future<ServerDiskStatusModel?> getServerDiskStatus() async {
-    final startAndEndTime = _ref.watch(serverStatusFetchingStartAndEndProv);
+  Future<ServerDiskStatusModel?> getServerDiskStatus({
+    required ServerStatusFetchingTimeRange startAndEndTime,
+  }) async {
     final startTime = startAndEndTime.start;
     final endTime = startAndEndTime.end;
 

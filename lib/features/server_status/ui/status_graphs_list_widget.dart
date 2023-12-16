@@ -9,11 +9,25 @@ import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
-class StatusGraphsListWidget extends ConsumerWidget {
+class StatusGraphsListWidget extends ConsumerStatefulWidget {
   const StatusGraphsListWidget({super.key});
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
+  ConsumerState<StatusGraphsListWidget> createState() =>
+      _StatusGraphsListWidgetState();
+}
+
+class _StatusGraphsListWidgetState
+    extends ConsumerState<StatusGraphsListWidget> {
+  @override
+  void initState() {
+    super.initState();
+
+    ref.read(serverStatusFetchingTimeRangeProv.notifier).startTimer();
+  }
+
+  @override
+  Widget build(BuildContext context) {
     // final serverStatProv = ref.watch(serverStatusFutureProv);
     final serverHardwawreInfo = ref.watch(serverHardwareInfoFutureProv);
 
