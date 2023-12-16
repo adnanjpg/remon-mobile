@@ -174,6 +174,10 @@ CpuUsageFrameModel _$CpuUsageFrameModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CpuUsageFrameModel {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_check')
+  int get lastCheck => throw _privateConstructorUsedError;
   @JsonKey(name: 'cores_usage')
   List<CpuUsageModel> get coresUsage => throw _privateConstructorUsedError;
 
@@ -189,7 +193,10 @@ abstract class $CpuUsageFrameModelCopyWith<$Res> {
           CpuUsageFrameModel value, $Res Function(CpuUsageFrameModel) then) =
       _$CpuUsageFrameModelCopyWithImpl<$Res, CpuUsageFrameModel>;
   @useResult
-  $Res call({@JsonKey(name: 'cores_usage') List<CpuUsageModel> coresUsage});
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'last_check') int lastCheck,
+      @JsonKey(name: 'cores_usage') List<CpuUsageModel> coresUsage});
 }
 
 /// @nodoc
@@ -205,9 +212,19 @@ class _$CpuUsageFrameModelCopyWithImpl<$Res, $Val extends CpuUsageFrameModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? lastCheck = null,
     Object? coresUsage = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastCheck: null == lastCheck
+          ? _value.lastCheck
+          : lastCheck // ignore: cast_nullable_to_non_nullable
+              as int,
       coresUsage: null == coresUsage
           ? _value.coresUsage
           : coresUsage // ignore: cast_nullable_to_non_nullable
@@ -224,7 +241,10 @@ abstract class _$$_CpuUsageFrameModelCopyWith<$Res>
       __$$_CpuUsageFrameModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'cores_usage') List<CpuUsageModel> coresUsage});
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'last_check') int lastCheck,
+      @JsonKey(name: 'cores_usage') List<CpuUsageModel> coresUsage});
 }
 
 /// @nodoc
@@ -238,9 +258,19 @@ class __$$_CpuUsageFrameModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? lastCheck = null,
     Object? coresUsage = null,
   }) {
     return _then(_$_CpuUsageFrameModel(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastCheck: null == lastCheck
+          ? _value.lastCheck
+          : lastCheck // ignore: cast_nullable_to_non_nullable
+              as int,
       coresUsage: null == coresUsage
           ? _value._coresUsage
           : coresUsage // ignore: cast_nullable_to_non_nullable
@@ -253,7 +283,9 @@ class __$$_CpuUsageFrameModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CpuUsageFrameModel extends _CpuUsageFrameModel {
   const _$_CpuUsageFrameModel(
-      {@JsonKey(name: 'cores_usage')
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'last_check') required this.lastCheck,
+      @JsonKey(name: 'cores_usage')
       required final List<CpuUsageModel> coresUsage})
       : _coresUsage = coresUsage,
         super._();
@@ -261,6 +293,12 @@ class _$_CpuUsageFrameModel extends _CpuUsageFrameModel {
   factory _$_CpuUsageFrameModel.fromJson(Map<String, dynamic> json) =>
       _$$_CpuUsageFrameModelFromJson(json);
 
+  @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'last_check')
+  final int lastCheck;
   final List<CpuUsageModel> _coresUsage;
   @override
   @JsonKey(name: 'cores_usage')
@@ -272,7 +310,7 @@ class _$_CpuUsageFrameModel extends _CpuUsageFrameModel {
 
   @override
   String toString() {
-    return 'CpuUsageFrameModel(coresUsage: $coresUsage)';
+    return 'CpuUsageFrameModel(id: $id, lastCheck: $lastCheck, coresUsage: $coresUsage)';
   }
 
   @override
@@ -280,14 +318,17 @@ class _$_CpuUsageFrameModel extends _CpuUsageFrameModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CpuUsageFrameModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.lastCheck, lastCheck) ||
+                other.lastCheck == lastCheck) &&
             const DeepCollectionEquality()
                 .equals(other._coresUsage, _coresUsage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_coresUsage));
+  int get hashCode => Object.hash(runtimeType, id, lastCheck,
+      const DeepCollectionEquality().hash(_coresUsage));
 
   @JsonKey(ignore: true)
   @override
@@ -306,13 +347,21 @@ class _$_CpuUsageFrameModel extends _CpuUsageFrameModel {
 
 abstract class _CpuUsageFrameModel extends CpuUsageFrameModel {
   const factory _CpuUsageFrameModel(
-      {@JsonKey(name: 'cores_usage')
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'last_check') required final int lastCheck,
+      @JsonKey(name: 'cores_usage')
       required final List<CpuUsageModel> coresUsage}) = _$_CpuUsageFrameModel;
   const _CpuUsageFrameModel._() : super._();
 
   factory _CpuUsageFrameModel.fromJson(Map<String, dynamic> json) =
       _$_CpuUsageFrameModel.fromJson;
 
+  @override
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'last_check')
+  int get lastCheck;
   @override
   @JsonKey(name: 'cores_usage')
   List<CpuUsageModel> get coresUsage;
@@ -328,9 +377,14 @@ CpuUsageModel _$CpuUsageModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$CpuUsageModel {
-// in GHz
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'frame_id')
+  int get frameId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'cpu_id')
+  String get cpuId => throw _privateConstructorUsedError; // in MHz
   @JsonKey(name: 'freq')
-  double get freq => throw _privateConstructorUsedError;
+  double get freq => throw _privateConstructorUsedError; // in %
   @JsonKey(name: 'usage')
   double get usage => throw _privateConstructorUsedError;
 
@@ -347,7 +401,10 @@ abstract class $CpuUsageModelCopyWith<$Res> {
       _$CpuUsageModelCopyWithImpl<$Res, CpuUsageModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'freq') double freq,
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'frame_id') int frameId,
+      @JsonKey(name: 'cpu_id') String cpuId,
+      @JsonKey(name: 'freq') double freq,
       @JsonKey(name: 'usage') double usage});
 }
 
@@ -364,10 +421,25 @@ class _$CpuUsageModelCopyWithImpl<$Res, $Val extends CpuUsageModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? frameId = null,
+    Object? cpuId = null,
     Object? freq = null,
     Object? usage = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      frameId: null == frameId
+          ? _value.frameId
+          : frameId // ignore: cast_nullable_to_non_nullable
+              as int,
+      cpuId: null == cpuId
+          ? _value.cpuId
+          : cpuId // ignore: cast_nullable_to_non_nullable
+              as String,
       freq: null == freq
           ? _value.freq
           : freq // ignore: cast_nullable_to_non_nullable
@@ -389,7 +461,10 @@ abstract class _$$_CpuUsageModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'freq') double freq,
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'frame_id') int frameId,
+      @JsonKey(name: 'cpu_id') String cpuId,
+      @JsonKey(name: 'freq') double freq,
       @JsonKey(name: 'usage') double usage});
 }
 
@@ -404,10 +479,25 @@ class __$$_CpuUsageModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? frameId = null,
+    Object? cpuId = null,
     Object? freq = null,
     Object? usage = null,
   }) {
     return _then(_$_CpuUsageModel(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      frameId: null == frameId
+          ? _value.frameId
+          : frameId // ignore: cast_nullable_to_non_nullable
+              as int,
+      cpuId: null == cpuId
+          ? _value.cpuId
+          : cpuId // ignore: cast_nullable_to_non_nullable
+              as String,
       freq: null == freq
           ? _value.freq
           : freq // ignore: cast_nullable_to_non_nullable
@@ -424,24 +514,37 @@ class __$$_CpuUsageModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_CpuUsageModel extends _CpuUsageModel {
   const _$_CpuUsageModel(
-      {@JsonKey(name: 'freq') required this.freq,
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'frame_id') required this.frameId,
+      @JsonKey(name: 'cpu_id') required this.cpuId,
+      @JsonKey(name: 'freq') required this.freq,
       @JsonKey(name: 'usage') required this.usage})
       : super._();
 
   factory _$_CpuUsageModel.fromJson(Map<String, dynamic> json) =>
       _$$_CpuUsageModelFromJson(json);
 
-// in GHz
+  @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'frame_id')
+  final int frameId;
+  @override
+  @JsonKey(name: 'cpu_id')
+  final String cpuId;
+// in MHz
   @override
   @JsonKey(name: 'freq')
   final double freq;
+// in %
   @override
   @JsonKey(name: 'usage')
   final double usage;
 
   @override
   String toString() {
-    return 'CpuUsageModel(freq: $freq, usage: $usage)';
+    return 'CpuUsageModel(id: $id, frameId: $frameId, cpuId: $cpuId, freq: $freq, usage: $usage)';
   }
 
   @override
@@ -449,13 +552,16 @@ class _$_CpuUsageModel extends _CpuUsageModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_CpuUsageModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.frameId, frameId) || other.frameId == frameId) &&
+            (identical(other.cpuId, cpuId) || other.cpuId == cpuId) &&
             (identical(other.freq, freq) || other.freq == freq) &&
             (identical(other.usage, usage) || other.usage == usage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, freq, usage);
+  int get hashCode => Object.hash(runtimeType, id, frameId, cpuId, freq, usage);
 
   @JsonKey(ignore: true)
   @override
@@ -473,17 +579,29 @@ class _$_CpuUsageModel extends _CpuUsageModel {
 
 abstract class _CpuUsageModel extends CpuUsageModel {
   const factory _CpuUsageModel(
-      {@JsonKey(name: 'freq') required final double freq,
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'frame_id') required final int frameId,
+      @JsonKey(name: 'cpu_id') required final String cpuId,
+      @JsonKey(name: 'freq') required final double freq,
       @JsonKey(name: 'usage') required final double usage}) = _$_CpuUsageModel;
   const _CpuUsageModel._() : super._();
 
   factory _CpuUsageModel.fromJson(Map<String, dynamic> json) =
       _$_CpuUsageModel.fromJson;
 
-  @override // in GHz
+  @override
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'frame_id')
+  int get frameId;
+  @override
+  @JsonKey(name: 'cpu_id')
+  String get cpuId;
+  @override // in MHz
   @JsonKey(name: 'freq')
   double get freq;
-  @override
+  @override // in %
   @JsonKey(name: 'usage')
   double get usage;
   @override

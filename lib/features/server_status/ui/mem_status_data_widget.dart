@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/features/server_status/models/server_hardware_info_model.dart';
 import 'package:remon_mobile/features/server_status/models/server_mem_status_model.dart';
 import 'package:remon_mobile/features/server_status/prov/server_status_prov.dart';
 import 'package:remon_mobile/gen/locale_keys.g.dart';
@@ -10,8 +11,11 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class MemStatusDataWidget extends ConsumerWidget {
   const MemStatusDataWidget({
+    required this.infoModels,
     super.key,
   });
+
+  final List<MemInfoModel> infoModels;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -34,6 +38,7 @@ class MemStatusDataWidget extends ConsumerWidget {
 
             return _Graphs(
               model: data,
+              infoModels: infoModels,
             );
           },
         ),
@@ -49,20 +54,31 @@ class MemStatusDataWidget extends ConsumerWidget {
 class _Graphs extends StatelessWidget {
   const _Graphs({
     required this.model,
+    required this.infoModels,
   });
 
   final ServerMemStatusModel model;
+  final List<MemInfoModel> infoModels;
 
   @override
   Widget build(BuildContext context) {
+    final memsTotal = infoModels.map(
+      (infoModel) {
+        return (
+          memId: infoModel.memId,
+          total: infoModel.totalSpace,
+        );
+      },
+    );
+
     return SfSparkLineChart(
       axisLineDashArray: const [5, 5],
       axisLineColor: Colors.grey,
-      data: model.frames
-          .map(
-            (frame) => frame.usagePercent,
-          )
-          .toList(),
+      data: model.frames.map(
+        (frame) {
+          return frame.usagePercent(memsTotal);
+        },
+      ).toList(),
     );
   }
 }

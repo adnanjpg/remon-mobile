@@ -36,12 +36,8 @@ final serverDiskStatusFutureProv = FutureProvider.autoDispose(
 // TODO(adnanjpg): will be updated frequently
 final serverStatusFetchingStartAndEndProv = StateProvider(
   (ref) => (
-    start: DateTime.now(),
-    end: DateTime.now().add(
-      const Duration(
-        seconds: 10,
-      ),
-    ),
+    start: DateTime.fromMillisecondsSinceEpoch(1),
+    end: DateTime.fromMillisecondsSinceEpoch(1702724795),
   ),
 );
 

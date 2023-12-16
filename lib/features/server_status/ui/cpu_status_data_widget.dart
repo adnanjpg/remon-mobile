@@ -11,11 +11,11 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class CpuStatusDataWidget extends ConsumerWidget {
   const CpuStatusDataWidget({
-    required this.model,
+    required this.infoModels,
     super.key,
   });
 
-  final CpuInfoModel model;
+  final List<CpuInfoModel> infoModels;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -28,29 +28,31 @@ class CpuStatusDataWidget extends ConsumerWidget {
             getStr(LocaleKeys.cpu_status_graph_title),
           ),
           expandedCrossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  [
-                    getStr(LocaleKeys.cpu_status_graph_dets_vendor_id),
-                    model.vendorId,
-                  ].join(': '),
+          children: infoModels.map(
+            (model) {
+              return Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    [
+                      getStr(LocaleKeys.cpu_status_graph_dets_vendor_id),
+                      model.vendorId,
+                    ].join(': '),
+                  ),
+                  Text(
+                    [
+                      getStr(LocaleKeys.cpu_status_graph_dets_brand),
+                      model.brand,
+                    ].join(': '),
+                  ),
+                ].joinWidgetList(
+                  (_) => const SizedBox(
+                    height: quartDefPaddingSize,
+                  ),
                 ),
-                Text(
-                  [
-                    getStr(LocaleKeys.cpu_status_graph_dets_brand),
-                    model.brand,
-                  ].join(': '),
-                ),
-              ].joinWidgetList(
-                (_) => const SizedBox(
-                  height: quartDefPaddingSize,
-                ),
-              ),
-            ),
-          ].joinWidgetList(
+              );
+            },
+          ).joinWidgetList(
             (_) => const SizedBox(
               height: defPaddingSize,
             ),
@@ -87,14 +89,16 @@ class _Graphs extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final data = model.frames
+        .map(
+          (frame) => frame.coresUsageMean,
+        )
+        .toList();
+
     return SfSparkLineChart(
       axisLineDashArray: const [5, 5],
       axisLineColor: Colors.grey,
-      data: model.frames
-          .map(
-            (frame) => frame.coresUsageMean,
-          )
-          .toList(),
+      data: data,
     );
   }
 }

@@ -174,10 +174,12 @@ MemUsageFrameModel _$MemUsageFrameModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$MemUsageFrameModel {
-  @JsonKey(name: 'total')
-  int get total => throw _privateConstructorUsedError;
-  @JsonKey(name: 'available')
-  int get available => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_check')
+  int get lastCheck => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mems_usage')
+  List<MemUsageModel> get memsUsage => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -192,8 +194,9 @@ abstract class $MemUsageFrameModelCopyWith<$Res> {
       _$MemUsageFrameModelCopyWithImpl<$Res, MemUsageFrameModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'total') int total,
-      @JsonKey(name: 'available') int available});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'last_check') int lastCheck,
+      @JsonKey(name: 'mems_usage') List<MemUsageModel> memsUsage});
 }
 
 /// @nodoc
@@ -209,18 +212,23 @@ class _$MemUsageFrameModelCopyWithImpl<$Res, $Val extends MemUsageFrameModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? total = null,
-    Object? available = null,
+    Object? id = null,
+    Object? lastCheck = null,
+    Object? memsUsage = null,
   }) {
     return _then(_value.copyWith(
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      available: null == available
-          ? _value.available
-          : available // ignore: cast_nullable_to_non_nullable
+      lastCheck: null == lastCheck
+          ? _value.lastCheck
+          : lastCheck // ignore: cast_nullable_to_non_nullable
               as int,
+      memsUsage: null == memsUsage
+          ? _value.memsUsage
+          : memsUsage // ignore: cast_nullable_to_non_nullable
+              as List<MemUsageModel>,
     ) as $Val);
   }
 }
@@ -234,8 +242,9 @@ abstract class _$$_MemUsageFrameModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'total') int total,
-      @JsonKey(name: 'available') int available});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'last_check') int lastCheck,
+      @JsonKey(name: 'mems_usage') List<MemUsageModel> memsUsage});
 }
 
 /// @nodoc
@@ -249,18 +258,23 @@ class __$$_MemUsageFrameModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? total = null,
-    Object? available = null,
+    Object? id = null,
+    Object? lastCheck = null,
+    Object? memsUsage = null,
   }) {
     return _then(_$_MemUsageFrameModel(
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
               as int,
-      available: null == available
-          ? _value.available
-          : available // ignore: cast_nullable_to_non_nullable
+      lastCheck: null == lastCheck
+          ? _value.lastCheck
+          : lastCheck // ignore: cast_nullable_to_non_nullable
               as int,
+      memsUsage: null == memsUsage
+          ? _value._memsUsage
+          : memsUsage // ignore: cast_nullable_to_non_nullable
+              as List<MemUsageModel>,
     ));
   }
 }
@@ -269,23 +283,34 @@ class __$$_MemUsageFrameModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_MemUsageFrameModel extends _MemUsageFrameModel {
   const _$_MemUsageFrameModel(
-      {@JsonKey(name: 'total') required this.total,
-      @JsonKey(name: 'available') required this.available})
-      : super._();
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'last_check') required this.lastCheck,
+      @JsonKey(name: 'mems_usage')
+      required final List<MemUsageModel> memsUsage})
+      : _memsUsage = memsUsage,
+        super._();
 
   factory _$_MemUsageFrameModel.fromJson(Map<String, dynamic> json) =>
       _$$_MemUsageFrameModelFromJson(json);
 
   @override
-  @JsonKey(name: 'total')
-  final int total;
+  @JsonKey(name: 'id')
+  final int id;
   @override
-  @JsonKey(name: 'available')
-  final int available;
+  @JsonKey(name: 'last_check')
+  final int lastCheck;
+  final List<MemUsageModel> _memsUsage;
+  @override
+  @JsonKey(name: 'mems_usage')
+  List<MemUsageModel> get memsUsage {
+    if (_memsUsage is EqualUnmodifiableListView) return _memsUsage;
+    // ignore: implicit_dynamic_type
+    return EqualUnmodifiableListView(_memsUsage);
+  }
 
   @override
   String toString() {
-    return 'MemUsageFrameModel(total: $total, available: $available)';
+    return 'MemUsageFrameModel(id: $id, lastCheck: $lastCheck, memsUsage: $memsUsage)';
   }
 
   @override
@@ -293,14 +318,17 @@ class _$_MemUsageFrameModel extends _MemUsageFrameModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_MemUsageFrameModel &&
-            (identical(other.total, total) || other.total == total) &&
-            (identical(other.available, available) ||
-                other.available == available));
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.lastCheck, lastCheck) ||
+                other.lastCheck == lastCheck) &&
+            const DeepCollectionEquality()
+                .equals(other._memsUsage, _memsUsage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, total, available);
+  int get hashCode => Object.hash(runtimeType, id, lastCheck,
+      const DeepCollectionEquality().hash(_memsUsage));
 
   @JsonKey(ignore: true)
   @override
@@ -319,22 +347,242 @@ class _$_MemUsageFrameModel extends _MemUsageFrameModel {
 
 abstract class _MemUsageFrameModel extends MemUsageFrameModel {
   const factory _MemUsageFrameModel(
-          {@JsonKey(name: 'total') required final int total,
-          @JsonKey(name: 'available') required final int available}) =
-      _$_MemUsageFrameModel;
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'last_check') required final int lastCheck,
+      @JsonKey(name: 'mems_usage')
+      required final List<MemUsageModel> memsUsage}) = _$_MemUsageFrameModel;
   const _MemUsageFrameModel._() : super._();
 
   factory _MemUsageFrameModel.fromJson(Map<String, dynamic> json) =
       _$_MemUsageFrameModel.fromJson;
 
   @override
-  @JsonKey(name: 'total')
-  int get total;
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'last_check')
+  int get lastCheck;
+  @override
+  @JsonKey(name: 'mems_usage')
+  List<MemUsageModel> get memsUsage;
+  @override
+  @JsonKey(ignore: true)
+  _$$_MemUsageFrameModelCopyWith<_$_MemUsageFrameModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+MemUsageModel _$MemUsageModelFromJson(Map<String, dynamic> json) {
+  return _MemUsageModel.fromJson(json);
+}
+
+/// @nodoc
+mixin _$MemUsageModel {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'frame_id')
+  int get frameId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'mem_id')
+  String get memId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'available')
+  int get available => throw _privateConstructorUsedError;
+
+  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
+  @JsonKey(ignore: true)
+  $MemUsageModelCopyWith<MemUsageModel> get copyWith =>
+      throw _privateConstructorUsedError;
+}
+
+/// @nodoc
+abstract class $MemUsageModelCopyWith<$Res> {
+  factory $MemUsageModelCopyWith(
+          MemUsageModel value, $Res Function(MemUsageModel) then) =
+      _$MemUsageModelCopyWithImpl<$Res, MemUsageModel>;
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'frame_id') int frameId,
+      @JsonKey(name: 'mem_id') String memId,
+      @JsonKey(name: 'available') int available});
+}
+
+/// @nodoc
+class _$MemUsageModelCopyWithImpl<$Res, $Val extends MemUsageModel>
+    implements $MemUsageModelCopyWith<$Res> {
+  _$MemUsageModelCopyWithImpl(this._value, this._then);
+
+  // ignore: unused_field
+  final $Val _value;
+  // ignore: unused_field
+  final $Res Function($Val) _then;
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? frameId = null,
+    Object? memId = null,
+    Object? available = null,
+  }) {
+    return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      frameId: null == frameId
+          ? _value.frameId
+          : frameId // ignore: cast_nullable_to_non_nullable
+              as int,
+      memId: null == memId
+          ? _value.memId
+          : memId // ignore: cast_nullable_to_non_nullable
+              as String,
+      available: null == available
+          ? _value.available
+          : available // ignore: cast_nullable_to_non_nullable
+              as int,
+    ) as $Val);
+  }
+}
+
+/// @nodoc
+abstract class _$$_MemUsageModelCopyWith<$Res>
+    implements $MemUsageModelCopyWith<$Res> {
+  factory _$$_MemUsageModelCopyWith(
+          _$_MemUsageModel value, $Res Function(_$_MemUsageModel) then) =
+      __$$_MemUsageModelCopyWithImpl<$Res>;
+  @override
+  @useResult
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'frame_id') int frameId,
+      @JsonKey(name: 'mem_id') String memId,
+      @JsonKey(name: 'available') int available});
+}
+
+/// @nodoc
+class __$$_MemUsageModelCopyWithImpl<$Res>
+    extends _$MemUsageModelCopyWithImpl<$Res, _$_MemUsageModel>
+    implements _$$_MemUsageModelCopyWith<$Res> {
+  __$$_MemUsageModelCopyWithImpl(
+      _$_MemUsageModel _value, $Res Function(_$_MemUsageModel) _then)
+      : super(_value, _then);
+
+  @pragma('vm:prefer-inline')
+  @override
+  $Res call({
+    Object? id = null,
+    Object? frameId = null,
+    Object? memId = null,
+    Object? available = null,
+  }) {
+    return _then(_$_MemUsageModel(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      frameId: null == frameId
+          ? _value.frameId
+          : frameId // ignore: cast_nullable_to_non_nullable
+              as int,
+      memId: null == memId
+          ? _value.memId
+          : memId // ignore: cast_nullable_to_non_nullable
+              as String,
+      available: null == available
+          ? _value.available
+          : available // ignore: cast_nullable_to_non_nullable
+              as int,
+    ));
+  }
+}
+
+/// @nodoc
+@JsonSerializable()
+class _$_MemUsageModel extends _MemUsageModel {
+  const _$_MemUsageModel(
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'frame_id') required this.frameId,
+      @JsonKey(name: 'mem_id') required this.memId,
+      @JsonKey(name: 'available') required this.available})
+      : super._();
+
+  factory _$_MemUsageModel.fromJson(Map<String, dynamic> json) =>
+      _$$_MemUsageModelFromJson(json);
+
+  @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'frame_id')
+  final int frameId;
+  @override
+  @JsonKey(name: 'mem_id')
+  final String memId;
+  @override
+  @JsonKey(name: 'available')
+  final int available;
+
+  @override
+  String toString() {
+    return 'MemUsageModel(id: $id, frameId: $frameId, memId: $memId, available: $available)';
+  }
+
+  @override
+  bool operator ==(dynamic other) {
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType &&
+            other is _$_MemUsageModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.frameId, frameId) || other.frameId == frameId) &&
+            (identical(other.memId, memId) || other.memId == memId) &&
+            (identical(other.available, available) ||
+                other.available == available));
+  }
+
+  @JsonKey(ignore: true)
+  @override
+  int get hashCode => Object.hash(runtimeType, id, frameId, memId, available);
+
+  @JsonKey(ignore: true)
+  @override
+  @pragma('vm:prefer-inline')
+  _$$_MemUsageModelCopyWith<_$_MemUsageModel> get copyWith =>
+      __$$_MemUsageModelCopyWithImpl<_$_MemUsageModel>(this, _$identity);
+
+  @override
+  Map<String, dynamic> toJson() {
+    return _$$_MemUsageModelToJson(
+      this,
+    );
+  }
+}
+
+abstract class _MemUsageModel extends MemUsageModel {
+  const factory _MemUsageModel(
+          {@JsonKey(name: 'id') required final int id,
+          @JsonKey(name: 'frame_id') required final int frameId,
+          @JsonKey(name: 'mem_id') required final String memId,
+          @JsonKey(name: 'available') required final int available}) =
+      _$_MemUsageModel;
+  const _MemUsageModel._() : super._();
+
+  factory _MemUsageModel.fromJson(Map<String, dynamic> json) =
+      _$_MemUsageModel.fromJson;
+
+  @override
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'frame_id')
+  int get frameId;
+  @override
+  @JsonKey(name: 'mem_id')
+  String get memId;
   @override
   @JsonKey(name: 'available')
   int get available;
   @override
   @JsonKey(ignore: true)
-  _$$_MemUsageFrameModelCopyWith<_$_MemUsageFrameModel> get copyWith =>
+  _$$_MemUsageModelCopyWith<_$_MemUsageModel> get copyWith =>
       throw _privateConstructorUsedError;
 }

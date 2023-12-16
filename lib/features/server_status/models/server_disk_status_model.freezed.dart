@@ -176,6 +176,10 @@ DiskUsageFrameModel _$DiskUsageFrameModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DiskUsageFrameModel {
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'last_check')
+  int get lastCheck => throw _privateConstructorUsedError;
   @JsonKey(name: 'disks_usage')
   List<DiskUsageModel> get disksUsage => throw _privateConstructorUsedError;
 
@@ -191,7 +195,10 @@ abstract class $DiskUsageFrameModelCopyWith<$Res> {
           DiskUsageFrameModel value, $Res Function(DiskUsageFrameModel) then) =
       _$DiskUsageFrameModelCopyWithImpl<$Res, DiskUsageFrameModel>;
   @useResult
-  $Res call({@JsonKey(name: 'disks_usage') List<DiskUsageModel> disksUsage});
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'last_check') int lastCheck,
+      @JsonKey(name: 'disks_usage') List<DiskUsageModel> disksUsage});
 }
 
 /// @nodoc
@@ -207,9 +214,19 @@ class _$DiskUsageFrameModelCopyWithImpl<$Res, $Val extends DiskUsageFrameModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? lastCheck = null,
     Object? disksUsage = null,
   }) {
     return _then(_value.copyWith(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastCheck: null == lastCheck
+          ? _value.lastCheck
+          : lastCheck // ignore: cast_nullable_to_non_nullable
+              as int,
       disksUsage: null == disksUsage
           ? _value.disksUsage
           : disksUsage // ignore: cast_nullable_to_non_nullable
@@ -226,7 +243,10 @@ abstract class _$$_DiskUsageFrameModelCopyWith<$Res>
       __$$_DiskUsageFrameModelCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({@JsonKey(name: 'disks_usage') List<DiskUsageModel> disksUsage});
+  $Res call(
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'last_check') int lastCheck,
+      @JsonKey(name: 'disks_usage') List<DiskUsageModel> disksUsage});
 }
 
 /// @nodoc
@@ -240,9 +260,19 @@ class __$$_DiskUsageFrameModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
+    Object? id = null,
+    Object? lastCheck = null,
     Object? disksUsage = null,
   }) {
     return _then(_$_DiskUsageFrameModel(
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      lastCheck: null == lastCheck
+          ? _value.lastCheck
+          : lastCheck // ignore: cast_nullable_to_non_nullable
+              as int,
       disksUsage: null == disksUsage
           ? _value._disksUsage
           : disksUsage // ignore: cast_nullable_to_non_nullable
@@ -255,7 +285,9 @@ class __$$_DiskUsageFrameModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DiskUsageFrameModel extends _DiskUsageFrameModel {
   const _$_DiskUsageFrameModel(
-      {@JsonKey(name: 'disks_usage')
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'last_check') required this.lastCheck,
+      @JsonKey(name: 'disks_usage')
       required final List<DiskUsageModel> disksUsage})
       : _disksUsage = disksUsage,
         super._();
@@ -263,6 +295,12 @@ class _$_DiskUsageFrameModel extends _DiskUsageFrameModel {
   factory _$_DiskUsageFrameModel.fromJson(Map<String, dynamic> json) =>
       _$$_DiskUsageFrameModelFromJson(json);
 
+  @override
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'last_check')
+  final int lastCheck;
   final List<DiskUsageModel> _disksUsage;
   @override
   @JsonKey(name: 'disks_usage')
@@ -274,7 +312,7 @@ class _$_DiskUsageFrameModel extends _DiskUsageFrameModel {
 
   @override
   String toString() {
-    return 'DiskUsageFrameModel(disksUsage: $disksUsage)';
+    return 'DiskUsageFrameModel(id: $id, lastCheck: $lastCheck, disksUsage: $disksUsage)';
   }
 
   @override
@@ -282,14 +320,17 @@ class _$_DiskUsageFrameModel extends _DiskUsageFrameModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DiskUsageFrameModel &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.lastCheck, lastCheck) ||
+                other.lastCheck == lastCheck) &&
             const DeepCollectionEquality()
                 .equals(other._disksUsage, _disksUsage));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(
-      runtimeType, const DeepCollectionEquality().hash(_disksUsage));
+  int get hashCode => Object.hash(runtimeType, id, lastCheck,
+      const DeepCollectionEquality().hash(_disksUsage));
 
   @JsonKey(ignore: true)
   @override
@@ -308,13 +349,21 @@ class _$_DiskUsageFrameModel extends _DiskUsageFrameModel {
 
 abstract class _DiskUsageFrameModel extends DiskUsageFrameModel {
   const factory _DiskUsageFrameModel(
-      {@JsonKey(name: 'disks_usage')
+      {@JsonKey(name: 'id') required final int id,
+      @JsonKey(name: 'last_check') required final int lastCheck,
+      @JsonKey(name: 'disks_usage')
       required final List<DiskUsageModel> disksUsage}) = _$_DiskUsageFrameModel;
   const _DiskUsageFrameModel._() : super._();
 
   factory _DiskUsageFrameModel.fromJson(Map<String, dynamic> json) =
       _$_DiskUsageFrameModel.fromJson;
 
+  @override
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'last_check')
+  int get lastCheck;
   @override
   @JsonKey(name: 'disks_usage')
   List<DiskUsageModel> get disksUsage;
@@ -330,10 +379,14 @@ DiskUsageModel _$DiskUsageModelFromJson(Map<String, dynamic> json) {
 
 /// @nodoc
 mixin _$DiskUsageModel {
-  @JsonKey(name: 'total')
-  double get total => throw _privateConstructorUsedError;
+  @JsonKey(name: 'id')
+  int get id => throw _privateConstructorUsedError;
+  @JsonKey(name: 'frame_id')
+  int get frameId => throw _privateConstructorUsedError;
+  @JsonKey(name: 'disk_id')
+  String get diskId => throw _privateConstructorUsedError;
   @JsonKey(name: 'available')
-  double get available => throw _privateConstructorUsedError;
+  int get available => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -348,8 +401,10 @@ abstract class $DiskUsageModelCopyWith<$Res> {
       _$DiskUsageModelCopyWithImpl<$Res, DiskUsageModel>;
   @useResult
   $Res call(
-      {@JsonKey(name: 'total') double total,
-      @JsonKey(name: 'available') double available});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'frame_id') int frameId,
+      @JsonKey(name: 'disk_id') String diskId,
+      @JsonKey(name: 'available') int available});
 }
 
 /// @nodoc
@@ -365,18 +420,28 @@ class _$DiskUsageModelCopyWithImpl<$Res, $Val extends DiskUsageModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? total = null,
+    Object? id = null,
+    Object? frameId = null,
+    Object? diskId = null,
     Object? available = null,
   }) {
     return _then(_value.copyWith(
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as double,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      frameId: null == frameId
+          ? _value.frameId
+          : frameId // ignore: cast_nullable_to_non_nullable
+              as int,
+      diskId: null == diskId
+          ? _value.diskId
+          : diskId // ignore: cast_nullable_to_non_nullable
+              as String,
       available: null == available
           ? _value.available
           : available // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
     ) as $Val);
   }
 }
@@ -390,8 +455,10 @@ abstract class _$$_DiskUsageModelCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {@JsonKey(name: 'total') double total,
-      @JsonKey(name: 'available') double available});
+      {@JsonKey(name: 'id') int id,
+      @JsonKey(name: 'frame_id') int frameId,
+      @JsonKey(name: 'disk_id') String diskId,
+      @JsonKey(name: 'available') int available});
 }
 
 /// @nodoc
@@ -405,18 +472,28 @@ class __$$_DiskUsageModelCopyWithImpl<$Res>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? total = null,
+    Object? id = null,
+    Object? frameId = null,
+    Object? diskId = null,
     Object? available = null,
   }) {
     return _then(_$_DiskUsageModel(
-      total: null == total
-          ? _value.total
-          : total // ignore: cast_nullable_to_non_nullable
-              as double,
+      id: null == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int,
+      frameId: null == frameId
+          ? _value.frameId
+          : frameId // ignore: cast_nullable_to_non_nullable
+              as int,
+      diskId: null == diskId
+          ? _value.diskId
+          : diskId // ignore: cast_nullable_to_non_nullable
+              as String,
       available: null == available
           ? _value.available
           : available // ignore: cast_nullable_to_non_nullable
-              as double,
+              as int,
     ));
   }
 }
@@ -425,7 +502,9 @@ class __$$_DiskUsageModelCopyWithImpl<$Res>
 @JsonSerializable()
 class _$_DiskUsageModel extends _DiskUsageModel {
   const _$_DiskUsageModel(
-      {@JsonKey(name: 'total') required this.total,
+      {@JsonKey(name: 'id') required this.id,
+      @JsonKey(name: 'frame_id') required this.frameId,
+      @JsonKey(name: 'disk_id') required this.diskId,
       @JsonKey(name: 'available') required this.available})
       : super._();
 
@@ -433,15 +512,21 @@ class _$_DiskUsageModel extends _DiskUsageModel {
       _$$_DiskUsageModelFromJson(json);
 
   @override
-  @JsonKey(name: 'total')
-  final double total;
+  @JsonKey(name: 'id')
+  final int id;
+  @override
+  @JsonKey(name: 'frame_id')
+  final int frameId;
+  @override
+  @JsonKey(name: 'disk_id')
+  final String diskId;
   @override
   @JsonKey(name: 'available')
-  final double available;
+  final int available;
 
   @override
   String toString() {
-    return 'DiskUsageModel(total: $total, available: $available)';
+    return 'DiskUsageModel(id: $id, frameId: $frameId, diskId: $diskId, available: $available)';
   }
 
   @override
@@ -449,14 +534,16 @@ class _$_DiskUsageModel extends _DiskUsageModel {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
             other is _$_DiskUsageModel &&
-            (identical(other.total, total) || other.total == total) &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.frameId, frameId) || other.frameId == frameId) &&
+            (identical(other.diskId, diskId) || other.diskId == diskId) &&
             (identical(other.available, available) ||
                 other.available == available));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, total, available);
+  int get hashCode => Object.hash(runtimeType, id, frameId, diskId, available);
 
   @JsonKey(ignore: true)
   @override
@@ -474,8 +561,10 @@ class _$_DiskUsageModel extends _DiskUsageModel {
 
 abstract class _DiskUsageModel extends DiskUsageModel {
   const factory _DiskUsageModel(
-          {@JsonKey(name: 'total') required final double total,
-          @JsonKey(name: 'available') required final double available}) =
+          {@JsonKey(name: 'id') required final int id,
+          @JsonKey(name: 'frame_id') required final int frameId,
+          @JsonKey(name: 'disk_id') required final String diskId,
+          @JsonKey(name: 'available') required final int available}) =
       _$_DiskUsageModel;
   const _DiskUsageModel._() : super._();
 
@@ -483,11 +572,17 @@ abstract class _DiskUsageModel extends DiskUsageModel {
       _$_DiskUsageModel.fromJson;
 
   @override
-  @JsonKey(name: 'total')
-  double get total;
+  @JsonKey(name: 'id')
+  int get id;
+  @override
+  @JsonKey(name: 'frame_id')
+  int get frameId;
+  @override
+  @JsonKey(name: 'disk_id')
+  String get diskId;
   @override
   @JsonKey(name: 'available')
-  double get available;
+  int get available;
   @override
   @JsonKey(ignore: true)
   _$$_DiskUsageModelCopyWith<_$_DiskUsageModel> get copyWith =>

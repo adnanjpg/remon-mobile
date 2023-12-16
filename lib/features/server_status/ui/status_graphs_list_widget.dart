@@ -30,12 +30,14 @@ class StatusGraphsListWidget extends ConsumerWidget {
         return Column(
           children: [
             CpuStatusDataWidget(
-              model: data.cpuInfo,
+              infoModels: data.cpuInfo,
             ),
             DiskStatusDataWidget(
-              model: data.disksInfo,
+              infoModels: data.disksInfo,
             ),
-            const MemStatusDataWidget(),
+            MemStatusDataWidget(
+              infoModels: data.memInfo,
+            ),
           ].joinWidgetList(
             (_) => const SizedBox(
               height: doubleDefPaddingSize,

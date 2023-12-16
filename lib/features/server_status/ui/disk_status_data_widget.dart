@@ -11,11 +11,11 @@ import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class DiskStatusDataWidget extends ConsumerWidget {
   const DiskStatusDataWidget({
-    required this.model,
+    required this.infoModels,
     super.key,
   });
 
-  final List<DiskInfoModel> model;
+  final List<DiskInfoModel> infoModels;
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
@@ -32,7 +32,7 @@ class DiskStatusDataWidget extends ConsumerWidget {
             Text(
               [
                 getStr(LocaleKeys.disk_status_graph_dets_names_list),
-                model.map((e) => e.name).join(', '),
+                infoModels.map((e) => e.name).join(', '),
               ].join(': '),
             ),
           ].joinWidgetList(
@@ -51,6 +51,7 @@ class DiskStatusDataWidget extends ConsumerWidget {
 
             return _Graphs(
               model: data,
+              infoModels: infoModels,
             );
           },
         ),
@@ -66,20 +67,31 @@ class DiskStatusDataWidget extends ConsumerWidget {
 class _Graphs extends StatelessWidget {
   const _Graphs({
     required this.model,
+    required this.infoModels,
   });
 
   final ServerDiskStatusModel model;
+  final List<DiskInfoModel> infoModels;
 
   @override
   Widget build(BuildContext context) {
+    final disksTotal = infoModels.map(
+      (infoModel) {
+        return (
+          diskId: infoModel.diskId,
+          total: infoModel.totalSpace,
+        );
+      },
+    );
+
     return SfSparkLineChart(
       axisLineDashArray: const [5, 5],
       axisLineColor: Colors.grey,
-      data: model.frames
-          .map(
-            (frame) => frame.disksUsageMean,
-          )
-          .toList(),
+      data: model.frames.map(
+        (frame) {
+          return frame.usagePercent(disksTotal);
+        },
+      ).toList(),
     );
   }
 }
