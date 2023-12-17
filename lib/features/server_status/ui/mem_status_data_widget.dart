@@ -86,10 +86,10 @@ class _Graphs extends StatelessWidget {
     );
 
     return Container(
-      height: 200,
+      height: 300,
       decoration: BoxDecoration(
         border: Border.all(
-          color: Theme.of(context).chartBorderColor,
+          color: Theme.of(context).statusChartBorderColor,
           width: 2,
         ),
       ),
@@ -97,8 +97,14 @@ class _Graphs extends StatelessWidget {
         max: 100,
         min: 0,
         fillMode: FillMode.above,
-        backgroundColor: Theme.of(context).bgColor,
-        fillColor: Theme.of(context).fillColor,
+        backgroundColor: Theme.of(context).statusChartBgColor,
+        fillColor: Theme.of(context).statusChartFillColor,
+        gridLineAmount: 11,
+        enableGridLines: true,
+        gridLineColor: Theme.of(context).statusChartGridLineColor,
+        gridLineLabelColor: Theme.of(context).statusChartGridLineLabelColor,
+        gridLineWidth: 1,
+        gridLineLabelPrecision: 3,
         data: data,
       ),
     );

@@ -46,9 +46,16 @@ extension MyTheme on ThemeData {
       AppTheme._lightSecondary[500]!.withOpacity(.4);
   Color get primarySliderThumbColor => AppTheme._white;
 
-  Color get fillColor => AppTheme._lightPrimary[500]!.withOpacity(.5);
-  Color get bgColor => AppTheme._lightSecondary[500]!.withOpacity(.5);
-  Color get chartBorderColor => AppTheme._lightNeutral[500]!.withOpacity(.5);
+  Color get statusChartFillColor =>
+      AppTheme._lightPrimary[500]!.withOpacity(.5);
+  Color get statusChartBgColor =>
+      AppTheme._lightSecondary[500]!.withOpacity(.5);
+  Color get statusChartBorderColor =>
+      AppTheme._lightNeutral[500]!.withOpacity(.5);
+  Color get statusChartGridLineColor =>
+      AppTheme._lightNeutral[900]!.withOpacity(.5);
+  Color get statusChartGridLineLabelColor =>
+      AppTheme._lightPrimary[600]!.withOpacity(.5);
 
   Color get primaryImagePickerBorder => AppTheme._lightPrimary;
 
