@@ -10,7 +10,7 @@ import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
-class CpuStatusDataWidget extends ConsumerWidget {
+class CpuStatusDataWidget extends StatelessWidget {
   const CpuStatusDataWidget({
     required this.infoModels,
     super.key,
@@ -19,10 +19,7 @@ class CpuStatusDataWidget extends ConsumerWidget {
   final List<CpuInfoModel> infoModels;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final serverCpuStatusFuture = ref.watch(serverCpuStatusFutureProv);
-    final serverCpuStatuses = ref.watch(serverCpuStatusesProv);
-
+  Widget build(BuildContext context) {
     return Column(
       children: [
         ExpansionTile(
@@ -60,12 +57,20 @@ class CpuStatusDataWidget extends ConsumerWidget {
             ),
           ),
         ),
-        serverCpuStatusFuture.when(
-          error: ErrWidget.new,
-          loading: LoadingWidget.new,
-          data: (_) {
-            return _Graphs(
+        Consumer(
+          builder: (context, ref, _) {
+            final serverCpuStatusFuture = ref.watch(serverCpuStatusFutureProv);
+            final serverCpuStatuses = ref.watch(serverCpuStatusesProv);
+
+            final bod = _Graphs(
               models: serverCpuStatuses,
+            );
+
+            return serverCpuStatusFuture.when(
+              error: ErrWidget.new,
+              loading: () =>
+                  serverCpuStatuses.isEmpty ? const LoadingWidget() : bod,
+              data: (_) => bod,
             );
           },
         ),

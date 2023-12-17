@@ -28,7 +28,6 @@ class _StatusGraphsListWidgetState
 
   @override
   Widget build(BuildContext context) {
-    // final serverStatProv = ref.watch(serverStatusFutureProv);
     final serverHardwawreInfo = ref.watch(serverHardwareInfoFutureProv);
 
     return serverHardwawreInfo.when(

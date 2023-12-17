@@ -10,7 +10,7 @@ import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
-class MemStatusDataWidget extends ConsumerWidget {
+class MemStatusDataWidget extends StatelessWidget {
   const MemStatusDataWidget({
     required this.infoModels,
     super.key,
@@ -19,10 +19,7 @@ class MemStatusDataWidget extends ConsumerWidget {
   final List<MemInfoModel> infoModels;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final serverMemStatusFuture = ref.watch(serverMemStatusFutureProv);
-    final serverMemStatuses = ref.watch(serverMemStatusesProv);
-
+  Widget build(BuildContext context) {
     return Column(
       children: [
         ListTile(
@@ -30,13 +27,21 @@ class MemStatusDataWidget extends ConsumerWidget {
             getStr(LocaleKeys.mem_status_graph_title),
           ),
         ),
-        serverMemStatusFuture.when(
-          error: ErrWidget.new,
-          loading: LoadingWidget.new,
-          data: (_) {
-            return _Graphs(
+        Consumer(
+          builder: (context, ref, _) {
+            final serverMemStatusFuture = ref.watch(serverMemStatusFutureProv);
+            final serverMemStatuses = ref.watch(serverMemStatusesProv);
+
+            final bod = _Graphs(
               models: serverMemStatuses,
               infoModels: infoModels,
+            );
+
+            return serverMemStatusFuture.when(
+              error: ErrWidget.new,
+              loading: () =>
+                  serverMemStatuses.isEmpty ? const LoadingWidget() : bod,
+              data: (_) => bod,
             );
           },
         ),

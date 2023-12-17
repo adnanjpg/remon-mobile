@@ -10,7 +10,7 @@ import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
-class DiskStatusDataWidget extends ConsumerWidget {
+class DiskStatusDataWidget extends StatelessWidget {
   const DiskStatusDataWidget({
     required this.infoModels,
     super.key,
@@ -19,10 +19,7 @@ class DiskStatusDataWidget extends ConsumerWidget {
   final List<DiskInfoModel> infoModels;
 
   @override
-  Widget build(BuildContext context, WidgetRef ref) {
-    final serverDiskStatusFuture = ref.watch(serverDiskStatusFutureProv);
-    final serverDiskStatuses = ref.watch(serverDiskStatusesProv);
-
+  Widget build(BuildContext context) {
     return Column(
       children: [
         ExpansionTile(
@@ -43,13 +40,22 @@ class DiskStatusDataWidget extends ConsumerWidget {
             ),
           ),
         ),
-        serverDiskStatusFuture.when(
-          error: ErrWidget.new,
-          loading: LoadingWidget.new,
-          data: (_) {
-            return _Graphs(
+        Consumer(
+          builder: (context, ref, _) {
+            final serverDiskStatusFuture =
+                ref.watch(serverDiskStatusFutureProv);
+            final serverDiskStatuses = ref.watch(serverDiskStatusesProv);
+
+            final bod = _Graphs(
               models: serverDiskStatuses,
               infoModels: infoModels,
+            );
+
+            return serverDiskStatusFuture.when(
+              error: ErrWidget.new,
+              loading: () =>
+                  serverDiskStatuses.isEmpty ? const LoadingWidget() : bod,
+              data: (_) => bod,
             );
           },
         ),
