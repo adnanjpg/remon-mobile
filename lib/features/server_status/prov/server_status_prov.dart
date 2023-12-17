@@ -1,7 +1,11 @@
 import 'dart:async';
 
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:remon_mobile/features/server_status/models/server_cpu_status_model.dart';
+import 'package:remon_mobile/features/server_status/models/server_disk_status_model.dart';
+import 'package:remon_mobile/features/server_status/models/server_mem_status_model.dart';
 import 'package:remon_mobile/services/api_service.dart';
+import 'package:remon_mobile/utils/utils.dart';
 
 final serverHardwareInfoFutureProv = FutureProvider.autoDispose(
   (ref) {
@@ -11,40 +15,114 @@ final serverHardwareInfoFutureProv = FutureProvider.autoDispose(
   },
 );
 
+final displayedFreqCountProv = Provider((ref) => 50);
+
 final serverCpuStatusFutureProv = FutureProvider.autoDispose(
-  (ref) {
+  (ref) async {
     final api = ref.read(apiServiceProv);
 
     final startAndEndTime = ref.watch(serverStatusFetchingTimeRangeProv);
 
-    return api.getServerCpuStatus(
+    final val = await api.getServerCpuStatus(
       startAndEndTime: startAndEndTime,
     );
+
+    if (val != null) {
+      ref.read(serverCpuStatusesProv.notifier).update(
+        (state) {
+          final newState = [...state];
+
+          if (newState.frames.length >= ref.read(displayedFreqCountProv)) {
+            newState.removeAt(0);
+          }
+
+          return [
+            ...newState,
+            val,
+          ];
+        },
+      );
+    } else {
+      logger.d('serverCpuStatusFutureProv: val is null');
+    }
   },
+);
+
+final serverCpuStatusesProv =
+    StateProvider.autoDispose<List<ServerCpuStatusModel>>(
+  (ref) => [],
 );
 
 final serverMemStatusFutureProv = FutureProvider.autoDispose(
-  (ref) {
+  (ref) async {
     final api = ref.read(apiServiceProv);
 
     final startAndEndTime = ref.watch(serverStatusFetchingTimeRangeProv);
 
-    return api.getServerMemStatus(
+    final val = await api.getServerMemStatus(
       startAndEndTime: startAndEndTime,
     );
+
+    if (val != null) {
+      ref.read(serverMemStatusesProv.notifier).update(
+        (state) {
+          final newState = [...state];
+
+          if (newState.frames.length >= ref.read(displayedFreqCountProv)) {
+            newState.removeAt(0);
+          }
+
+          return [
+            ...newState,
+            val,
+          ];
+        },
+      );
+    } else {
+      logger.d('serverCpuStatusFutureProv: val is null');
+    }
   },
 );
 
+final serverMemStatusesProv =
+    StateProvider.autoDispose<List<ServerMemStatusModel>>(
+  (ref) => [],
+);
+
 final serverDiskStatusFutureProv = FutureProvider.autoDispose(
-  (ref) {
+  (ref) async {
     final api = ref.read(apiServiceProv);
 
     final startAndEndTime = ref.watch(serverStatusFetchingTimeRangeProv);
 
-    return api.getServerDiskStatus(
+    final val = await api.getServerDiskStatus(
       startAndEndTime: startAndEndTime,
     );
+
+    if (val != null) {
+      ref.read(serverDiskStatusesProv.notifier).update(
+        (state) {
+          final newState = [...state];
+
+          if (newState.frames.length >= ref.read(displayedFreqCountProv)) {
+            newState.removeAt(0);
+          }
+
+          return [
+            ...newState,
+            val,
+          ];
+        },
+      );
+    } else {
+      logger.d('serverCpuStatusFutureProv: val is null');
+    }
   },
+);
+
+final serverDiskStatusesProv =
+    StateProvider.autoDispose<List<ServerDiskStatusModel>>(
+  (ref) => [],
 );
 
 class ServerStatusFetchingTimeRange {

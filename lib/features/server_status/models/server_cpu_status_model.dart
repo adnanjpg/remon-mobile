@@ -101,3 +101,13 @@ class CpuUsageModel with _$CpuUsageModel {
 
   const CpuUsageModel._();
 }
+
+extension Ls on List<ServerCpuStatusModel> {
+  List<CpuUsageFrameModel> get frames {
+    return expand(
+      (a) {
+        return a.frames;
+      },
+    ).toList();
+  }
+}

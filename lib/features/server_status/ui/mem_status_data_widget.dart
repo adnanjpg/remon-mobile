@@ -20,7 +20,8 @@ class MemStatusDataWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serverMemStatus = ref.watch(serverMemStatusFutureProv);
+    final serverMemStatusFuture = ref.watch(serverMemStatusFutureProv);
+    final serverMemStatuses = ref.watch(serverMemStatusesProv);
 
     return Column(
       children: [
@@ -29,16 +30,12 @@ class MemStatusDataWidget extends ConsumerWidget {
             getStr(LocaleKeys.mem_status_graph_title),
           ),
         ),
-        serverMemStatus.when(
+        serverMemStatusFuture.when(
           error: ErrWidget.new,
           loading: LoadingWidget.new,
-          data: (data) {
-            if (data == null) {
-              return const SizedBox();
-            }
-
+          data: (_) {
             return _Graphs(
-              model: data,
+              models: serverMemStatuses,
               infoModels: infoModels,
             );
           },
@@ -54,15 +51,16 @@ class MemStatusDataWidget extends ConsumerWidget {
 
 class _Graphs extends StatelessWidget {
   const _Graphs({
-    required this.model,
+    required this.models,
     required this.infoModels,
   });
 
-  final ServerMemStatusModel model;
+  final List<ServerMemStatusModel> models;
   final List<MemInfoModel> infoModels;
 
   @override
   Widget build(BuildContext context) {
+    final frames = models.frames;
     final memsTotal = infoModels.map(
       (infoModel) {
         return (
@@ -72,11 +70,15 @@ class _Graphs extends StatelessWidget {
       },
     );
 
-    final data = model.frames.map(
+    final data = frames.map(
       (frame) {
         return frame.usagePercent(memsTotal);
       },
     ).toList();
+
+    logger.d(
+      'displayed mem frame count: ${frames.length}',
+    );
 
     return Container(
       height: 200,

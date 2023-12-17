@@ -129,3 +129,13 @@ class DiskUsageModel with _$DiskUsageModel {
 
   const DiskUsageModel._();
 }
+
+extension Ls on List<ServerDiskStatusModel> {
+  List<DiskUsageFrameModel> get frames {
+    return expand(
+      (a) {
+        return a.frames;
+      },
+    ).toList();
+  }
+}

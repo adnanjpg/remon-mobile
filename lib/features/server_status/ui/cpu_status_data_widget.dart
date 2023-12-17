@@ -20,7 +20,8 @@ class CpuStatusDataWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serverCpuStatus = ref.watch(serverCpuStatusFutureProv);
+    final serverCpuStatusFuture = ref.watch(serverCpuStatusFutureProv);
+    final serverCpuStatuses = ref.watch(serverCpuStatusesProv);
 
     return Column(
       children: [
@@ -59,16 +60,12 @@ class CpuStatusDataWidget extends ConsumerWidget {
             ),
           ),
         ),
-        serverCpuStatus.when(
+        serverCpuStatusFuture.when(
           error: ErrWidget.new,
           loading: LoadingWidget.new,
-          data: (data) {
-            if (data == null) {
-              return const SizedBox();
-            }
-
+          data: (_) {
             return _Graphs(
-              model: data,
+              models: serverCpuStatuses,
             );
           },
         ),
@@ -83,18 +80,23 @@ class CpuStatusDataWidget extends ConsumerWidget {
 
 class _Graphs extends StatelessWidget {
   const _Graphs({
-    required this.model,
+    required this.models,
   });
 
-  final ServerCpuStatusModel model;
+  final List<ServerCpuStatusModel> models;
 
   @override
   Widget build(BuildContext context) {
-    final data = model.frames
+    final frames = models.frames;
+    final data = frames
         .map(
           (frame) => frame.coresUsageMean,
         )
         .toList();
+
+    logger.d(
+      'displayed cpu frame count: ${frames.length}',
+    );
 
     return Container(
       height: 200,

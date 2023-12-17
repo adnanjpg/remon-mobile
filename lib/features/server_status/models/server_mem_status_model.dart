@@ -119,3 +119,13 @@ class MemUsageModel with _$MemUsageModel {
 
   int usagePercent(int total) => (available / total * 100).toInt();
 }
+
+extension Ls on List<ServerMemStatusModel> {
+  List<MemUsageFrameModel> get frames {
+    return expand(
+      (a) {
+        return a.frames;
+      },
+    ).toList();
+  }
+}

@@ -20,7 +20,8 @@ class DiskStatusDataWidget extends ConsumerWidget {
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final serverDiskStatus = ref.watch(serverDiskStatusFutureProv);
+    final serverDiskStatusFuture = ref.watch(serverDiskStatusFutureProv);
+    final serverDiskStatuses = ref.watch(serverDiskStatusesProv);
 
     return Column(
       children: [
@@ -42,16 +43,12 @@ class DiskStatusDataWidget extends ConsumerWidget {
             ),
           ),
         ),
-        serverDiskStatus.when(
+        serverDiskStatusFuture.when(
           error: ErrWidget.new,
           loading: LoadingWidget.new,
-          data: (data) {
-            if (data == null) {
-              return const SizedBox();
-            }
-
+          data: (_) {
             return _Graphs(
-              model: data,
+              models: serverDiskStatuses,
               infoModels: infoModels,
             );
           },
@@ -67,15 +64,16 @@ class DiskStatusDataWidget extends ConsumerWidget {
 
 class _Graphs extends StatelessWidget {
   const _Graphs({
-    required this.model,
+    required this.models,
     required this.infoModels,
   });
 
-  final ServerDiskStatusModel model;
+  final List<ServerDiskStatusModel> models;
   final List<DiskInfoModel> infoModels;
 
   @override
   Widget build(BuildContext context) {
+    final frames = models.frames;
     final disksTotal = infoModels.map(
       (infoModel) {
         return (
@@ -85,11 +83,15 @@ class _Graphs extends StatelessWidget {
       },
     );
 
-    final data = model.frames.map(
+    final data = frames.map(
       (frame) {
         return frame.usagePercent(disksTotal);
       },
     ).toList();
+
+    logger.d(
+      'displayed disk frame count: ${frames.length}',
+    );
 
     return Container(
       height: 200,
