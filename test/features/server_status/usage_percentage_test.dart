@@ -15,7 +15,7 @@ void main() {
           id: -1,
           lastCheck: -1,
           disksUsage: [
-            // disk1 avg: 100
+            // disk1 avg available: 100
             DiskUsageModel(
               id: -1,
               frameId: -1,
@@ -28,14 +28,14 @@ void main() {
               diskId: disk1Id,
               available: 80,
             ),
-            // disk2 avg: 180
+            // disk2 avg available: 180
             DiskUsageModel(
               id: -1,
               frameId: -1,
               diskId: disk2Id,
               available: 180,
             ),
-            // disk3 avg: 50
+            // disk3 avg available: 50
             DiskUsageModel(
               id: -1,
               frameId: -1,
@@ -60,13 +60,14 @@ void main() {
           ),
         ];
 
-        // disk 1: 100 / 300 * 100 = 33.33
-        // disk 2: 180 / 200 * 100 = 90
-        // disk 3: 50 / 400 * 100 = 12.5
-        // avg: (33.33 + 90 + 12.5) / 3 = 45.28
+        // available is provided, so we need to calculate used
+        // disk 1: 300 - (120 + 80) / 2 = 200 / 300 * 100 = 66.66
+        // disk 2: 200 - 180 = 20 / 200 * 100 = 10
+        // disk 3: 400 - 50 = 350 / 400 * 100 = 87.5
+        // avg: (66.66 + 10 + 87.5) / 3 = 54.72
 
         // without flooring there's be difference in fine decimals
-        expect(frame.usagePercent(disksTotal).floor(), 45);
+        expect(frame.usagePercent(disksTotal).floor(), 54);
       });
       test('server mem usage percent', () {
         const mem1Id = 'mem1id';
@@ -122,13 +123,14 @@ void main() {
           ),
         ];
 
-        // disk 1: 100 / 300 * 100 = 33.33
-        // disk 2: 180 / 200 * 100 = 90
-        // disk 3: 50 / 400 * 100 = 12.5
-        // avg: (33.33 + 90 + 12.5) / 3 = 45.28
+        // available is provided, so we need to calculate used
+        // disk 1: 300 - (120 + 80) / 2 = 200 / 300 * 100 = 66.66
+        // disk 2: 200 - 180 = 20 / 200 * 100 = 10
+        // disk 3: 400 - 50 = 350 / 400 * 100 = 87.5
+        // avg: (66.66 + 10 + 87.5) / 3 = 54.72
 
         // without flooring there's be difference in fine decimals
-        expect(frame.usagePercent(memsTotal).floor(), 45);
+        expect(frame.usagePercent(memsTotal).floor(), 54);
       });
     },
   );

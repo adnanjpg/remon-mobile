@@ -80,7 +80,7 @@ class MemUsageFrameModel with _$MemUsageFrameModel {
         final avg = usages.fold<int>(
               0,
               (a, b) {
-                return a + b.available;
+                return a + (memTotal.total - b.available);
               },
             ) /
             usages.length;

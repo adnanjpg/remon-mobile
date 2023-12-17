@@ -92,7 +92,7 @@ class DiskUsageFrameModel with _$DiskUsageFrameModel {
         final avg = usages.fold<int>(
               0,
               (a, b) {
-                return a + b.available;
+                return a + (diskTotal.total - b.available);
               },
             ) /
             usages.length;
