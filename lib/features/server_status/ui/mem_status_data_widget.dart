@@ -1,3 +1,4 @@
+import 'package:chart_sparkline/chart_sparkline.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:remon_mobile/features/server_status/models/server_hardware_info_model.dart';
@@ -6,8 +7,8 @@ import 'package:remon_mobile/features/server_status/prov/server_status_prov.dart
 import 'package:remon_mobile/gen/locale_keys.g.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
+import 'package:remon_mobile/utils/app_theme.dart';
 import 'package:remon_mobile/utils/utils.dart';
-import 'package:syncfusion_flutter_charts/sparkcharts.dart';
 
 class MemStatusDataWidget extends ConsumerWidget {
   const MemStatusDataWidget({
@@ -71,14 +72,28 @@ class _Graphs extends StatelessWidget {
       },
     );
 
-    return SfSparkLineChart(
-      axisLineDashArray: const [5, 5],
-      axisLineColor: Colors.grey,
-      data: model.frames.map(
-        (frame) {
-          return frame.usagePercent(memsTotal);
-        },
-      ).toList(),
+    final data = model.frames.map(
+      (frame) {
+        return frame.usagePercent(memsTotal);
+      },
+    ).toList();
+
+    return Container(
+      height: 200,
+      decoration: BoxDecoration(
+        border: Border.all(
+          color: Theme.of(context).chartBorderColor,
+          width: 2,
+        ),
+      ),
+      child: Sparkline(
+        max: 100,
+        min: 0,
+        fillMode: FillMode.above,
+        backgroundColor: Theme.of(context).bgColor,
+        fillColor: Theme.of(context).fillColor,
+        data: data,
+      ),
     );
   }
 }

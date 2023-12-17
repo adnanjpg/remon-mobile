@@ -77,7 +77,7 @@ dependencies:
   flutter_slidable: ^3.0.0
   otp: ^3.1.4
   mobile_scanner: ^3.5.5
-  syncfusion_flutter_charts: "23.2.7"
+  chart_sparkline: "1.0.14"
 
 dev_dependencies:
   flutter_test:

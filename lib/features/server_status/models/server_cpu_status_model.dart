@@ -62,10 +62,10 @@ class CpuUsageFrameModel with _$CpuUsageFrameModel {
 
   const CpuUsageFrameModel._();
 
-  int get coresUsageMean {
+  double get coresUsageMean {
     final ret = coresUsage.map((e) => e.usage).reduce((a, b) => a + b);
 
-    return ret ~/ coresUsage.length;
+    return ret / coresUsage.length;
   }
 
   DateTime frameTime(
