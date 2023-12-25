@@ -25,7 +25,7 @@ mixin _$DeviceModel {
   String get token => throw _privateConstructorUsedError;
   double get ramAlertRange => throw _privateConstructorUsedError;
   double get cpuAlertRange => throw _privateConstructorUsedError;
-  double get storageAlertRange => throw _privateConstructorUsedError;
+  double get diskAlertRange => throw _privateConstructorUsedError;
   DateTime? get addedOn => throw _privateConstructorUsedError;
   DateTime? get lastUsedOn => throw _privateConstructorUsedError;
   DateTime? get tokenUpdatedOn => throw _privateConstructorUsedError;
@@ -51,7 +51,7 @@ abstract class $DeviceModelCopyWith<$Res> {
       String token,
       double ramAlertRange,
       double cpuAlertRange,
-      double storageAlertRange,
+      double diskAlertRange,
       DateTime? addedOn,
       DateTime? lastUsedOn,
       DateTime? tokenUpdatedOn});
@@ -79,7 +79,7 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
     Object? token = null,
     Object? ramAlertRange = null,
     Object? cpuAlertRange = null,
-    Object? storageAlertRange = null,
+    Object? diskAlertRange = null,
     Object? addedOn = freezed,
     Object? lastUsedOn = freezed,
     Object? tokenUpdatedOn = freezed,
@@ -121,9 +121,9 @@ class _$DeviceModelCopyWithImpl<$Res, $Val extends DeviceModel>
           ? _value.cpuAlertRange
           : cpuAlertRange // ignore: cast_nullable_to_non_nullable
               as double,
-      storageAlertRange: null == storageAlertRange
-          ? _value.storageAlertRange
-          : storageAlertRange // ignore: cast_nullable_to_non_nullable
+      diskAlertRange: null == diskAlertRange
+          ? _value.diskAlertRange
+          : diskAlertRange // ignore: cast_nullable_to_non_nullable
               as double,
       addedOn: freezed == addedOn
           ? _value.addedOn
@@ -159,7 +159,7 @@ abstract class _$$_DeviceModelCopyWith<$Res>
       String token,
       double ramAlertRange,
       double cpuAlertRange,
-      double storageAlertRange,
+      double diskAlertRange,
       DateTime? addedOn,
       DateTime? lastUsedOn,
       DateTime? tokenUpdatedOn});
@@ -185,7 +185,7 @@ class __$$_DeviceModelCopyWithImpl<$Res>
     Object? token = null,
     Object? ramAlertRange = null,
     Object? cpuAlertRange = null,
-    Object? storageAlertRange = null,
+    Object? diskAlertRange = null,
     Object? addedOn = freezed,
     Object? lastUsedOn = freezed,
     Object? tokenUpdatedOn = freezed,
@@ -227,9 +227,9 @@ class __$$_DeviceModelCopyWithImpl<$Res>
           ? _value.cpuAlertRange
           : cpuAlertRange // ignore: cast_nullable_to_non_nullable
               as double,
-      storageAlertRange: null == storageAlertRange
-          ? _value.storageAlertRange
-          : storageAlertRange // ignore: cast_nullable_to_non_nullable
+      diskAlertRange: null == diskAlertRange
+          ? _value.diskAlertRange
+          : diskAlertRange // ignore: cast_nullable_to_non_nullable
               as double,
       addedOn: freezed == addedOn
           ? _value.addedOn
@@ -260,7 +260,7 @@ class _$_DeviceModel extends _DeviceModel {
       required this.token,
       required this.ramAlertRange,
       required this.cpuAlertRange,
-      required this.storageAlertRange,
+      required this.diskAlertRange,
       required this.addedOn,
       required this.lastUsedOn,
       required this.tokenUpdatedOn})
@@ -285,7 +285,7 @@ class _$_DeviceModel extends _DeviceModel {
   @override
   final double cpuAlertRange;
   @override
-  final double storageAlertRange;
+  final double diskAlertRange;
   @override
   final DateTime? addedOn;
   @override
@@ -295,7 +295,7 @@ class _$_DeviceModel extends _DeviceModel {
 
   @override
   String toString() {
-    return 'DeviceModel(id: $id, deviceUUID: $deviceUUID, title: $title, description: $description, ip: $ip, port: $port, token: $token, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, storageAlertRange: $storageAlertRange, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
+    return 'DeviceModel(id: $id, deviceUUID: $deviceUUID, title: $title, description: $description, ip: $ip, port: $port, token: $token, ramAlertRange: $ramAlertRange, cpuAlertRange: $cpuAlertRange, diskAlertRange: $diskAlertRange, addedOn: $addedOn, lastUsedOn: $lastUsedOn, tokenUpdatedOn: $tokenUpdatedOn)';
   }
 
   @override
@@ -316,8 +316,8 @@ class _$_DeviceModel extends _DeviceModel {
                 other.ramAlertRange == ramAlertRange) &&
             (identical(other.cpuAlertRange, cpuAlertRange) ||
                 other.cpuAlertRange == cpuAlertRange) &&
-            (identical(other.storageAlertRange, storageAlertRange) ||
-                other.storageAlertRange == storageAlertRange) &&
+            (identical(other.diskAlertRange, diskAlertRange) ||
+                other.diskAlertRange == diskAlertRange) &&
             (identical(other.addedOn, addedOn) || other.addedOn == addedOn) &&
             (identical(other.lastUsedOn, lastUsedOn) ||
                 other.lastUsedOn == lastUsedOn) &&
@@ -337,7 +337,7 @@ class _$_DeviceModel extends _DeviceModel {
       token,
       ramAlertRange,
       cpuAlertRange,
-      storageAlertRange,
+      diskAlertRange,
       addedOn,
       lastUsedOn,
       tokenUpdatedOn);
@@ -360,7 +360,7 @@ abstract class _DeviceModel extends DeviceModel {
       required final String token,
       required final double ramAlertRange,
       required final double cpuAlertRange,
-      required final double storageAlertRange,
+      required final double diskAlertRange,
       required final DateTime? addedOn,
       required final DateTime? lastUsedOn,
       required final DateTime? tokenUpdatedOn}) = _$_DeviceModel;
@@ -385,7 +385,7 @@ abstract class _DeviceModel extends DeviceModel {
   @override
   double get cpuAlertRange;
   @override
-  double get storageAlertRange;
+  double get diskAlertRange;
   @override
   DateTime? get addedOn;
   @override
@@ -409,8 +409,8 @@ mixin _$UpdateDeviceInfoRequestModel {
   double get cpuThreshold => throw _privateConstructorUsedError;
   @JsonKey(name: 'mem_threshold')
   double get memThreshold => throw _privateConstructorUsedError;
-  @JsonKey(name: 'storage_threshold')
-  double get storageThreshold => throw _privateConstructorUsedError;
+  @JsonKey(name: 'disk_threshold')
+  double get diskThreshold => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -429,7 +429,7 @@ abstract class $UpdateDeviceInfoRequestModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'cpu_threshold') double cpuThreshold,
       @JsonKey(name: 'mem_threshold') double memThreshold,
-      @JsonKey(name: 'storage_threshold') double storageThreshold});
+      @JsonKey(name: 'disk_threshold') double diskThreshold});
 }
 
 /// @nodoc
@@ -448,7 +448,7 @@ class _$UpdateDeviceInfoRequestModelCopyWithImpl<$Res,
   $Res call({
     Object? cpuThreshold = null,
     Object? memThreshold = null,
-    Object? storageThreshold = null,
+    Object? diskThreshold = null,
   }) {
     return _then(_value.copyWith(
       cpuThreshold: null == cpuThreshold
@@ -459,9 +459,9 @@ class _$UpdateDeviceInfoRequestModelCopyWithImpl<$Res,
           ? _value.memThreshold
           : memThreshold // ignore: cast_nullable_to_non_nullable
               as double,
-      storageThreshold: null == storageThreshold
-          ? _value.storageThreshold
-          : storageThreshold // ignore: cast_nullable_to_non_nullable
+      diskThreshold: null == diskThreshold
+          ? _value.diskThreshold
+          : diskThreshold // ignore: cast_nullable_to_non_nullable
               as double,
     ) as $Val);
   }
@@ -479,7 +479,7 @@ abstract class _$$_UpdateDeviceInfoRequestModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'cpu_threshold') double cpuThreshold,
       @JsonKey(name: 'mem_threshold') double memThreshold,
-      @JsonKey(name: 'storage_threshold') double storageThreshold});
+      @JsonKey(name: 'disk_threshold') double diskThreshold});
 }
 
 /// @nodoc
@@ -497,7 +497,7 @@ class __$$_UpdateDeviceInfoRequestModelCopyWithImpl<$Res>
   $Res call({
     Object? cpuThreshold = null,
     Object? memThreshold = null,
-    Object? storageThreshold = null,
+    Object? diskThreshold = null,
   }) {
     return _then(_$_UpdateDeviceInfoRequestModel(
       cpuThreshold: null == cpuThreshold
@@ -508,9 +508,9 @@ class __$$_UpdateDeviceInfoRequestModelCopyWithImpl<$Res>
           ? _value.memThreshold
           : memThreshold // ignore: cast_nullable_to_non_nullable
               as double,
-      storageThreshold: null == storageThreshold
-          ? _value.storageThreshold
-          : storageThreshold // ignore: cast_nullable_to_non_nullable
+      diskThreshold: null == diskThreshold
+          ? _value.diskThreshold
+          : diskThreshold // ignore: cast_nullable_to_non_nullable
               as double,
     ));
   }
@@ -522,7 +522,7 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
   const _$_UpdateDeviceInfoRequestModel(
       {@JsonKey(name: 'cpu_threshold') required this.cpuThreshold,
       @JsonKey(name: 'mem_threshold') required this.memThreshold,
-      @JsonKey(name: 'storage_threshold') required this.storageThreshold});
+      @JsonKey(name: 'disk_threshold') required this.diskThreshold});
 
   factory _$_UpdateDeviceInfoRequestModel.fromJson(Map<String, dynamic> json) =>
       _$$_UpdateDeviceInfoRequestModelFromJson(json);
@@ -534,12 +534,12 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
   @JsonKey(name: 'mem_threshold')
   final double memThreshold;
   @override
-  @JsonKey(name: 'storage_threshold')
-  final double storageThreshold;
+  @JsonKey(name: 'disk_threshold')
+  final double diskThreshold;
 
   @override
   String toString() {
-    return 'UpdateDeviceInfoRequestModel(cpuThreshold: $cpuThreshold, memThreshold: $memThreshold, storageThreshold: $storageThreshold)';
+    return 'UpdateDeviceInfoRequestModel(cpuThreshold: $cpuThreshold, memThreshold: $memThreshold, diskThreshold: $diskThreshold)';
   }
 
   @override
@@ -551,14 +551,14 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
                 other.cpuThreshold == cpuThreshold) &&
             (identical(other.memThreshold, memThreshold) ||
                 other.memThreshold == memThreshold) &&
-            (identical(other.storageThreshold, storageThreshold) ||
-                other.storageThreshold == storageThreshold));
+            (identical(other.diskThreshold, diskThreshold) ||
+                other.diskThreshold == diskThreshold));
   }
 
   @JsonKey(ignore: true)
   @override
   int get hashCode =>
-      Object.hash(runtimeType, cpuThreshold, memThreshold, storageThreshold);
+      Object.hash(runtimeType, cpuThreshold, memThreshold, diskThreshold);
 
   @JsonKey(ignore: true)
   @override
@@ -578,11 +578,10 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
 abstract class _UpdateDeviceInfoRequestModel
     implements UpdateDeviceInfoRequestModel {
   const factory _UpdateDeviceInfoRequestModel(
-          {@JsonKey(name: 'cpu_threshold') required final double cpuThreshold,
-          @JsonKey(name: 'mem_threshold') required final double memThreshold,
-          @JsonKey(name: 'storage_threshold')
-          required final double storageThreshold}) =
-      _$_UpdateDeviceInfoRequestModel;
+      {@JsonKey(name: 'cpu_threshold') required final double cpuThreshold,
+      @JsonKey(name: 'mem_threshold') required final double memThreshold,
+      @JsonKey(name: 'disk_threshold')
+      required final double diskThreshold}) = _$_UpdateDeviceInfoRequestModel;
 
   factory _UpdateDeviceInfoRequestModel.fromJson(Map<String, dynamic> json) =
       _$_UpdateDeviceInfoRequestModel.fromJson;
@@ -594,8 +593,8 @@ abstract class _UpdateDeviceInfoRequestModel
   @JsonKey(name: 'mem_threshold')
   double get memThreshold;
   @override
-  @JsonKey(name: 'storage_threshold')
-  double get storageThreshold;
+  @JsonKey(name: 'disk_threshold')
+  double get diskThreshold;
   @override
   @JsonKey(ignore: true)
   _$$_UpdateDeviceInfoRequestModelCopyWith<_$_UpdateDeviceInfoRequestModel>

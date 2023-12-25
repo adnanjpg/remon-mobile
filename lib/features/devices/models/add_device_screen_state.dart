@@ -71,7 +71,7 @@ class AddDeviceScreenState with _$AddDeviceScreenState {
       port: device.port.toString(),
       ramAlertRange: device.ramAlertRange,
       cpuAlertRange: device.cpuAlertRange,
-      storageAlertRange: device.storageAlertRange,
+      storageAlertRange: device.diskAlertRange,
       token: device.token,
     );
   }

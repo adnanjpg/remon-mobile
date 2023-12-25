@@ -25,7 +25,7 @@ class DeviceModel with _$DeviceModel {
     required String token,
     required double ramAlertRange,
     required double cpuAlertRange,
-    required double storageAlertRange,
+    required double diskAlertRange,
     required DateTime? addedOn,
     required DateTime? lastUsedOn,
     required DateTime? tokenUpdatedOn,
@@ -54,7 +54,7 @@ class DeviceModel with _$DeviceModel {
       token: token ?? '',
       ramAlertRange: ramAlertRange ?? 0,
       cpuAlertRange: cpuAlertRange ?? 0,
-      storageAlertRange: storageAlertRange ?? 0,
+      diskAlertRange: storageAlertRange ?? 0,
       addedOn: DateTime.now(),
       lastUsedOn: DateTime.now(),
       tokenUpdatedOn: DateTime.now(),
@@ -77,14 +77,14 @@ class UpdateDeviceInfoRequestModel with _$UpdateDeviceInfoRequestModel {
   const factory UpdateDeviceInfoRequestModel({
     @JsonKey(name: 'cpu_threshold') required double cpuThreshold,
     @JsonKey(name: 'mem_threshold') required double memThreshold,
-    @JsonKey(name: 'storage_threshold') required double storageThreshold,
+    @JsonKey(name: 'disk_threshold') required double diskThreshold,
   }) = _UpdateDeviceInfoRequestModel;
 
   factory UpdateDeviceInfoRequestModel.fromDeviceModel(DeviceModel device) {
     return UpdateDeviceInfoRequestModel(
       cpuThreshold: device.cpuAlertRange,
       memThreshold: device.ramAlertRange,
-      storageThreshold: device.storageAlertRange,
+      diskThreshold: device.diskAlertRange,
     );
   }
 

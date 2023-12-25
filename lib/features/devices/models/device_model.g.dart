@@ -65,7 +65,7 @@ const DeviceModelSchema = IsarGeneratedSchema(
         type: IsarType.double,
       ),
       IsarPropertySchema(
-        name: 'storageAlertRange',
+        name: 'diskAlertRange',
         type: IsarType.double,
       ),
       IsarPropertySchema(
@@ -104,7 +104,7 @@ int serializeDeviceModel(IsarWriter writer, DeviceModel object) {
   IsarCore.writeString(writer, 9, object.token);
   IsarCore.writeDouble(writer, 10, object.ramAlertRange);
   IsarCore.writeDouble(writer, 11, object.cpuAlertRange);
-  IsarCore.writeDouble(writer, 12, object.storageAlertRange);
+  IsarCore.writeDouble(writer, 12, object.diskAlertRange);
   IsarCore.writeLong(writer, 13,
       object.addedOn?.toUtc().microsecondsSinceEpoch ?? -9223372036854775808);
   IsarCore.writeLong(
@@ -140,8 +140,8 @@ DeviceModel deserializeDeviceModel(IsarReader reader) {
   _ramAlertRange = IsarCore.readDouble(reader, 10);
   final double _cpuAlertRange;
   _cpuAlertRange = IsarCore.readDouble(reader, 11);
-  final double _storageAlertRange;
-  _storageAlertRange = IsarCore.readDouble(reader, 12);
+  final double _diskAlertRange;
+  _diskAlertRange = IsarCore.readDouble(reader, 12);
   final DateTime? _addedOn;
   {
     final value = IsarCore.readLong(reader, 13);
@@ -182,7 +182,7 @@ DeviceModel deserializeDeviceModel(IsarReader reader) {
     token: _token,
     ramAlertRange: _ramAlertRange,
     cpuAlertRange: _cpuAlertRange,
-    storageAlertRange: _storageAlertRange,
+    diskAlertRange: _diskAlertRange,
     addedOn: _addedOn,
     lastUsedOn: _lastUsedOn,
     tokenUpdatedOn: _tokenUpdatedOn,
@@ -268,7 +268,7 @@ sealed class _DeviceModelUpdate {
     String? token,
     double? ramAlertRange,
     double? cpuAlertRange,
-    double? storageAlertRange,
+    double? diskAlertRange,
     DateTime? addedOn,
     DateTime? lastUsedOn,
     DateTime? tokenUpdatedOn,
@@ -294,7 +294,7 @@ class _DeviceModelUpdateImpl implements _DeviceModelUpdate {
     Object? token = ignore,
     Object? ramAlertRange = ignore,
     Object? cpuAlertRange = ignore,
-    Object? storageAlertRange = ignore,
+    Object? diskAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -313,7 +313,7 @@ class _DeviceModelUpdateImpl implements _DeviceModelUpdate {
           if (token != ignore) 9: token as String?,
           if (ramAlertRange != ignore) 10: ramAlertRange as double?,
           if (cpuAlertRange != ignore) 11: cpuAlertRange as double?,
-          if (storageAlertRange != ignore) 12: storageAlertRange as double?,
+          if (diskAlertRange != ignore) 12: diskAlertRange as double?,
           if (addedOn != ignore) 13: addedOn as DateTime?,
           if (lastUsedOn != ignore) 14: lastUsedOn as DateTime?,
           if (tokenUpdatedOn != ignore) 15: tokenUpdatedOn as DateTime?,
@@ -336,7 +336,7 @@ sealed class _DeviceModelUpdateAll {
     String? token,
     double? ramAlertRange,
     double? cpuAlertRange,
-    double? storageAlertRange,
+    double? diskAlertRange,
     DateTime? addedOn,
     DateTime? lastUsedOn,
     DateTime? tokenUpdatedOn,
@@ -362,7 +362,7 @@ class _DeviceModelUpdateAllImpl implements _DeviceModelUpdateAll {
     Object? token = ignore,
     Object? ramAlertRange = ignore,
     Object? cpuAlertRange = ignore,
-    Object? storageAlertRange = ignore,
+    Object? diskAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -379,7 +379,7 @@ class _DeviceModelUpdateAllImpl implements _DeviceModelUpdateAll {
       if (token != ignore) 9: token as String?,
       if (ramAlertRange != ignore) 10: ramAlertRange as double?,
       if (cpuAlertRange != ignore) 11: cpuAlertRange as double?,
-      if (storageAlertRange != ignore) 12: storageAlertRange as double?,
+      if (diskAlertRange != ignore) 12: diskAlertRange as double?,
       if (addedOn != ignore) 13: addedOn as DateTime?,
       if (lastUsedOn != ignore) 14: lastUsedOn as DateTime?,
       if (tokenUpdatedOn != ignore) 15: tokenUpdatedOn as DateTime?,
@@ -406,7 +406,7 @@ sealed class _DeviceModelQueryUpdate {
     String? token,
     double? ramAlertRange,
     double? cpuAlertRange,
-    double? storageAlertRange,
+    double? diskAlertRange,
     DateTime? addedOn,
     DateTime? lastUsedOn,
     DateTime? tokenUpdatedOn,
@@ -432,7 +432,7 @@ class _DeviceModelQueryUpdateImpl implements _DeviceModelQueryUpdate {
     Object? token = ignore,
     Object? ramAlertRange = ignore,
     Object? cpuAlertRange = ignore,
-    Object? storageAlertRange = ignore,
+    Object? diskAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -449,7 +449,7 @@ class _DeviceModelQueryUpdateImpl implements _DeviceModelQueryUpdate {
       if (token != ignore) 9: token as String?,
       if (ramAlertRange != ignore) 10: ramAlertRange as double?,
       if (cpuAlertRange != ignore) 11: cpuAlertRange as double?,
-      if (storageAlertRange != ignore) 12: storageAlertRange as double?,
+      if (diskAlertRange != ignore) 12: diskAlertRange as double?,
       if (addedOn != ignore) 13: addedOn as DateTime?,
       if (lastUsedOn != ignore) 14: lastUsedOn as DateTime?,
       if (tokenUpdatedOn != ignore) 15: tokenUpdatedOn as DateTime?,
@@ -483,7 +483,7 @@ class _DeviceModelQueryBuilderUpdateImpl implements _DeviceModelQueryUpdate {
     Object? token = ignore,
     Object? ramAlertRange = ignore,
     Object? cpuAlertRange = ignore,
-    Object? storageAlertRange = ignore,
+    Object? diskAlertRange = ignore,
     Object? addedOn = ignore,
     Object? lastUsedOn = ignore,
     Object? tokenUpdatedOn = ignore,
@@ -502,7 +502,7 @@ class _DeviceModelQueryBuilderUpdateImpl implements _DeviceModelQueryUpdate {
         if (token != ignore) 9: token as String?,
         if (ramAlertRange != ignore) 10: ramAlertRange as double?,
         if (cpuAlertRange != ignore) 11: cpuAlertRange as double?,
-        if (storageAlertRange != ignore) 12: storageAlertRange as double?,
+        if (diskAlertRange != ignore) 12: diskAlertRange as double?,
         if (addedOn != ignore) 13: addedOn as DateTime?,
         if (lastUsedOn != ignore) 14: lastUsedOn as DateTime?,
         if (tokenUpdatedOn != ignore) 15: tokenUpdatedOn as DateTime?,
@@ -2137,7 +2137,7 @@ extension DeviceModelQueryFilter
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
-      storageAlertRangeEqualTo(
+      diskAlertRangeEqualTo(
     double value, {
     double epsilon = Filter.epsilon,
   }) {
@@ -2153,7 +2153,7 @@ extension DeviceModelQueryFilter
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
-      storageAlertRangeGreaterThan(
+      diskAlertRangeGreaterThan(
     double value, {
     double epsilon = Filter.epsilon,
   }) {
@@ -2169,7 +2169,7 @@ extension DeviceModelQueryFilter
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
-      storageAlertRangeGreaterThanOrEqualTo(
+      diskAlertRangeGreaterThanOrEqualTo(
     double value, {
     double epsilon = Filter.epsilon,
   }) {
@@ -2185,7 +2185,7 @@ extension DeviceModelQueryFilter
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
-      storageAlertRangeLessThan(
+      diskAlertRangeLessThan(
     double value, {
     double epsilon = Filter.epsilon,
   }) {
@@ -2201,7 +2201,7 @@ extension DeviceModelQueryFilter
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
-      storageAlertRangeLessThanOrEqualTo(
+      diskAlertRangeLessThanOrEqualTo(
     double value, {
     double epsilon = Filter.epsilon,
   }) {
@@ -2217,7 +2217,7 @@ extension DeviceModelQueryFilter
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterFilterCondition>
-      storageAlertRangeBetween(
+      diskAlertRangeBetween(
     double lower,
     double upper, {
     double epsilon = Filter.epsilon,
@@ -2746,15 +2746,14 @@ extension DeviceModelQuerySortBy
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
-      sortByStorageAlertRange() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> sortByDiskAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(12);
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
-      sortByStorageAlertRangeDesc() {
+      sortByDiskAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(12, sort: Sort.desc);
     });
@@ -2960,15 +2959,14 @@ extension DeviceModelQuerySortThenBy
     });
   }
 
-  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
-      thenByStorageAlertRange() {
+  QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy> thenByDiskAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(12);
     });
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterSortBy>
-      thenByStorageAlertRangeDesc() {
+      thenByDiskAlertRangeDesc() {
     return QueryBuilder.apply(this, (query) {
       return query.addSortBy(12, sort: Sort.desc);
     });
@@ -3090,7 +3088,7 @@ extension DeviceModelQueryWhereDistinct
   }
 
   QueryBuilder<DeviceModel, DeviceModel, QAfterDistinct>
-      distinctByStorageAlertRange() {
+      distinctByDiskAlertRange() {
     return QueryBuilder.apply(this, (query) {
       return query.addDistinctBy(12);
     });
@@ -3191,8 +3189,7 @@ extension DeviceModelQueryProperty1
     });
   }
 
-  QueryBuilder<DeviceModel, double, QAfterProperty>
-      storageAlertRangeProperty() {
+  QueryBuilder<DeviceModel, double, QAfterProperty> diskAlertRangeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(12);
     });
@@ -3295,7 +3292,7 @@ extension DeviceModelQueryProperty2<R>
   }
 
   QueryBuilder<DeviceModel, (R, double), QAfterProperty>
-      storageAlertRangeProperty() {
+      diskAlertRangeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(12);
     });
@@ -3401,7 +3398,7 @@ extension DeviceModelQueryProperty3<R1, R2>
   }
 
   QueryBuilder<DeviceModel, (R1, R2, double), QOperations>
-      storageAlertRangeProperty() {
+      diskAlertRangeProperty() {
     return QueryBuilder.apply(this, (query) {
       return query.addProperty(12);
     });
@@ -3438,7 +3435,7 @@ _$_UpdateDeviceInfoRequestModel _$$_UpdateDeviceInfoRequestModelFromJson(
     _$_UpdateDeviceInfoRequestModel(
       cpuThreshold: (json['cpu_threshold'] as num).toDouble(),
       memThreshold: (json['mem_threshold'] as num).toDouble(),
-      storageThreshold: (json['storage_threshold'] as num).toDouble(),
+      diskThreshold: (json['disk_threshold'] as num).toDouble(),
     );
 
 Map<String, dynamic> _$$_UpdateDeviceInfoRequestModelToJson(
@@ -3446,5 +3443,5 @@ Map<String, dynamic> _$$_UpdateDeviceInfoRequestModelToJson(
     <String, dynamic>{
       'cpu_threshold': instance.cpuThreshold,
       'mem_threshold': instance.memThreshold,
-      'storage_threshold': instance.storageThreshold,
+      'disk_threshold': instance.diskThreshold,
     };
