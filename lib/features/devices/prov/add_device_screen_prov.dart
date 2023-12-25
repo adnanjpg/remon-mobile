@@ -1,3 +1,4 @@
+import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -202,10 +203,20 @@ class _AddDeviceScreenStateNotifier
       apiServiceProvExternalUrl(state.url),
     );
 
+    // TODO(adnanjpg): handle on token refresh
+    final fcmToken = await FirebaseMessaging.instance.getToken();
+
+    if (fcmToken == null) {
+      logger.e('failed to get fcm token');
+    }
+
+    final reqModel = UpdateDeviceInfoRequestModel.fromDeviceModel(
+      device: state.toDeviceModel(),
+      fcmToken: fcmToken,
+    );
+
     final isUpdated = await api.updateDeviceInfo(
-      model: UpdateDeviceInfoRequestModel.fromDeviceModel(
-        state.toDeviceModel(),
-      ),
+      model: reqModel,
     );
 
     if (isUpdated != true) {

@@ -411,6 +411,8 @@ mixin _$UpdateDeviceInfoRequestModel {
   double get memThreshold => throw _privateConstructorUsedError;
   @JsonKey(name: 'disk_threshold')
   double get diskThreshold => throw _privateConstructorUsedError;
+  @JsonKey(name: 'fcm_token')
+  String? get fcmToken => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -429,7 +431,8 @@ abstract class $UpdateDeviceInfoRequestModelCopyWith<$Res> {
   $Res call(
       {@JsonKey(name: 'cpu_threshold') double cpuThreshold,
       @JsonKey(name: 'mem_threshold') double memThreshold,
-      @JsonKey(name: 'disk_threshold') double diskThreshold});
+      @JsonKey(name: 'disk_threshold') double diskThreshold,
+      @JsonKey(name: 'fcm_token') String? fcmToken});
 }
 
 /// @nodoc
@@ -449,6 +452,7 @@ class _$UpdateDeviceInfoRequestModelCopyWithImpl<$Res,
     Object? cpuThreshold = null,
     Object? memThreshold = null,
     Object? diskThreshold = null,
+    Object? fcmToken = freezed,
   }) {
     return _then(_value.copyWith(
       cpuThreshold: null == cpuThreshold
@@ -463,6 +467,10 @@ class _$UpdateDeviceInfoRequestModelCopyWithImpl<$Res,
           ? _value.diskThreshold
           : diskThreshold // ignore: cast_nullable_to_non_nullable
               as double,
+      fcmToken: freezed == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ) as $Val);
   }
 }
@@ -479,7 +487,8 @@ abstract class _$$_UpdateDeviceInfoRequestModelCopyWith<$Res>
   $Res call(
       {@JsonKey(name: 'cpu_threshold') double cpuThreshold,
       @JsonKey(name: 'mem_threshold') double memThreshold,
-      @JsonKey(name: 'disk_threshold') double diskThreshold});
+      @JsonKey(name: 'disk_threshold') double diskThreshold,
+      @JsonKey(name: 'fcm_token') String? fcmToken});
 }
 
 /// @nodoc
@@ -498,6 +507,7 @@ class __$$_UpdateDeviceInfoRequestModelCopyWithImpl<$Res>
     Object? cpuThreshold = null,
     Object? memThreshold = null,
     Object? diskThreshold = null,
+    Object? fcmToken = freezed,
   }) {
     return _then(_$_UpdateDeviceInfoRequestModel(
       cpuThreshold: null == cpuThreshold
@@ -512,6 +522,10 @@ class __$$_UpdateDeviceInfoRequestModelCopyWithImpl<$Res>
           ? _value.diskThreshold
           : diskThreshold // ignore: cast_nullable_to_non_nullable
               as double,
+      fcmToken: freezed == fcmToken
+          ? _value.fcmToken
+          : fcmToken // ignore: cast_nullable_to_non_nullable
+              as String?,
     ));
   }
 }
@@ -522,7 +536,8 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
   const _$_UpdateDeviceInfoRequestModel(
       {@JsonKey(name: 'cpu_threshold') required this.cpuThreshold,
       @JsonKey(name: 'mem_threshold') required this.memThreshold,
-      @JsonKey(name: 'disk_threshold') required this.diskThreshold});
+      @JsonKey(name: 'disk_threshold') required this.diskThreshold,
+      @JsonKey(name: 'fcm_token') required this.fcmToken});
 
   factory _$_UpdateDeviceInfoRequestModel.fromJson(Map<String, dynamic> json) =>
       _$$_UpdateDeviceInfoRequestModelFromJson(json);
@@ -536,10 +551,13 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
   @override
   @JsonKey(name: 'disk_threshold')
   final double diskThreshold;
+  @override
+  @JsonKey(name: 'fcm_token')
+  final String? fcmToken;
 
   @override
   String toString() {
-    return 'UpdateDeviceInfoRequestModel(cpuThreshold: $cpuThreshold, memThreshold: $memThreshold, diskThreshold: $diskThreshold)';
+    return 'UpdateDeviceInfoRequestModel(cpuThreshold: $cpuThreshold, memThreshold: $memThreshold, diskThreshold: $diskThreshold, fcmToken: $fcmToken)';
   }
 
   @override
@@ -552,13 +570,15 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
             (identical(other.memThreshold, memThreshold) ||
                 other.memThreshold == memThreshold) &&
             (identical(other.diskThreshold, diskThreshold) ||
-                other.diskThreshold == diskThreshold));
+                other.diskThreshold == diskThreshold) &&
+            (identical(other.fcmToken, fcmToken) ||
+                other.fcmToken == fcmToken));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode =>
-      Object.hash(runtimeType, cpuThreshold, memThreshold, diskThreshold);
+  int get hashCode => Object.hash(
+      runtimeType, cpuThreshold, memThreshold, diskThreshold, fcmToken);
 
   @JsonKey(ignore: true)
   @override
@@ -578,10 +598,11 @@ class _$_UpdateDeviceInfoRequestModel implements _UpdateDeviceInfoRequestModel {
 abstract class _UpdateDeviceInfoRequestModel
     implements UpdateDeviceInfoRequestModel {
   const factory _UpdateDeviceInfoRequestModel(
-      {@JsonKey(name: 'cpu_threshold') required final double cpuThreshold,
-      @JsonKey(name: 'mem_threshold') required final double memThreshold,
-      @JsonKey(name: 'disk_threshold')
-      required final double diskThreshold}) = _$_UpdateDeviceInfoRequestModel;
+          {@JsonKey(name: 'cpu_threshold') required final double cpuThreshold,
+          @JsonKey(name: 'mem_threshold') required final double memThreshold,
+          @JsonKey(name: 'disk_threshold') required final double diskThreshold,
+          @JsonKey(name: 'fcm_token') required final String? fcmToken}) =
+      _$_UpdateDeviceInfoRequestModel;
 
   factory _UpdateDeviceInfoRequestModel.fromJson(Map<String, dynamic> json) =
       _$_UpdateDeviceInfoRequestModel.fromJson;
@@ -595,6 +616,9 @@ abstract class _UpdateDeviceInfoRequestModel
   @override
   @JsonKey(name: 'disk_threshold')
   double get diskThreshold;
+  @override
+  @JsonKey(name: 'fcm_token')
+  String? get fcmToken;
   @override
   @JsonKey(ignore: true)
   _$$_UpdateDeviceInfoRequestModelCopyWith<_$_UpdateDeviceInfoRequestModel>

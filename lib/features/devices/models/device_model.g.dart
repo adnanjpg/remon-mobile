@@ -3436,12 +3436,23 @@ _$_UpdateDeviceInfoRequestModel _$$_UpdateDeviceInfoRequestModelFromJson(
       cpuThreshold: (json['cpu_threshold'] as num).toDouble(),
       memThreshold: (json['mem_threshold'] as num).toDouble(),
       diskThreshold: (json['disk_threshold'] as num).toDouble(),
+      fcmToken: json['fcm_token'] as String?,
     );
 
 Map<String, dynamic> _$$_UpdateDeviceInfoRequestModelToJson(
-        _$_UpdateDeviceInfoRequestModel instance) =>
-    <String, dynamic>{
-      'cpu_threshold': instance.cpuThreshold,
-      'mem_threshold': instance.memThreshold,
-      'disk_threshold': instance.diskThreshold,
-    };
+    _$_UpdateDeviceInfoRequestModel instance) {
+  final val = <String, dynamic>{
+    'cpu_threshold': instance.cpuThreshold,
+    'mem_threshold': instance.memThreshold,
+    'disk_threshold': instance.diskThreshold,
+  };
+
+  void writeNotNull(String key, dynamic value) {
+    if (value != null) {
+      val[key] = value;
+    }
+  }
+
+  writeNotNull('fcm_token', instance.fcmToken);
+  return val;
+}

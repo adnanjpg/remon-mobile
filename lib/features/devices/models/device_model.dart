@@ -78,13 +78,18 @@ class UpdateDeviceInfoRequestModel with _$UpdateDeviceInfoRequestModel {
     @JsonKey(name: 'cpu_threshold') required double cpuThreshold,
     @JsonKey(name: 'mem_threshold') required double memThreshold,
     @JsonKey(name: 'disk_threshold') required double diskThreshold,
+    @JsonKey(name: 'fcm_token') required String? fcmToken,
   }) = _UpdateDeviceInfoRequestModel;
 
-  factory UpdateDeviceInfoRequestModel.fromDeviceModel(DeviceModel device) {
+  factory UpdateDeviceInfoRequestModel.fromDeviceModel({
+    required DeviceModel device,
+    required String? fcmToken,
+  }) {
     return UpdateDeviceInfoRequestModel(
       cpuThreshold: device.cpuAlertRange,
       memThreshold: device.ramAlertRange,
       diskThreshold: device.diskAlertRange,
+      fcmToken: fcmToken,
     );
   }
 
