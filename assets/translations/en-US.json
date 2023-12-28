@@ -8,6 +8,7 @@
     "bottom_bar_items_settings": "Settings",
     "home_screen_title": "Home",
     "settings_screen_title": "Settings",
+    "settings_screen_desc": "You can slide the items to the left to use or delete them. Using an item means that all the data will be fetched from that device",
     "settings_screen_device_list_no_data": "No devices found",
     "settings_screen_device_item_configure_button": "Configure",
     "settings_screen_add_device_button": "Add device",

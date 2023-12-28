@@ -37,9 +37,18 @@ class _Body extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              getStr(LocaleKeys.settings_screen_title),
-              style: Theme.of(context).pageTitle,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  getStr(LocaleKeys.settings_screen_title),
+                  style: Theme.of(context).pageTitle,
+                ),
+                Text(
+                  getStr(LocaleKeys.settings_screen_desc),
+                  style: Theme.of(context).pageDesc,
+                ),
+              ],
             ),
             const _DevicesList(),
           ].joinWidgetList(doubleHeightSizedBoxIndex),
