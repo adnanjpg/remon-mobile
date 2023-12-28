@@ -13,7 +13,7 @@
     "settings_screen_add_device_button": "Add device",
     "settings_screen_delete_device_button": "Delete",
     "settings_screen_use_device_button": "Use",
-    "switch_device_success_message": "Switching to device {} was successful",
+    "switch_device_success_message": "Switching to device '{}' was successful",
     "add_device_screen_title": "Add device",
     "add_device_screen_desc": "Please enter the server’s info below",
     "add_device_screen_otp_title": "Enter OTP",
