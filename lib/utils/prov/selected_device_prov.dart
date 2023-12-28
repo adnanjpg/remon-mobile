@@ -5,7 +5,7 @@ import 'package:uuid/uuid.dart';
 
 final selectedDeviceProv = StateProvider<DeviceModel>(
   (ref) =>
-      ref.watch(localDbService).getFirstDevice() ??
+      ref.watch(localDbService).getActiveUsedDevice() ??
       DeviceModel.create(
         deviceUUID: const Uuid().v4(),
       ),

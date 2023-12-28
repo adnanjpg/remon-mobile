@@ -26,7 +26,9 @@ mixin _$DeviceModel {
   double get ramAlertRange => throw _privateConstructorUsedError;
   double get cpuAlertRange => throw _privateConstructorUsedError;
   double get diskAlertRange => throw _privateConstructorUsedError;
-  DateTime? get addedOn => throw _privateConstructorUsedError;
+  DateTime? get addedOn =>
+      throw _privateConstructorUsedError; // will be used to sort devices and determine
+// which device should data be fetched from
   DateTime? get lastUsedOn => throw _privateConstructorUsedError;
   DateTime? get tokenUpdatedOn => throw _privateConstructorUsedError;
 
@@ -288,6 +290,8 @@ class _$_DeviceModel extends _DeviceModel {
   final double diskAlertRange;
   @override
   final DateTime? addedOn;
+// will be used to sort devices and determine
+// which device should data be fetched from
   @override
   final DateTime? lastUsedOn;
   @override
@@ -388,7 +392,8 @@ abstract class _DeviceModel extends DeviceModel {
   double get diskAlertRange;
   @override
   DateTime? get addedOn;
-  @override
+  @override // will be used to sort devices and determine
+// which device should data be fetched from
   DateTime? get lastUsedOn;
   @override
   DateTime? get tokenUpdatedOn;

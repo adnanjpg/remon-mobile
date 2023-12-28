@@ -13,6 +13,10 @@ class BottomBarStateNotifier extends StateNotifier<BottomBarState> {
   BottomBarStateNotifier(this.ref) : super(BottomBarState.initial());
   final Ref ref;
 
+  void switchToSettings() {
+    onBottomBarTap(BottomBarIndex.settings.index);
+  }
+
   void onBottomBarTap(int index) {
     // ref.read may fail, then our app would fail epically
     try {

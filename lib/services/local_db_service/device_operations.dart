@@ -80,9 +80,14 @@ extension Device on LocalDbService {
     }
   }
 
-  DeviceModel? getFirstDevice() {
+  DeviceModel? getActiveUsedDevice() {
     try {
-      final devices = db.deviceModels.where().findFirst();
+      final devices = db.deviceModels
+          .where()
+          .lastUsedOnIsNotNull()
+          .sortByLastUsedOnDesc()
+          .findFirst();
+
       return devices;
     } catch (e) {
       logger.e(e);
@@ -129,6 +134,28 @@ extension Device on LocalDbService {
         (isar) {
           isar.deviceModels.delete(
             device.id,
+          );
+        },
+      );
+
+      return true;
+    } catch (e) {
+      logger.e(e);
+
+      return false;
+    }
+  }
+
+  Future<bool> useDevice({
+    required DeviceModel device,
+  }) async {
+    try {
+      await db.writeAsync(
+        (isar) {
+          isar.deviceModels.put(
+            device.copyWith(
+              lastUsedOn: DateTime.now(),
+            ),
           );
         },
       );

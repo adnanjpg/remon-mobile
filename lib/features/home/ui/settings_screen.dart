@@ -11,6 +11,7 @@ import 'package:remon_mobile/ui/widgets/btns/text_btn.dart';
 import 'package:remon_mobile/ui/widgets/error_widget.dart';
 import 'package:remon_mobile/ui/widgets/loading_widget.dart';
 import 'package:remon_mobile/utils/app_theme.dart';
+import 'package:remon_mobile/utils/prov/selected_device_prov.dart';
 import 'package:remon_mobile/utils/utils.dart';
 
 class SettingsScreen extends ConsumerWidget {
@@ -37,9 +38,18 @@ class _Body extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              getStr(LocaleKeys.settings_screen_title),
-              style: Theme.of(context).pageTitle,
+            Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  getStr(LocaleKeys.settings_screen_title),
+                  style: Theme.of(context).pageTitle,
+                ),
+                Text(
+                  getStr(LocaleKeys.settings_screen_desc),
+                  style: Theme.of(context).pageDesc,
+                ),
+              ],
             ),
             const _DevicesList(),
           ].joinWidgetList(doubleHeightSizedBoxIndex),
@@ -121,6 +131,8 @@ class _DeviceItem extends ConsumerWidget {
   Widget build(BuildContext context, WidgetRef ref) {
     final notifier = ref.watch(settingsStateProvider.notifier);
 
+    final isActive = ref.watch(selectedDeviceProv).id == model.id;
+
     return Slidable(
       // Specify a key if the Slidable is dismissible.
       key: ValueKey(model.id),
@@ -146,12 +158,32 @@ class _DeviceItem extends ConsumerWidget {
               LocaleKeys.settings_screen_delete_device_button,
             ),
           ),
+          if (!isActive)
+            SlidableAction(
+              onPressed: (_) {
+                notifier.onUseDevicePressed(
+                  context: context,
+                  device: model,
+                );
+              },
+              backgroundColor:
+                  Theme.of(context).deviceItemSlidableUseActionBackgroundColor,
+              foregroundColor: Colors.white,
+              icon: Remix.arrow_left_right_line,
+              borderRadius: BorderRadius.circular(13),
+              autoClose: true,
+              label: getStr(
+                LocaleKeys.settings_screen_use_device_button,
+              ),
+            ),
         ],
       ),
 
       child: Container(
         decoration: BoxDecoration(
-          color: Theme.of(context).deviceItemBackgroundColor,
+          color: isActive
+              ? Theme.of(context).deviceItemActiveBackgroundColor
+              : Theme.of(context).deviceItemBackgroundColor,
           borderRadius: BorderRadius.circular(12),
         ),
         padding: defPaddingAll,
