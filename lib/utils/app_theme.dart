@@ -77,6 +77,7 @@ extension MyTheme on ThemeData {
 
   Color get deviceItemBackgroundColor => AppTheme._lightPrimary[500]!;
   Color get deviceItemSlidableDeleteActionBackgroundColor => _danger;
+  Color get deviceItemSlidableUseActionBackgroundColor => semanticGreen;
 
   Color get cpuUsageTableTitleRowBg => AppTheme._lightNeutral[900]!;
 }

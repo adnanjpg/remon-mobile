@@ -146,6 +146,23 @@ class _DeviceItem extends ConsumerWidget {
               LocaleKeys.settings_screen_delete_device_button,
             ),
           ),
+          SlidableAction(
+            onPressed: (_) {
+              notifier.onUseDevicePressed(
+                context: context,
+                device: model,
+              );
+            },
+            backgroundColor:
+                Theme.of(context).deviceItemSlidableUseActionBackgroundColor,
+            foregroundColor: Colors.white,
+            icon: Remix.arrow_left_right_line,
+            borderRadius: BorderRadius.circular(13),
+            autoClose: true,
+            label: getStr(
+              LocaleKeys.settings_screen_use_device_button,
+            ),
+          ),
         ],
       ),
 

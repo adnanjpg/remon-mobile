@@ -27,6 +27,8 @@ class DeviceModel with _$DeviceModel {
     required double cpuAlertRange,
     required double diskAlertRange,
     required DateTime? addedOn,
+    // will be used to sort devices and determine
+    // which device should data be fetched from
     required DateTime? lastUsedOn,
     required DateTime? tokenUpdatedOn,
   }) = _DeviceModel;
