@@ -13,6 +13,11 @@ extension MyTexts on ThemeData {
         fontWeight: fontWeightMedium,
         color: AppTheme._subTitleColor,
       );
+  TextStyle get pageSubDesc => TextStyle(
+        fontSize: 13,
+        fontWeight: fontWeightMedium,
+        color: AppTheme._subTitleColor,
+      );
 }
 
 extension MyTheme on ThemeData {
@@ -79,6 +84,8 @@ extension MyTheme on ThemeData {
   Color get deviceItemActiveBackgroundColor => AppTheme._lightPrimary[1000]!;
   Color get deviceItemSlidableDeleteActionBackgroundColor => _danger;
   Color get deviceItemSlidableUseActionBackgroundColor => semanticGreen;
+
+  Color get homeChangeDeviceButtonColor => AppTheme._lightPrimary[500]!;
 
   Color get cpuUsageTableTitleRowBg => AppTheme._lightNeutral[900]!;
 }
