@@ -22,3 +22,16 @@ The mobile app provides a user-friendly interface for configuring what events tr
 4. Multi-Platform: The mobile app is designed for both Android and iOS platforms, ensuring accessibility to a wide range of users.
 
 5. Open Source: This project is open source, so you can customize and extend it to meet your specific needs.
+
+# Setup
+to generate the language and generated files, you need to have [`just`](https://github.com/casey/just) installed 
+
+## Generate language files:
+```bash
+just lgen
+```
+
+## Generate generated files:
+```bash
+just gen
+```
