@@ -234,6 +234,8 @@ class _AddDeviceScreenStateNotifier
 
     Loading.unload();
 
+    setGlobalSelectedDevice();
+
     return true;
   }
 
