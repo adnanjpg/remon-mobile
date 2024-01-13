@@ -142,6 +142,7 @@ class _DeviceItem extends ConsumerWidget {
         motion: const ScrollMotion(),
         children: [
           SlidableAction(
+            padding: defPaddingHor,
             onPressed: (_) {
               notifier.onDeleteDevicePressed(
                 context: context,
@@ -160,6 +161,7 @@ class _DeviceItem extends ConsumerWidget {
           ),
           if (!isActive)
             SlidableAction(
+              padding: defPaddingHor,
               onPressed: (_) {
                 notifier.onUseDevicePressed(
                   context: context,
