@@ -30,7 +30,8 @@ class AppBtnInterface extends ConsumerStatefulWidget {
               eventName,
             );
       }
-      _onPressed?.call();
+
+      _onPressed.call();
     };
   }
 

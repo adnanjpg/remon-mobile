@@ -7,7 +7,6 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter_local_notifications/flutter_local_notifications.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:isar/isar.dart';
 import 'package:path_provider/path_provider.dart';
@@ -46,16 +45,13 @@ final appInitedProv = Provider<bool>(
 final wantsToAuthAfterIntroProv = StateProvider<bool>((ref) => false);
 
 class AppInitProv {
-  AppInitProv(this.ref)
-      : flutterLocalNotificationsPlugin = FlutterLocalNotificationsPlugin();
+  AppInitProv(this.ref);
   final Ref ref;
 
   bool _inited = false;
   bool _initing = false;
 
   bool get inited => _inited;
-
-  FlutterLocalNotificationsPlugin flutterLocalNotificationsPlugin;
 
   Future<bool> setAppOpened() async {
     try {
@@ -287,7 +283,7 @@ class AppInitProv {
         FlutterError.onError = logger.e;
         // Pass all uncaught asynchronous errors that aren't handled by the Flutter framework to Crashlytics
         PlatformDispatcher.instance.onError = (error, stack) {
-          logger.e(error, stack);
+          logger.e(error, stackTrace: stack);
           return true;
         };
       }

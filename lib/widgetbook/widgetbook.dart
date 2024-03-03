@@ -1,6 +1,5 @@
 // widgetbook.dart
 
-import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
@@ -14,6 +13,7 @@ import 'package:widgetbook/widgetbook.dart';
 import 'package:widgetbook_annotation/widgetbook_annotation.dart' as widgetbook;
 
 void main() {
+  // ignore: missing_provider_scope
   runApp(const WidgetbookApp());
 }
 
@@ -71,7 +71,6 @@ class _AppState extends ConsumerState<_App> {
         builder: (context) {
           return MaterialApp(
             localizationsDelegates: [
-              CountryLocalizations.delegate,
               ...context.localizationDelegates,
             ],
             supportedLocales: context.supportedLocales,

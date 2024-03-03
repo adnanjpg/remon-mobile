@@ -18,18 +18,19 @@ class _LoggerImpl extends Logger {
   @override
   void log(
     Level level,
-    dynamic message, [
-    dynamic error,
+    dynamic message, {
+    DateTime? time,
+    Object? error,
     StackTrace? stackTrace,
-  ]) {
+  }) {
     try {
       stackTrace ??= StackTrace.current;
 
       if (appConfig.isLocalDev) {
-        super.log(level, message, error, stackTrace);
+        super.log(level, message, error: error, stackTrace: stackTrace);
       } else {
         try {
-          super.log(level, message, error, stackTrace);
+          super.log(level, message, error: error, stackTrace: stackTrace);
         } catch (e) {
           // crashlytics may fail, but we cant do anything about it
         }
