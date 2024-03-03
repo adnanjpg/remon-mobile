@@ -62,8 +62,6 @@ extension MyTheme on ThemeData {
   Color get statusChartGridLineLabelColor =>
       AppTheme._lightPrimary[600]!.withOpacity(.5);
 
-  Color get primaryImagePickerBorder => AppTheme._lightPrimary;
-
   Color get success => semanticGreen;
   Color get error => semanticRed;
 

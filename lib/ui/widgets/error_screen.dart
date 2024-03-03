@@ -26,8 +26,8 @@ class _ErrorScreenState extends State<ErrorScreen> {
   void didChangeDependencies() {
     logger.e(
       'Error screen',
-      'Error Screen error: ${widget.error}',
-      widget.stack,
+      error: 'Error Screen error: ${widget.error}',
+      stackTrace: widget.stack,
     );
     super.didChangeDependencies();
   }

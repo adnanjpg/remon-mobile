@@ -1,4 +1,3 @@
-import 'package:country_picker/country_picker.dart';
 import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -99,7 +98,6 @@ class _AppState extends ConsumerState<_App> {
           return MaterialApp.router(
             debugShowMaterialGrid: false,
             localizationsDelegates: [
-              CountryLocalizations.delegate,
               ...context.localizationDelegates,
             ],
             supportedLocales: context.supportedLocales,
